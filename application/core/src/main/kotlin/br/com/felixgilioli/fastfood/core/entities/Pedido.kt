@@ -11,5 +11,6 @@ data class Pedido(
     val dataFim: LocalDateTime? = null,
     val clienteNome: String,
     val cliente: Cliente? = null,
+    val itens: List<PedidoItem> = emptyList(),
     val total: BigDecimal? = null
 )

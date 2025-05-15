@@ -32,7 +32,11 @@ data class PedidoORM(
     val cliente: ClienteORM? = null,
 
     @Column(name = "total", precision = 10, scale = 2)
-    val total: BigDecimal? = null
+    val total: BigDecimal? = null,
+
+    @OneToMany(mappedBy = "pedido", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    val itens: List<PedidoItemORM> = emptyList()
+
 ) {
     fun toDomain() = Pedido(
         id = id,
@@ -40,7 +44,8 @@ data class PedidoORM(
         dataInicio = dataInicio,
         dataFim = dataFim,
         clienteNome = clienteNome,
-        total = total
+        total = total,
+        itens = itens.map { it.toDomain() },
     )
 
 }
@@ -52,5 +57,6 @@ fun Pedido.toOrm() = PedidoORM(
     dataFim = this.dataFim,
     clienteNome = this.clienteNome,
     cliente = this.cliente?.toORM(),
-    total = this.total
+    total = this.total,
+    itens = this.itens.map { it.toOrm() }
 )

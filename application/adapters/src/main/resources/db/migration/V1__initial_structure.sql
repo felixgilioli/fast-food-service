@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS pedido (
 );
 
 -- Tabela de itens do pedido
-CREATE TABLE IF NOT EXISTS item_pedido (
+CREATE TABLE IF NOT EXISTS pedido_item (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     pedido_id UUID NOT NULL REFERENCES pedido(id) ON DELETE CASCADE,
     produto_id UUID NOT NULL REFERENCES produto(id),

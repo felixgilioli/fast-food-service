@@ -34,3 +34,11 @@ data class ProdutoORM(
         descricao = descricao
     )
 }
+
+fun Produto.toORM() = ProdutoORM(
+    id = this.id,
+    nome = this.nome,
+    categoria = this.categoria.toORM(),
+    preco = this.preco,
+    descricao = this.descricao
+)

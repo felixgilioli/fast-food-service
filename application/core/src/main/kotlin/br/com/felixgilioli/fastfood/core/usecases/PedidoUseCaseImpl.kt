@@ -1,28 +1,33 @@
 package br.com.felixgilioli.fastfood.core.usecases
 
+import br.com.felixgilioli.fastfood.core.commands.ConfirmarPedidoCommand
 import br.com.felixgilioli.fastfood.core.commands.NovoPedidoCommand
 import br.com.felixgilioli.fastfood.core.entities.Cliente
 import br.com.felixgilioli.fastfood.core.entities.Pedido
+import br.com.felixgilioli.fastfood.core.entities.PedidoItem
 import br.com.felixgilioli.fastfood.core.entities.StatusPedido
 import br.com.felixgilioli.fastfood.core.ports.driven.ClienteRepository
 import br.com.felixgilioli.fastfood.core.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
+import java.math.BigDecimal
 
 class PedidoUseCaseImpl(
     private val clienteRepository: ClienteRepository,
-    private val pedidoRepository: PedidoRepository
+    private val pedidoRepository: PedidoRepository,
+    private val produtoRepository: ProdutoRepository
 ) : PedidoUseCase {
 
-    override fun novoPedido(novoPedidoCommand: NovoPedidoCommand): Pedido {
+    override fun novoPedido(command: NovoPedidoCommand): Pedido {
         var cliente: Cliente? = null
 
         val clienteNome = when {
-            !novoPedidoCommand.clienteEmail.isNullOrBlank() -> {
-                cliente = clienteRepository.findByEmail(novoPedidoCommand.clienteEmail)
+            !command.clienteEmail.isNullOrBlank() -> {
+                cliente = clienteRepository.findByEmail(command.clienteEmail)
                 cliente?.nomeCompleto ?: throw IllegalArgumentException("Cliente não encontrado")
             }
 
-            novoPedidoCommand.clienteCPF != null -> novoPedidoCommand.clienteCPF.value
+            command.clienteCPF != null -> command.clienteCPF.value
             else -> (10000..99999).random().toString()
         }
 
@@ -33,4 +38,26 @@ class PedidoUseCaseImpl(
         ).let { pedidoRepository.save(it) }
     }
 
+    override fun confirmarPedido(command: ConfirmarPedidoCommand): Pedido {
+        val pedido =
+            pedidoRepository.findById(command.pedidoId) ?: throw IllegalArgumentException("Pedido não encontrado")
+
+        val produtoPorId = produtoRepository.findAllById(command.itens.map { it.produtoId }).associateBy { it.id!! }
+
+        val pedidoItemList = command.itens.map {
+            val produto = produtoPorId[it.produtoId] ?: throw IllegalArgumentException("Produto não encontrado")
+            PedidoItem(
+                pedidoId = pedido.id!!,
+                produto = produto,
+                quantidade = it.quantidade,
+                precoUnitario = produto.preco
+            )
+        }
+
+        val valorTotalPedido = pedidoItemList.fold(BigDecimal.ZERO) { acc, item -> acc + item.total() }
+
+        return pedido.copy(status = StatusPedido.PEDIDO_CONFIRMADO, itens = pedidoItemList, total = valorTotalPedido)
+            .let { pedidoRepository.save(it) }
+        //.run { //publica evento }
+    }
 }

@@ -21,8 +21,12 @@ class BeanConfig {
     }
 
     @Bean
-    fun pedidoUseCase(pedidoRepository: PedidoRepository, clienteRepository: ClienteRepository): PedidoUseCase {
-        return PedidoUseCaseImpl(clienteRepository, pedidoRepository)
+    fun pedidoUseCase(
+        pedidoRepository: PedidoRepository,
+        clienteRepository: ClienteRepository,
+        produtoRepository: ProdutoRepository
+    ): PedidoUseCase {
+        return PedidoUseCaseImpl(clienteRepository, pedidoRepository, produtoRepository)
     }
 
     @Bean

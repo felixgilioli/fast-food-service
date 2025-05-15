@@ -21,3 +21,8 @@ data class CategoriaORM(
         descricao = descricao
     )
 }
+
+fun Categoria.toORM() = CategoriaORM(
+    id = this.id,
+    descricao = this.descricao
+)
