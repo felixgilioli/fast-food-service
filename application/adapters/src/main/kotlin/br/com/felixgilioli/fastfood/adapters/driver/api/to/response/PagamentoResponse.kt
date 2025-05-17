@@ -5,6 +5,7 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class PagamentoResponse(
+    val pagamentoId: String,
     val pedidoId: String,
     val data: LocalDateTime,
     val valor: BigDecimal,
@@ -13,6 +14,7 @@ data class PagamentoResponse(
 )
 
 fun Pagamento.toResponse() = PagamentoResponse(
+    pagamentoId = this.id.toString(),
     pedidoId = this.pedido.id.toString(),
     data = this.data,
     valor = this.valor,

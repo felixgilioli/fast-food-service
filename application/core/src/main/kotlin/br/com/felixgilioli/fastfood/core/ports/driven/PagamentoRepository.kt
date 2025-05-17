@@ -7,5 +7,7 @@ interface PagamentoRepository {
 
     fun insert(pagamento: Pagamento): Pagamento
 
+    fun findById(id: UUID): Pagamento?
+
     fun findLastByPedidoId(pedidoId: UUID): Pagamento?
 }

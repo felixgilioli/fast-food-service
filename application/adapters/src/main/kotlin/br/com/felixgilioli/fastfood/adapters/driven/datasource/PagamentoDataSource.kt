@@ -4,6 +4,7 @@ import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.repository.Pa
 import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.toOrm
 import br.com.felixgilioli.fastfood.core.entities.Pagamento
 import br.com.felixgilioli.fastfood.core.ports.driven.PagamentoRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -13,5 +14,8 @@ class PagamentoDataSource(private val pagamentoORMRepository: PagamentoORMReposi
     override fun insert(pagamento: Pagamento) =
         pagamentoORMRepository.save(pagamento.toOrm()).toDomain()
 
-    override fun findLastByPedidoId(pedidoId: UUID) = pagamentoORMRepository.findLastByPedidoId(pedidoId)?.toDomain()
+    override fun findById(id: UUID) = pagamentoORMRepository.findByIdOrNull(id)?.toDomain()
+
+    override fun findLastByPedidoId(pedidoId: UUID) =
+        pagamentoORMRepository.findFirstByPedidoIdOrderByDataDesc(pedidoId)?.toDomain()
 }

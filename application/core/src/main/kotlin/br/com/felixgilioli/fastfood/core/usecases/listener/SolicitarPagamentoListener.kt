@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.core.usecases
+package br.com.felixgilioli.fastfood.core.usecases.listener
 
 import br.com.felixgilioli.fastfood.core.events.EventListener
 import br.com.felixgilioli.fastfood.core.events.LinkPagamentoCriadoEvent
@@ -6,7 +6,7 @@ import br.com.felixgilioli.fastfood.core.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.core.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.core.ports.driven.GeradorLinkPagamento
 
-class SolicitarPagamentoUseCaseImpl(
+class SolicitarPagamentoListener(
     private val geradorLinkPagamento: GeradorLinkPagamento,
     private val eventPublisher: EventPublisher
 ) : EventListener<PedidoConfirmadoEvent> {

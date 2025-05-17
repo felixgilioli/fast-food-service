@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.core.usecases
+package br.com.felixgilioli.fastfood.core.usecases.listener
 
 import br.com.felixgilioli.fastfood.core.entities.Pagamento
 import br.com.felixgilioli.fastfood.core.entities.PagamentoStatus
@@ -8,7 +8,7 @@ import br.com.felixgilioli.fastfood.core.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.core.ports.driven.PagamentoRepository
 import br.com.felixgilioli.fastfood.core.ports.driven.PedidoRepository
 
-class AtualizarPedidoLinkPagamentoGeradoUseCaseImpl(
+class AtualizarPedidoLinkPagamentoGeradoListener(
     private val pagamentoRepository: PagamentoRepository,
     private val pedidoRepository: PedidoRepository
 ) : EventListener<LinkPagamentoCriadoEvent> {

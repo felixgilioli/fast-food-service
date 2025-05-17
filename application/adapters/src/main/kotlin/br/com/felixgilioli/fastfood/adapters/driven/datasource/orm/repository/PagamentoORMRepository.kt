@@ -6,5 +6,5 @@ import java.util.*
 
 interface PagamentoORMRepository : JpaRepository<PagamentoORM, UUID> {
 
-    fun findLastByPedidoId(pedidoId: UUID): PagamentoORM?
+    fun findFirstByPedidoIdOrderByDataDesc(pedidoId: UUID): PagamentoORM?
 }
