@@ -15,8 +15,9 @@ data class PedidoORM(
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")
     val id: UUID? = null,
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    val status: String,
+    val status: StatusPedido,
 
     @Column(name = "data_inicio", nullable = false)
     val dataInicio: LocalDateTime,
@@ -40,7 +41,7 @@ data class PedidoORM(
 ) {
     fun toDomain() = Pedido(
         id = id,
-        status = StatusPedido.valueOf(status),
+        status = status,
         dataInicio = dataInicio,
         dataFim = dataFim,
         clienteNome = clienteNome,
@@ -52,7 +53,7 @@ data class PedidoORM(
 
 fun Pedido.toOrm() = PedidoORM(
     id = this.id,
-    status = this.status.name,
+    status = this.status,
     dataInicio = this.dataInicio,
     dataFim = this.dataFim,
     clienteNome = this.clienteNome,

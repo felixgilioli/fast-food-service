@@ -8,7 +8,6 @@ import br.com.felixgilioli.fastfood.core.events.PagamentoRecusadoEvent
 import br.com.felixgilioli.fastfood.core.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.core.ports.driven.PagamentoRepository
 import br.com.felixgilioli.fastfood.core.ports.driver.PagamentoUseCase
-import java.time.LocalDateTime
 import java.util.*
 
 class PagamentoUseCaseImpl(
@@ -28,7 +27,7 @@ class PagamentoUseCaseImpl(
 
     private fun atualizarPagamento(pagamentoId: UUID, statusPagamento: PagamentoStatus, event: (Pedido) -> Event) {
         pagamentoRepository.findById(pagamentoId)
-            ?.copy(id = null, status = statusPagamento, data = LocalDateTime.now())
+            ?.copyWithNewStatus(statusPagamento)
             ?.let(pagamentoRepository::insert)
             ?.also { eventPublisher.publish(event.invoke(it.pedido)) }
             ?: throw IllegalArgumentException("Pagamento não encontrado")

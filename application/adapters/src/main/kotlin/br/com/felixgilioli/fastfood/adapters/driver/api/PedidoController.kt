@@ -4,10 +4,8 @@ import br.com.felixgilioli.fastfood.adapters.driver.api.to.request.ConfirmarPedi
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.request.NovoPedidoRequest
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.response.toResponse
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/v1/pedido")
@@ -20,5 +18,13 @@ class PedidoController(private val pedidoUseCase: PedidoUseCase) {
     @PostMapping("/confirmar")
     fun confirmarPedido(@RequestBody request: ConfirmarPedidoRequest) = pedidoUseCase
         .confirmarPedido(request.toCommand()).toResponse()
+
+    @GetMapping("/aguardando-confirmacao-cozinha")
+    fun findPedidosAguardandoConfirmacaoCozinha() = pedidoUseCase
+        .findPedidosAguardandoConfirmacaoCozinha().map { it.toResponse() }
+
+    @PutMapping("/{pedidoId}/confirmar-cozinha")
+    fun confirmarPedidoCozinha(@PathVariable pedidoId: String) = pedidoUseCase
+        .confirmarPedidoCozinha(UUID.fromString(pedidoId)).toResponse()
 
 }

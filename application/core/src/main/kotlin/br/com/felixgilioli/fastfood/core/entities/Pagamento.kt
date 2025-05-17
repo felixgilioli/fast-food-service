@@ -11,4 +11,8 @@ data class Pagamento(
     val data: LocalDateTime = LocalDateTime.now(),
     val status: PagamentoStatus,
     val link: String
-)
+) {
+    fun copyWithNewStatus(status: PagamentoStatus): Pagamento {
+        return this.copy(id = null, status = status, data = LocalDateTime.now())
+    }
+}

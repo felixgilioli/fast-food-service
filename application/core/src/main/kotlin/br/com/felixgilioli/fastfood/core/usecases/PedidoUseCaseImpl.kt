@@ -13,6 +13,7 @@ import br.com.felixgilioli.fastfood.core.ports.driven.PedidoRepository
 import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
 import java.math.BigDecimal
+import java.util.*
 
 class PedidoUseCaseImpl(
     private val clienteRepository: ClienteRepository,
@@ -63,4 +64,12 @@ class PedidoUseCaseImpl(
             .let { pedidoRepository.save(it) }
             .also { eventPublisher.publish(PedidoConfirmadoEvent(it)) }
     }
+
+    override fun findPedidosAguardandoConfirmacaoCozinha() =
+        pedidoRepository.findByStatus(StatusPedido.PAGAMENTO_APROVADO)
+            .sortedBy { it.dataInicio }
+
+    override fun confirmarPedidoCozinha(pedidoId: UUID) = pedidoRepository.findById(pedidoId)
+        ?.let { pedidoRepository.save(it.copy(status = StatusPedido.EM_PREPARACAO)) }
+        ?: throw IllegalArgumentException("Pedido não encontrado")
 }
