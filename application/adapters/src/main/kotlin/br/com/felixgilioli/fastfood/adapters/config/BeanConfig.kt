@@ -1,9 +1,6 @@
 package br.com.felixgilioli.fastfood.adapters.config
 
-import br.com.felixgilioli.fastfood.core.ports.driven.ClienteRepository
-import br.com.felixgilioli.fastfood.core.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.core.ports.driven.PedidoRepository
-import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.core.ports.driven.*
 import br.com.felixgilioli.fastfood.core.ports.driver.ClienteUseCase
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.core.ports.driver.ProdutoUseCase
@@ -38,7 +35,7 @@ class BeanConfig {
     }
 
     @Bean
-    fun solicitarPagamentoUseCase(): SolicitarPagamentoUseCaseImpl {
-        return SolicitarPagamentoUseCaseImpl()
+    fun solicitarPagamentoUseCase(geradorLinkPagamento: GeradorLinkPagamento): SolicitarPagamentoUseCaseImpl {
+        return SolicitarPagamentoUseCaseImpl(geradorLinkPagamento)
     }
 }
