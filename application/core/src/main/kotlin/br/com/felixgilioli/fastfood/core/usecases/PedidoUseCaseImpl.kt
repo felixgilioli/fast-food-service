@@ -6,7 +6,9 @@ import br.com.felixgilioli.fastfood.core.entities.Cliente
 import br.com.felixgilioli.fastfood.core.entities.Pedido
 import br.com.felixgilioli.fastfood.core.entities.PedidoItem
 import br.com.felixgilioli.fastfood.core.entities.StatusPedido
+import br.com.felixgilioli.fastfood.core.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.core.ports.driven.ClienteRepository
+import br.com.felixgilioli.fastfood.core.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.core.ports.driven.PedidoRepository
 import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
@@ -15,7 +17,8 @@ import java.math.BigDecimal
 class PedidoUseCaseImpl(
     private val clienteRepository: ClienteRepository,
     private val pedidoRepository: PedidoRepository,
-    private val produtoRepository: ProdutoRepository
+    private val produtoRepository: ProdutoRepository,
+    private val eventPublisher: EventPublisher
 ) : PedidoUseCase {
 
     override fun novoPedido(command: NovoPedidoCommand): Pedido {
@@ -58,6 +61,6 @@ class PedidoUseCaseImpl(
 
         return pedido.copy(status = StatusPedido.PEDIDO_CONFIRMADO, itens = pedidoItemList, total = valorTotalPedido)
             .let { pedidoRepository.save(it) }
-        //.run { //publica evento }
+            .also { eventPublisher.publish(PedidoConfirmadoEvent(it)) }
     }
 }
