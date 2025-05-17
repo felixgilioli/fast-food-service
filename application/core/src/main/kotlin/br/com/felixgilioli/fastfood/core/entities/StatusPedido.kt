@@ -3,7 +3,7 @@ package br.com.felixgilioli.fastfood.core.entities
 enum class StatusPedido {
     CRIADO,
     PEDIDO_CONFIRMADO,
-    AGUARDANDO_PAGAMENTO,
+    PAGAMENTO_SOLICITADO,
     PAGAMENTO_APROVADO,
     PAGAMENTO_REPROVADO,
     CONFIRMADO_PELA_COZINHA,

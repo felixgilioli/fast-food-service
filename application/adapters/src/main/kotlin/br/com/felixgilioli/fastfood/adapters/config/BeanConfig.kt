@@ -4,12 +4,10 @@ import br.com.felixgilioli.fastfood.core.ports.driven.*
 import br.com.felixgilioli.fastfood.core.ports.driver.ClienteUseCase
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.core.ports.driver.ProdutoUseCase
-import br.com.felixgilioli.fastfood.core.usecases.ClienteUseCaseImpl
-import br.com.felixgilioli.fastfood.core.usecases.PedidoUseCaseImpl
-import br.com.felixgilioli.fastfood.core.usecases.ProdutoUseCaseImpl
-import br.com.felixgilioli.fastfood.core.usecases.SolicitarPagamentoUseCaseImpl
+import br.com.felixgilioli.fastfood.core.usecases.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Lazy
 
 @Configuration
 class BeanConfig {
@@ -35,7 +33,18 @@ class BeanConfig {
     }
 
     @Bean
-    fun solicitarPagamentoUseCase(geradorLinkPagamento: GeradorLinkPagamento): SolicitarPagamentoUseCaseImpl {
-        return SolicitarPagamentoUseCaseImpl(geradorLinkPagamento)
+    fun solicitarPagamentoUseCase(
+        geradorLinkPagamento: GeradorLinkPagamento,
+        @Lazy eventPublisher: EventPublisher
+    ): SolicitarPagamentoUseCaseImpl {
+        return SolicitarPagamentoUseCaseImpl(geradorLinkPagamento, eventPublisher)
+    }
+
+    @Bean
+    fun atualizarPedidoLinkPagamentoGeradoUseCase(
+        pagamentoRepository: PagamentoRepository,
+        pedidoRepository: PedidoRepository
+    ): AtualizarPedidoLinkPagamentoGeradoUseCaseImpl {
+        return AtualizarPedidoLinkPagamentoGeradoUseCaseImpl(pagamentoRepository, pedidoRepository)
     }
 }

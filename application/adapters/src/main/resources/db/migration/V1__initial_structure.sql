@@ -41,3 +41,13 @@ CREATE TABLE IF NOT EXISTS pedido_item (
     quantidade INT NOT NULL CHECK (quantidade > 0),
     preco_unitario DECIMAL(10,2) NOT NULL
 );
+
+-- Tabela de pagamento
+CREATE TABLE IF NOT EXISTS pagamento (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    pedido_id UUID NOT NULL REFERENCES pedido(id) ON DELETE CASCADE,
+    valor DECIMAL(10,2) NOT NULL,
+    data TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+    status VARCHAR(50) NOT NULL,
+    link VARCHAR(255) NOT NULL
+);
