@@ -72,4 +72,15 @@ class PedidoUseCaseImpl(
     override fun confirmarPedidoCozinha(pedidoId: UUID) = pedidoRepository.findById(pedidoId)
         ?.let { pedidoRepository.save(it.copy(status = StatusPedido.EM_PREPARACAO)) }
         ?: throw IllegalArgumentException("Pedido não encontrado")
+
+
+    override fun findById(pedidoId: UUID) = pedidoRepository.findById(pedidoId)
+
+    override fun pedidoPronto(pedidoId: UUID) = pedidoRepository.findById(pedidoId)
+        ?.let { pedidoRepository.save(it.copy(status = StatusPedido.PRONTO)) }
+        ?: throw IllegalArgumentException("Pedido não encontrado")
+
+    override fun retirarPedido(pedidoId: UUID) = pedidoRepository.findById(pedidoId)
+        ?.let { pedidoRepository.save(it.copy(status = StatusPedido.FINALIZADO)) }
+        ?: throw IllegalArgumentException("Pedido não encontrado")
 }

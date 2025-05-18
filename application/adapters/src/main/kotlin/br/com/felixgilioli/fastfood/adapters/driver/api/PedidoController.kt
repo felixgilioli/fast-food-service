@@ -4,6 +4,7 @@ import br.com.felixgilioli.fastfood.adapters.driver.api.to.request.ConfirmarPedi
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.request.NovoPedidoRequest
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.response.toResponse
 import br.com.felixgilioli.fastfood.core.ports.driver.PedidoUseCase
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -26,5 +27,19 @@ class PedidoController(private val pedidoUseCase: PedidoUseCase) {
     @PutMapping("/{pedidoId}/confirmar-cozinha")
     fun confirmarPedidoCozinha(@PathVariable pedidoId: String) = pedidoUseCase
         .confirmarPedidoCozinha(UUID.fromString(pedidoId)).toResponse()
+
+    @GetMapping("/{pedidoId}")
+    fun acompanharPedido(@PathVariable pedidoId: String) =
+        pedidoUseCase.findById(UUID.fromString(pedidoId))?.toResponse()
+            ?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
+
+    @PutMapping("/{pedidoId}/pronto")
+    fun pedidoPronto(@PathVariable pedidoId: String) = pedidoUseCase
+        .pedidoPronto(UUID.fromString(pedidoId)).toResponse()
+
+    @PutMapping("/{pedidoId}/retirar")
+    fun retirarPedido(@PathVariable pedidoId: String) = pedidoUseCase
+        .retirarPedido(UUID.fromString(pedidoId)).toResponse()
+
 
 }
