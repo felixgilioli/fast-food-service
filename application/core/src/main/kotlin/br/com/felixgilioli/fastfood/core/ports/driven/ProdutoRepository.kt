@@ -8,4 +8,6 @@ interface ProdutoRepository {
     fun findAll(): List<Produto>
 
     fun findAllById(produtoIds: List<UUID>): List<Produto>
+
+    fun findById(produtoId: UUID): Produto?
 }
