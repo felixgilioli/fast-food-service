@@ -1,14 +1,12 @@
 package br.com.felixgilioli.fastfood.adapters.driver.api
 
+import br.com.felixgilioli.fastfood.adapters.driver.api.to.request.ProdutoRequest
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.response.ProdutosPorCategoriaResponse
 import br.com.felixgilioli.fastfood.adapters.driver.api.to.response.toResponse
 import br.com.felixgilioli.fastfood.core.entities.Produto
 import br.com.felixgilioli.fastfood.core.ports.driver.ProdutoUseCase
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
@@ -31,4 +29,11 @@ class ProdutoController(private val produtoUseCase: ProdutoUseCase) {
         produtoUseCase.findById(UUID.fromString(id))?.let { ResponseEntity.ok(it.toResponse()) }
             ?: ResponseEntity.notFound().build()
 
+    @PostMapping
+    fun create(@RequestBody produto: ProdutoRequest) =
+        produtoUseCase.create(produto.toCommand()).let { ResponseEntity.ok(it.toResponse()) }
+
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: String, @RequestBody produto: ProdutoRequest) =
+        produtoUseCase.update(produto.toCommand(id)).let { ResponseEntity.ok(it.toResponse()) }
 }

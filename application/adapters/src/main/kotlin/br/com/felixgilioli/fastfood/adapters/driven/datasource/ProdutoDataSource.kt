@@ -1,13 +1,19 @@
 package br.com.felixgilioli.fastfood.adapters.driven.datasource
 
+import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.repository.CategoriaORMRepository
 import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.repository.ProdutoORMRepository
+import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.toORM
+import br.com.felixgilioli.fastfood.core.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ProdutoDataSource(private val produtoORMRepository: ProdutoORMRepository) : ProdutoRepository {
+class ProdutoDataSource(
+    private val produtoORMRepository: ProdutoORMRepository,
+    private val categoriaORMRepository: CategoriaORMRepository
+) : ProdutoRepository {
 
     override fun findAll() = produtoORMRepository.findAll().map { it.toDomain() }
 
@@ -15,4 +21,10 @@ class ProdutoDataSource(private val produtoORMRepository: ProdutoORMRepository) 
         produtoORMRepository.findAllById(produtoIds).map { it.toDomain() }
 
     override fun findById(produtoId: UUID) = produtoORMRepository.findByIdOrNull(produtoId)?.toDomain()
+
+    override fun save(produto: ProdutoCommand) = categoriaORMRepository.findByIdOrNull(produto.categoriaId)
+        ?.let { produtoORMRepository.save(produto.toORM(it)).toDomain() }
+        ?: throw IllegalArgumentException("Categoria não encontrada")
+
+
 }

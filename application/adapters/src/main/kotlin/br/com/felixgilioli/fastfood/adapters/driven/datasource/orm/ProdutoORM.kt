@@ -1,5 +1,6 @@
 package br.com.felixgilioli.fastfood.adapters.driven.datasource.orm
 
+import br.com.felixgilioli.fastfood.core.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.core.entities.Produto
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -39,6 +40,14 @@ fun Produto.toORM() = ProdutoORM(
     id = this.id,
     nome = this.nome,
     categoria = this.categoria.toORM(),
+    preco = this.preco,
+    descricao = this.descricao
+)
+
+fun ProdutoCommand.toORM(categoria: CategoriaORM) = ProdutoORM(
+    id = this.id,
+    nome = this.nome,
+    categoria = categoria,
     preco = this.preco,
     descricao = this.descricao
 )
