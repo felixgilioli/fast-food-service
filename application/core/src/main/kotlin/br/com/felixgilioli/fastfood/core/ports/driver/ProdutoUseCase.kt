@@ -10,6 +10,8 @@ interface ProdutoUseCase {
 
     fun findById(produtoId: UUID): Produto?
 
+    fun findByCategoriaId(categoriaId: UUID): List<Produto>
+
     fun create(produto: ProdutoCommand): Produto
 
     fun update(produto: ProdutoCommand): Produto

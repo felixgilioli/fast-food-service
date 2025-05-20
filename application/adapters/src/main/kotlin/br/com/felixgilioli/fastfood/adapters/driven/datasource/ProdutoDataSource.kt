@@ -4,6 +4,7 @@ import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.repository.Ca
 import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.repository.ProdutoORMRepository
 import br.com.felixgilioli.fastfood.adapters.driven.datasource.orm.toORM
 import br.com.felixgilioli.fastfood.core.commands.ProdutoCommand
+import br.com.felixgilioli.fastfood.core.entities.Produto
 import br.com.felixgilioli.fastfood.core.ports.driven.ProdutoRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -26,5 +27,6 @@ class ProdutoDataSource(
         ?.let { produtoORMRepository.save(produto.toORM(it)).toDomain() }
         ?: throw IllegalArgumentException("Categoria não encontrada")
 
-
+    override fun findByCategoriaId(categoriaId: UUID) =
+        produtoORMRepository.findByCategoriaId(categoriaId).map { it.toDomain() }
 }

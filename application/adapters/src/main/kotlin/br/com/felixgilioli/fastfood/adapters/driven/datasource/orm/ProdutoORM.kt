@@ -24,6 +24,9 @@ data class ProdutoORM(
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     val preco: BigDecimal,
 
+    @Column(name = "imagem_url")
+    val imagemUrl: String?,
+
     @Column(name = "descricao")
     val descricao: String?
 ) {
@@ -32,6 +35,7 @@ data class ProdutoORM(
         nome = nome,
         categoria = categoria.toDomain(),
         preco = preco,
+        imagemUrl = imagemUrl,
         descricao = descricao
     )
 }
@@ -41,6 +45,7 @@ fun Produto.toORM() = ProdutoORM(
     nome = this.nome,
     categoria = this.categoria.toORM(),
     preco = this.preco,
+    imagemUrl = this.imagemUrl,
     descricao = this.descricao
 )
 
@@ -49,5 +54,6 @@ fun ProdutoCommand.toORM(categoria: CategoriaORM) = ProdutoORM(
     nome = this.nome,
     categoria = categoria,
     preco = this.preco,
+    imagemUrl = this.imagemUrl,
     descricao = this.descricao
 )

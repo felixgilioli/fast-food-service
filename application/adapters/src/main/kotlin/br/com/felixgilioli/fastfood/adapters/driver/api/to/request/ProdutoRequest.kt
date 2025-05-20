@@ -8,6 +8,7 @@ data class ProdutoRequest(
     val nome: String,
     val categoriaId: String,
     val preco: BigDecimal,
+    val imagemUrl: String?,
     val descricao: String?
 ) {
     fun toCommand(produtoId: String? = null) = ProdutoCommand(
@@ -15,6 +16,7 @@ data class ProdutoRequest(
         nome = nome,
         categoriaId = UUID.fromString(categoriaId),
         preco = preco,
+        imagemUrl = imagemUrl,
         descricao = descricao
     )
 }

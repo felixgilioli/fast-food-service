@@ -13,4 +13,6 @@ interface ProdutoRepository {
     fun findById(produtoId: UUID): Produto?
 
     fun save(produto: ProdutoCommand): Produto
+
+    fun findByCategoriaId(categoriaId: UUID): List<Produto>
 }

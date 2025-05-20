@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS produto (
     nome VARCHAR(150) NOT NULL,
     categoria_id UUID NOT NULL REFERENCES categoria(id),
     preco DECIMAL(10,2) NOT NULL,
+    imagem_url TEXT,
     descricao TEXT
 );
 

@@ -43,8 +43,8 @@ class PedidoUseCaseImpl(
     }
 
     override fun confirmarPedido(command: ConfirmarPedidoCommand): Pedido {
-        val pedido =
-            pedidoRepository.findById(command.pedidoId) ?: throw IllegalArgumentException("Pedido não encontrado")
+        val pedido = pedidoRepository.findById(command.pedidoId)
+            ?: throw IllegalArgumentException("Pedido não encontrado")
 
         val produtoPorId = produtoRepository.findAllById(command.itens.map { it.produtoId }).associateBy { it.id!! }
 
