@@ -13,6 +13,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("com.mercadopago:sdk-java:2.4.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
