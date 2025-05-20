@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Obtendo o código do projeto
+       uses: actions/checkout@v4
+       
+     - name: Login Docker Hub
+       uses: docker/login-action@v3
+       with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+     - name: Build e Push da Imagem Docker
+       uses: docker/build-push-action@v6
+       with:
+         context: .
+         push: true
+         tags: | 
+           felixgilioli/fastfood-service:latest
+           felixgilioli/fastfood-service:v${{ github.run_number }}
