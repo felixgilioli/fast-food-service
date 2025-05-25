@@ -8,11 +8,11 @@ data class ProdutoRequest(
     val nome: String,
     val categoriaId: String,
     val preco: BigDecimal,
-    val imagemUrl: String?,
-    val descricao: String?
+    val imagemUrl: String? = null,
+    val descricao: String? = null
 ) {
     fun toCommand(produtoId: String? = null) = ProdutoCommand(
-        id = UUID.fromString(produtoId),
+        id = produtoId?.let(UUID::fromString),
         nome = nome,
         categoriaId = UUID.fromString(categoriaId),
         preco = preco,
