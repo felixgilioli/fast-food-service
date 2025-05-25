@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 data class PedidoResponse(
-    val id: UUID? = null,
+    val pedidoId: UUID? = null,
     val status: StatusPedido,
     val dataInicio: LocalDateTime,
     val dataFim: LocalDateTime?,
@@ -18,7 +18,7 @@ data class PedidoResponse(
 )
 
 fun Pedido.toResponse() = PedidoResponse(
-    id = id,
+    pedidoId = id,
     status = status,
     dataInicio = dataInicio,
     dataFim = dataFim,

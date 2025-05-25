@@ -4,7 +4,7 @@ import br.com.felixgilioli.fastfood.core.entities.Produto
 import java.math.BigDecimal
 
 data class ProdutoResponse(
-    val id: String,
+    val produtoId: String,
     val nome: String,
     val preco: BigDecimal,
     val imagemUrl: String? = null,
@@ -12,7 +12,7 @@ data class ProdutoResponse(
 )
 
 fun Produto.toResponse() = ProdutoResponse(
-    id = this.id.toString(),
+    produtoId = this.id.toString(),
     nome = this.nome,
     preco = this.preco,
     imagemUrl = this.imagemUrl,

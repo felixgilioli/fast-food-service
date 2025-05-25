@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "5713eb5e-1e3e-4575-818d-def888719aa3",
+		"name": "fast-food-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24550489"
+	},
+	"item": [
+		{
+			"name": "1 - Cadastro Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nomeCompleto\": \"Felix Ricardo Gilioli\",\r\n    \"email\": \"felixgilioli2@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Começar pedido via e-mail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clienteEmail\": \"felixgilioli2@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/novo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						"novo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Começar pedido via CPF",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clienteCPF\": \"05051969992\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/novo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						"novo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Começar pedido sem identificação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/novo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						"novo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Listar produtos agrupados por categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/produto/categoria",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"produto",
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Listar todos os produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - Confirmar pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pedidoId\": \"8174c8d1-ba54-41b7-b5d8-20ec28d7da40\",\r\n    \"itens\": [\r\n        {\r\n            \"produtoId\": \"796fd455-234b-45e6-bc98-5d7568bfe554\",\r\n            \"quantidade\": 2\r\n        },\r\n        {\r\n            \"produtoId\": \"796fd455-234b-45e6-bc98-5d7568bfe554\",\r\n            \"quantidade\": 1\r\n        },\r\n        {\r\n            \"produtoId\": \"afe5bc2a-f2f2-4c67-85c6-51a00e01a82e\",\r\n            \"quantidade\": 5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/confirmar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						"confirmar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - Visualizar pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/:pedidoId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						":pedidoId"
+					],
+					"variable": [
+						{
+							"key": "pedidoId",
+							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6 - Informações para pagamento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pagamento?pedidoId=8174c8d1-ba54-41b7-b5d8-20ec28d7da40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pagamento"
+					],
+					"query": [
+						{
+							"key": "pedidoId",
+							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 - Webhook pagamento APROVADO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pagamento/webhook/aprovar?pagamentoId=cb056df0-76c3-411b-b41f-af5a5320ba66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pagamento",
+						"webhook",
+						"aprovar"
+					],
+					"query": [
+						{
+							"key": "pagamentoId",
+							"value": "cb056df0-76c3-411b-b41f-af5a5320ba66"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7 - Webhook pagamento RECUSADO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pagamento/webhook/recusar?pagamentoId=acc0a196-5f1c-4256-b100-b932e44f7806",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pagamento",
+						"webhook",
+						"recusar"
+					],
+					"query": [
+						{
+							"key": "pagamentoId",
+							"value": "acc0a196-5f1c-4256-b100-b932e44f7806"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8 - Fila de pedidos para cozinha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/aguardando-confirmacao-cozinha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						"aguardando-confirmacao-cozinha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9 - Pedido em preparação",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/:pedidoId/confirmar-cozinha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						":pedidoId",
+						"confirmar-cozinha"
+					],
+					"variable": [
+						{
+							"key": "pedidoId",
+							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 - Pedido pronto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/:pedidoId/pronto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						":pedidoId",
+						"pronto"
+					],
+					"variable": [
+						{
+							"key": "pedidoId",
+							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11 - Cliente retirou pedido",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido/:pedidoId/retirar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido",
+						":pedidoId",
+						"retirar"
+					],
+					"variable": [
+						{
+							"key": "pedidoId",
+							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "x - Buscar produto por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/produto/:produtoId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"produto",
+						":produtoId"
+					],
+					"variable": [
+						{
+							"key": "produtoId",
+							"value": "e6f0a054-191a-4005-bc67-a462b135584e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "x - Editar produto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Frango\",\r\n    \"categoriaId\": \"fe586b03-5f65-4aaa-92f0-dd5434947f25\",\r\n    \"preco\": 25.5,\r\n    \"descricao\": \"Porção de frango grelhado\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/produto/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"produto",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65775486-9053-43a4-b289-9befca17a3d6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "x - Cadastrar Produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Frango\",\r\n    \"categoriaId\": \"fe586b03-5f65-4aaa-92f0-dd5434947f25\",\r\n    \"preco\": 25.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -28,7 +28,7 @@ class PedidoControllerTest {
         val response = pedidoController.novoPedido(request)
 
         assertNotNull(response)
-        assertEquals(pedido.id, response.id)
+        assertEquals(pedido.id, response.pedidoId)
         assertEquals(pedido.clienteNome, response.clienteNome)
     }
 
@@ -61,7 +61,7 @@ class PedidoControllerTest {
         val response = pedidoController.confirmarPedido(request)
 
         assertNotNull(response)
-        assertEquals(pedido.id, response.id)
+        assertEquals(pedido.id, response.pedidoId)
         assertEquals(pedido.clienteNome, response.clienteNome)
     }
 
@@ -85,8 +85,8 @@ class PedidoControllerTest {
 
         assertNotNull(response)
         assertEquals(2, response.size)
-        assertEquals(pedidos[0].id, response[0].id)
-        assertEquals(pedidos[1].id, response[1].id)
+        assertEquals(pedidos[0].id, response[0].pedidoId)
+        assertEquals(pedidos[1].id, response[1].pedidoId)
     }
 
     @Test
@@ -102,7 +102,7 @@ class PedidoControllerTest {
         val response = pedidoController.confirmarPedidoCozinha(pedidoId)
 
         assertNotNull(response)
-        assertEquals(pedido.id, response.id)
+        assertEquals(pedido.id, response.pedidoId)
         assertEquals(pedido.clienteNome, response.clienteNome)
     }
 }

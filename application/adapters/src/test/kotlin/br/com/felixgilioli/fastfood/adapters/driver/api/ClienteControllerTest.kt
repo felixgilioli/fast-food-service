@@ -28,7 +28,7 @@ class ClienteControllerTest {
         assertNotNull(response)
         assertEquals(HttpStatus.CREATED, response.statusCode)
         assertEquals("/v1/cliente/${cliente.id}", response.headers.location.toString())
-        assertEquals(cliente.id?.toString(), response.body?.id)
+        assertEquals(cliente.id?.toString(), response.body?.clienteId)
         assertEquals(cliente.nomeCompleto, response.body?.nomeCompleto)
         assertEquals(cliente.email, response.body?.email)
     }
