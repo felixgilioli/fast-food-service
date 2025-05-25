@@ -8,6 +8,6 @@ data class ProdutoCommand(
     val nome: String,
     val categoriaId: UUID,
     val preco: BigDecimal,
-    val imagemUrl: String?,
-    val descricao: String?
+    val imagemUrl: String? = null,
+    val descricao: String? = null
 )

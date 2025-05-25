@@ -8,6 +8,6 @@ data class Produto(
     val nome: String,
     val categoria: Categoria,
     val preco: BigDecimal,
-    val imagemUrl: String?,
-    val descricao: String?
+    val imagemUrl: String? = null,
+    val descricao: String? = null
 )
