@@ -9,6 +9,7 @@ import br.com.felixgilioli.fastfood.core.usecases.listener.AtualizarPedidoLinkPa
 import br.com.felixgilioli.fastfood.core.usecases.listener.PagamentoAprovadoListener
 import br.com.felixgilioli.fastfood.core.usecases.listener.PagamentoRecusadoListener
 import br.com.felixgilioli.fastfood.core.usecases.listener.SolicitarPagamentoListener
+import com.mercadopago.client.preference.PreferenceClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -51,4 +52,7 @@ class BeanConfig {
 
     @Bean
     fun pagamentoRecusadoListener(pedidoRepository: PedidoRepository) = PagamentoRecusadoListener(pedidoRepository)
+
+    @Bean
+    fun preferenceClient() = PreferenceClient()
 }

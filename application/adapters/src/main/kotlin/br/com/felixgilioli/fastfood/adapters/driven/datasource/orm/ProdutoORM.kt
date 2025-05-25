@@ -25,10 +25,10 @@ data class ProdutoORM(
     val preco: BigDecimal,
 
     @Column(name = "imagem_url")
-    val imagemUrl: String?,
+    val imagemUrl: String? = null,
 
     @Column(name = "descricao")
-    val descricao: String?
+    val descricao: String? = null
 ) {
     fun toDomain() = Produto(
         id = id,

@@ -13,7 +13,8 @@ import java.math.BigDecimal
 
 @Component
 class GeradorLinkPagamentoMercadoPagoDataSource(
-    @Value("\${mercadopago.access-token}") private val accessToken: String
+    @Value("\${mercadopago.access-token}") private val accessToken: String,
+    private val preferenceClient: PreferenceClient
 ) : GeradorLinkPagamento {
 
     override fun gerarLink(valor: BigDecimal): String {
@@ -38,6 +39,6 @@ class GeradorLinkPagamentoMercadoPagoDataSource(
             )
             .build()
 
-        return PreferenceClient().create(request).sandboxInitPoint
+        return preferenceClient.create(request).sandboxInitPoint
     }
 }
