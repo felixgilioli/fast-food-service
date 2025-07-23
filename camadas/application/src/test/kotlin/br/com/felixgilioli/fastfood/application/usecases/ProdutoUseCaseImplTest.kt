@@ -1,14 +1,13 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
-import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
@@ -23,34 +22,6 @@ class ProdutoUseCaseImplTest {
     fun setUp() {
         produtoGateway = mockk()
         produtoUseCase = ProdutoUseCaseImpl(produtoGateway)
-    }
-
-    @Test
-    fun retornaProdutoPorIdQuandoExiste() {
-        val produtoId = UUID.randomUUID()
-        val produto = Produto(
-            id = UUID.randomUUID(),
-            nome = "Produto 1",
-            preco = BigDecimal.TEN,
-            categoria = Categoria(descricao = "Teste"),
-        )
-        every { produtoGateway.findById(produtoId) } returns produto
-
-        val resultado = produtoUseCase.findById(produtoId)
-
-        assertEquals(produto, resultado)
-        verify { produtoGateway.findById(produtoId) }
-    }
-
-    @Test
-    fun retornaNuloQuandoProdutoNaoExistePorId() {
-        val produtoId = UUID.randomUUID()
-        every { produtoGateway.findById(produtoId) } returns null
-
-        val resultado = produtoUseCase.findById(produtoId)
-
-        assertNull(resultado)
-        verify { produtoGateway.findById(produtoId) }
     }
 
     @Test

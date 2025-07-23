@@ -7,8 +7,6 @@ import java.util.*
 
 class ProdutoUseCaseImpl(private val produtoGateway: ProdutoGateway) : ProdutoUseCase {
 
-    override fun findById(produtoId: UUID) = produtoGateway.findById(produtoId)
-
     override fun findByCategoriaId(categoriaId: UUID) = produtoGateway.findByCategoriaId(categoriaId)
 
     override fun create(produto: ProdutoCommand) = produtoGateway.save(produto)

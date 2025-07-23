@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
@@ -17,7 +18,8 @@ import java.util.*
 @Tag(name = "Produto API", description = "Gerenciamento de produtos")
 class ProdutoController(
     private val produtoUseCase: ProdutoUseCase,
-    private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase
+    private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase,
+    private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase
 ) {
 
     @GetMapping
@@ -50,7 +52,7 @@ class ProdutoController(
         description = "Retorna os detalhes de um produto específico com base no seu ID."
     )
     fun findById(@PathVariable id: String) =
-        produtoUseCase.findById(UUID.fromString(id))?.let { ResponseEntity.ok(it.toResponse()) }
+        buscarProdutoPeloIdUseCase.execute(UUID.fromString(id))?.let { ResponseEntity.ok(it.toResponse()) }
             ?: ResponseEntity.notFound().build()
 
     @GetMapping("/categoria/{categoriaId}")

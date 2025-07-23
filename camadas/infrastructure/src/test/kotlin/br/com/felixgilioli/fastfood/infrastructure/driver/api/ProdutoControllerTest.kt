@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
@@ -18,7 +19,9 @@ class ProdutoControllerTest {
 
     private val produtoUseCase: ProdutoUseCase = mockk()
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase = mockk()
-    private val produtoController = ProdutoController(produtoUseCase, buscarTodosProdutosUseCase)
+    private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase = mockk()
+    private val produtoController =
+        ProdutoController(produtoUseCase, buscarTodosProdutosUseCase, buscarProdutoPeloIdUseCase)
 
     @Test
     fun retornaTodosProdutosComSucesso() {
@@ -55,7 +58,7 @@ class ProdutoControllerTest {
             categoria = Categoria(UUID.randomUUID(), "Categoria 1"),
             preco = BigDecimal.TEN
         )
-        every { produtoUseCase.findById(produtoId) } returns produto
+        every { buscarProdutoPeloIdUseCase.execute(produtoId) } returns produto
 
         val response = produtoController.findById(produtoId.toString())
 
@@ -67,7 +70,7 @@ class ProdutoControllerTest {
     @Test
     fun retornaNotFoundQuandoProdutoNaoExiste() {
         val produtoId = UUID.randomUUID()
-        every { produtoUseCase.findById(produtoId) } returns null
+        every { buscarProdutoPeloIdUseCase.execute(produtoId) } returns null
 
         val response = produtoController.findById(produtoId.toString())
 
