@@ -10,7 +10,7 @@ import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
-import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import java.math.BigDecimal
 import java.util.*
@@ -18,7 +18,7 @@ import java.util.*
 class PedidoUseCaseImpl(
     private val clienteGateway: ClienteGateway,
     private val pedidoRepository: PedidoRepository,
-    private val produtoRepository: ProdutoRepository,
+    private val produtoGateway: ProdutoGateway,
     private val eventPublisher: EventPublisher
 ) : PedidoUseCase {
 
@@ -46,7 +46,7 @@ class PedidoUseCaseImpl(
         val pedido = pedidoRepository.findById(command.pedidoId)
             ?: throw IllegalArgumentException("Pedido não encontrado")
 
-        val produtoPorId = produtoRepository.findAllById(command.itens.map { it.produtoId }).associateBy { it.id!! }
+        val produtoPorId = produtoGateway.findAllById(command.itens.map { it.produtoId }).associateBy { it.id!! }
 
         val pedidoItemList = command.itens.map {
             val produto = produtoPorId[it.produtoId] ?: throw IllegalArgumentException("Produto não encontrado")

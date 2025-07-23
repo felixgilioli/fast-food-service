@@ -1,19 +1,19 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
+package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.CategoriaORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.ProdutoORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.toORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.CategoriaORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.ProdutoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toORM
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
-import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ProdutoDataSource(
+class ProdutoGatewayImpl(
     private val produtoORMRepository: ProdutoORMRepository,
     private val categoriaORMRepository: CategoriaORMRepository
-) : ProdutoRepository {
+) : ProdutoGateway {
 
     override fun findAll() = produtoORMRepository.findAll().map { it.toDomain() }
 

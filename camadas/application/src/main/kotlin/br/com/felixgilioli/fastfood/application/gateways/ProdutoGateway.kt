@@ -1,10 +1,10 @@
-package br.com.felixgilioli.fastfood.application.ports.driven
+package br.com.felixgilioli.fastfood.application.gateways
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.domain.entities.Produto
-import java.util.*
+import java.util.UUID
 
-interface ProdutoRepository {
+interface ProdutoGateway {
 
     fun findAll(): List<Produto>
 

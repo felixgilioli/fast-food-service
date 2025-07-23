@@ -2,10 +2,10 @@ package br.com.felixgilioli.fastfood.infrastructure.config
 
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
-import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
 import br.com.felixgilioli.fastfood.application.usecases.*
 import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
@@ -35,15 +35,19 @@ class BeanConfig {
         RecusarPagamentoUseCase(pagamentoGateway, eventPublisher)
 
     @Bean
+    fun buscarTodosProdutosUseCase(produtoGateway: ProdutoGateway) =
+        BuscarTodosProdutosUseCase(produtoGateway)
+
+    @Bean
     fun pedidoUseCase(
         pedidoRepository: PedidoRepository,
         clienteGateway: ClienteGateway,
-        produtoRepository: ProdutoRepository,
+        produtoGateway: ProdutoGateway,
         eventPublisher: EventPublisher
-    ) = PedidoUseCaseImpl(clienteGateway, pedidoRepository, produtoRepository, eventPublisher)
+    ) = PedidoUseCaseImpl(clienteGateway, pedidoRepository, produtoGateway, eventPublisher)
 
     @Bean
-    fun produtoUseCase(produtoRepository: ProdutoRepository) = ProdutoUseCaseImpl(produtoRepository)
+    fun produtoUseCase(produtoGateway: ProdutoGateway) = ProdutoUseCaseImpl(produtoGateway)
 
     @Bean
     fun solicitarPagamentoUseCase(

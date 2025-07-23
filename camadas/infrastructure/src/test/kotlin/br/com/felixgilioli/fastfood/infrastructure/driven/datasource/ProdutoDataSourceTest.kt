@@ -18,7 +18,7 @@ class ProdutoDataSourceTest {
 
     private val produtoORMRepository: ProdutoORMRepository = mockk()
     private val categoriaORMRepository: CategoriaORMRepository = mockk()
-    private val produtoDataSource = ProdutoDataSource(produtoORMRepository, categoriaORMRepository)
+    private val produtoGatewayImpl = ProdutoGatewayImpl(produtoORMRepository, categoriaORMRepository)
 
     @Test
     fun retornaTodosProdutosComSucesso() {
@@ -38,7 +38,7 @@ class ProdutoDataSourceTest {
         )
         every { produtoORMRepository.findAll() } returns produtosORM
 
-        val resultado = produtoDataSource.findAll()
+        val resultado = produtoGatewayImpl.findAll()
 
         assertEquals(2, resultado.size)
         assertEquals("Produto 1", resultado[0].nome)
@@ -58,7 +58,7 @@ class ProdutoDataSourceTest {
         )
         every { produtoORMRepository.findAllById(listOf(produtoId)) } returns produtosORM
 
-        val resultado = produtoDataSource.findAllById(listOf(produtoId))
+        val resultado = produtoGatewayImpl.findAllById(listOf(produtoId))
 
         assertEquals(1, resultado.size)
         assertEquals(produtoId, resultado[0].id)
@@ -75,7 +75,7 @@ class ProdutoDataSourceTest {
         )
         every { produtoORMRepository.findByIdOrNull(produtoId) } returns produtoORM
 
-        val resultado = produtoDataSource.findById(produtoId)
+        val resultado = produtoGatewayImpl.findById(produtoId)
 
         assertEquals(produtoId, resultado?.id)
         assertEquals("Produto 1", resultado?.nome)
@@ -86,7 +86,7 @@ class ProdutoDataSourceTest {
         val produtoId = UUID.randomUUID()
         every { produtoORMRepository.findByIdOrNull(produtoId) } returns null
 
-        val resultado = produtoDataSource.findById(produtoId)
+        val resultado = produtoGatewayImpl.findById(produtoId)
 
         assertEquals(null, resultado)
     }
@@ -110,7 +110,7 @@ class ProdutoDataSourceTest {
         every { categoriaORMRepository.findByIdOrNull(categoriaId) } returns categoriaORM
         every { produtoORMRepository.save(any()) } returns produtoORM
 
-        val resultado = produtoDataSource.save(produtoCommand)
+        val resultado = produtoGatewayImpl.save(produtoCommand)
 
         assertEquals("Produto 1", resultado.nome)
         assertEquals(BigDecimal.TEN, resultado.preco)
@@ -128,7 +128,7 @@ class ProdutoDataSourceTest {
         every { categoriaORMRepository.findByIdOrNull(categoriaId) } returns null
 
         assertThrows(IllegalArgumentException::class.java) {
-            produtoDataSource.save(produtoCommand)
+            produtoGatewayImpl.save(produtoCommand)
         }
     }
 
@@ -151,7 +151,7 @@ class ProdutoDataSourceTest {
         )
         every { produtoORMRepository.findByCategoriaId(categoriaId) } returns produtosORM
 
-        val resultado = produtoDataSource.findByCategoriaId(categoriaId)
+        val resultado = produtoGatewayImpl.findByCategoriaId(categoriaId)
 
         assertEquals(2, resultado.size)
         assertEquals("Produto 1", resultado[0].nome)
@@ -163,7 +163,7 @@ class ProdutoDataSourceTest {
         val categoriaId = UUID.randomUUID()
         every { produtoORMRepository.findByCategoriaId(categoriaId) } returns emptyList()
 
-        val resultado = produtoDataSource.findByCategoriaId(categoriaId)
+        val resultado = produtoGatewayImpl.findByCategoriaId(categoriaId)
 
         assertEquals(0, resultado.size)
     }

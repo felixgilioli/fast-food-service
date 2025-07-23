@@ -1,19 +1,17 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
-import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import java.util.*
 
-class ProdutoUseCaseImpl(private val produtoRepository: ProdutoRepository) : ProdutoUseCase {
+class ProdutoUseCaseImpl(private val produtoGateway: ProdutoGateway) : ProdutoUseCase {
 
-    override fun findAll() = produtoRepository.findAll()
+    override fun findById(produtoId: UUID) = produtoGateway.findById(produtoId)
 
-    override fun findById(produtoId: UUID) = produtoRepository.findById(produtoId)
+    override fun findByCategoriaId(categoriaId: UUID) = produtoGateway.findByCategoriaId(categoriaId)
 
-    override fun findByCategoriaId(categoriaId: UUID) = produtoRepository.findByCategoriaId(categoriaId)
+    override fun create(produto: ProdutoCommand) = produtoGateway.save(produto)
 
-    override fun create(produto: ProdutoCommand) = produtoRepository.save(produto)
-
-    override fun update(produto: ProdutoCommand) = produtoRepository.save(produto)
+    override fun update(produto: ProdutoCommand) = produtoGateway.save(produto)
 }

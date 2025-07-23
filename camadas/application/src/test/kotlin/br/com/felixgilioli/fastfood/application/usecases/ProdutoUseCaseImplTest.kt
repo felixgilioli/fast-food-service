@@ -3,7 +3,7 @@ package br.com.felixgilioli.fastfood.application.usecases
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
-import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -16,38 +16,13 @@ import java.util.*
 
 class ProdutoUseCaseImplTest {
 
-    private lateinit var produtoRepository: ProdutoRepository
+    private lateinit var produtoGateway: ProdutoGateway
     private lateinit var produtoUseCase: ProdutoUseCaseImpl
 
     @BeforeEach
     fun setUp() {
-        produtoRepository = mockk()
-        produtoUseCase = ProdutoUseCaseImpl(produtoRepository)
-    }
-
-    @Test
-    fun retornaTodosProdutosComSucesso() {
-        val produtos = listOf(
-            Produto(
-                id = UUID.randomUUID(),
-                nome = "Produto 1",
-                preco = BigDecimal.TEN,
-                categoria = Categoria(descricao = "Teste"),
-            ),
-            Produto(
-                id = UUID.randomUUID(),
-                nome = "Produto 2",
-                preco = BigDecimal.TEN,
-                categoria = Categoria(descricao = "Teste"),
-            )
-        )
-        every { produtoRepository.findAll() } returns produtos
-
-        val resultado = produtoUseCase.findAll()
-
-        assertEquals(2, resultado.size)
-        assertEquals("Produto 1", resultado[0].nome)
-        verify { produtoRepository.findAll() }
+        produtoGateway = mockk()
+        produtoUseCase = ProdutoUseCaseImpl(produtoGateway)
     }
 
     @Test
@@ -59,23 +34,23 @@ class ProdutoUseCaseImplTest {
             preco = BigDecimal.TEN,
             categoria = Categoria(descricao = "Teste"),
         )
-        every { produtoRepository.findById(produtoId) } returns produto
+        every { produtoGateway.findById(produtoId) } returns produto
 
         val resultado = produtoUseCase.findById(produtoId)
 
         assertEquals(produto, resultado)
-        verify { produtoRepository.findById(produtoId) }
+        verify { produtoGateway.findById(produtoId) }
     }
 
     @Test
     fun retornaNuloQuandoProdutoNaoExistePorId() {
         val produtoId = UUID.randomUUID()
-        every { produtoRepository.findById(produtoId) } returns null
+        every { produtoGateway.findById(produtoId) } returns null
 
         val resultado = produtoUseCase.findById(produtoId)
 
         assertNull(resultado)
-        verify { produtoRepository.findById(produtoId) }
+        verify { produtoGateway.findById(produtoId) }
     }
 
     @Test
@@ -95,12 +70,12 @@ class ProdutoUseCaseImplTest {
                 categoria = Categoria(descricao = "Teste"),
             )
         )
-        every { produtoRepository.findByCategoriaId(categoriaId) } returns produtos
+        every { produtoGateway.findByCategoriaId(categoriaId) } returns produtos
 
         val resultado = produtoUseCase.findByCategoriaId(categoriaId)
 
         assertEquals(2, resultado.size)
-        verify { produtoRepository.findByCategoriaId(categoriaId) }
+        verify { produtoGateway.findByCategoriaId(categoriaId) }
     }
 
     @Test
@@ -113,12 +88,12 @@ class ProdutoUseCaseImplTest {
             preco = produtoCommand.preco,
             categoria = Categoria(descricao = "Teste")
         )
-        every { produtoRepository.save(produtoCommand) } returns produto
+        every { produtoGateway.save(produtoCommand) } returns produto
 
         val resultado = produtoUseCase.create(produtoCommand)
 
         assertEquals(produto.nome, resultado.nome)
-        verify { produtoRepository.save(produtoCommand) }
+        verify { produtoGateway.save(produtoCommand) }
     }
 
     @Test
@@ -131,11 +106,11 @@ class ProdutoUseCaseImplTest {
             preco = produtoCommand.preco,
             categoria = Categoria(descricao = "Teste")
         )
-        every { produtoRepository.save(produtoCommand) } returns produto
+        every { produtoGateway.save(produtoCommand) } returns produto
 
         val resultado = produtoUseCase.update(produtoCommand)
 
         assertEquals(produto.nome, resultado.nome)
-        verify { produtoRepository.save(produtoCommand) }
+        verify { produtoGateway.save(produtoCommand) }
     }
 }

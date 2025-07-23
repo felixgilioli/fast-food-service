@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
+package br.com.felixgilioli.fastfood.infrastructure.gateways
 
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
 import com.mercadopago.MercadoPagoConfig

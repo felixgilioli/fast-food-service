@@ -6,8 +6,6 @@ import java.util.*
 
 interface ProdutoUseCase {
 
-    fun findAll(): List<Produto>
-
     fun findById(produtoId: UUID): Produto?
 
     fun findByCategoriaId(categoriaId: UUID): List<Produto>

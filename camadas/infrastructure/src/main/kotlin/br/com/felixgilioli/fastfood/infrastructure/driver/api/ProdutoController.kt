@@ -1,10 +1,11 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
+import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
+import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.ProdutosPorCategoriaResponse
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
-import br.com.felixgilioli.fastfood.domain.entities.Produto
-import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -14,15 +15,18 @@ import java.util.*
 @RestController
 @RequestMapping("/v1/produto")
 @Tag(name = "Produto API", description = "Gerenciamento de produtos")
-class ProdutoController(private val produtoUseCase: ProdutoUseCase) {
+class ProdutoController(
+    private val produtoUseCase: ProdutoUseCase,
+    private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase
+) {
 
     @GetMapping
     @Operation(
         summary = "Listar produtos",
         description = "Retorna uma lista de todos os produtos disponíveis no sistema."
     )
-    fun findAll() = produtoUseCase
-        .findAll()
+    fun findAll() = buscarTodosProdutosUseCase
+        .execute()
         .map { it.toResponse() }
 
     @GetMapping("/categoria")
@@ -30,8 +34,8 @@ class ProdutoController(private val produtoUseCase: ProdutoUseCase) {
         summary = "Listar produtos por categoria",
         description = "Agrupa os produtos por categoria e retorna uma lista de categorias com seus respectivos produtos."
     )
-    fun findAllGroupByCategoria() = produtoUseCase
-        .findAll()
+    fun findAllGroupByCategoria() = buscarTodosProdutosUseCase
+        .execute()
         .groupBy { it.categoria }
         .map { (categoria, produtos) ->
             ProdutosPorCategoriaResponse(

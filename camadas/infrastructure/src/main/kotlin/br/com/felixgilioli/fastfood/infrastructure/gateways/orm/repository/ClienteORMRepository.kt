@@ -1,6 +1,6 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository
+package br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.ClienteORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.ClienteORM
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

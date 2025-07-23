@@ -1,7 +1,7 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
+package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.PagamentoORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.toOrm
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PagamentoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toOrm
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import org.springframework.data.repository.findByIdOrNull

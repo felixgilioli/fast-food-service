@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm
+package br.com.felixgilioli.fastfood.infrastructure.gateways.orm
 
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus

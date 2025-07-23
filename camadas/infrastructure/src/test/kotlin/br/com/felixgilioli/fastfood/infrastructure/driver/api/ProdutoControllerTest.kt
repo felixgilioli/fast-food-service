@@ -1,9 +1,10 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
+import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
-import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
+import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -16,7 +17,8 @@ import java.util.*
 class ProdutoControllerTest {
 
     private val produtoUseCase: ProdutoUseCase = mockk()
-    private val produtoController = ProdutoController(produtoUseCase)
+    private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase = mockk()
+    private val produtoController = ProdutoController(produtoUseCase, buscarTodosProdutosUseCase)
 
     @Test
     fun retornaTodosProdutosComSucesso() {
@@ -34,7 +36,7 @@ class ProdutoControllerTest {
                 preco = BigDecimal(20.0)
             )
         )
-        every { produtoUseCase.findAll() } returns produtos
+        every { buscarTodosProdutosUseCase.execute() } returns produtos
 
         val response = produtoController.findAll()
 
@@ -123,7 +125,7 @@ class ProdutoControllerTest {
             Produto(UUID.randomUUID(), "Produto 1", categoria1, BigDecimal.TEN),
             Produto(UUID.randomUUID(), "Produto 2", categoria2, BigDecimal(20.0))
         )
-        every { produtoUseCase.findAll() } returns produtos
+        every { buscarTodosProdutosUseCase.execute() } returns produtos
 
         val response = produtoController.findAllGroupByCategoria()
 
