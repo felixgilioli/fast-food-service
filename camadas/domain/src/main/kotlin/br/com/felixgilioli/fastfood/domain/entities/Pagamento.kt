@@ -1,0 +1,18 @@
+package br.com.felixgilioli.fastfood.domain.entities
+
+import java.math.BigDecimal
+import java.time.LocalDateTime
+import java.util.UUID
+
+data class Pagamento(
+    val id: UUID? = null,
+    val pedido: Pedido,
+    val valor: BigDecimal,
+    val data: LocalDateTime = LocalDateTime.now(),
+    val status: PagamentoStatus,
+    val link: String
+) {
+    fun copyWithNewStatus(status: PagamentoStatus): Pagamento {
+        return this.copy(id = null, status = status, data = LocalDateTime.now())
+    }
+}
