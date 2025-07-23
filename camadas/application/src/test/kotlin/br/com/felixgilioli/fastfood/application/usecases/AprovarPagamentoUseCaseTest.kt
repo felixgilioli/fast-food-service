@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
-import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
+import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
@@ -8,17 +8,19 @@ import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import io.mockk.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*
 
-class PagamentoUseCaseImplTest {
+class AprovarPagamentoUseCaseTest {
 
     private lateinit var pagamentoGateway: PagamentoGateway
     private lateinit var eventPublisher: EventPublisher
-    private lateinit var useCase: PagamentoUseCaseImpl
+    private lateinit var useCase: AprovarPagamentoUseCase
 
     private val pedidoId = UUID.randomUUID()
     private val pagamentoId = UUID.randomUUID()
@@ -43,20 +45,30 @@ class PagamentoUseCaseImplTest {
     fun setUp() {
         pagamentoGateway = mockk()
         eventPublisher = mockk(relaxed = true)
-        useCase = PagamentoUseCaseImpl(pagamentoGateway, eventPublisher)
+        useCase = AprovarPagamentoUseCase(pagamentoGateway, eventPublisher)
     }
 
     @Test
-    fun `deve recusar pagamento e publicar evento`() {
+    fun `deve aprovar pagamento e publicar evento`() {
         every { pagamentoGateway.findById(pagamentoId) } returns pagamento
         every { pagamentoGateway.insert(any()) } answers { firstArg() }
         every { eventPublisher.publish(any()) } just Runs
 
-        useCase.recusarPagamento(pagamentoId)
+        useCase.execute(pagamentoId)
 
         verify { pagamentoGateway.findById(pagamentoId) }
         verify { pagamentoGateway.insert(any()) }
-        verify { eventPublisher.publish(match { it is PagamentoRecusadoEvent }) }
+        verify { eventPublisher.publish(match { it is PagamentoAprovadoEvent }) }
+    }
+
+    @Test
+    fun `deve lançar exceção se pagamento não encontrado`() {
+        every { pagamentoGateway.findById(pagamentoId) } returns null
+
+        val ex = assertThrows(IllegalArgumentException::class.java) {
+            useCase.execute(pagamentoId)
+        }
+        assertEquals("Pagamento não encontrado", ex.message)
     }
 
 }

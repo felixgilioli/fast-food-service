@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.PagamentoResponse
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
@@ -15,7 +16,8 @@ import java.util.*
 @Tag(name = "Pagamento API", description = "Gerenciamento de pagamentos")
 class PagamentoController(
     private val pagamentoUseCase: PagamentoUseCase,
-    private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase
+    private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase,
+    private val aprovarPagamentoUseCase: AprovarPagamentoUseCase
 ) {
 
     @GetMapping
@@ -31,7 +33,7 @@ class PagamentoController(
     @PostMapping("/webhook/aprovar")
     @Operation(summary = "Aprovar pagamento via webhook", description = "Aprova um pagamento recebido via webhook")
     fun aprovarPagamento(@RequestParam pagamentoId: String): ResponseEntity<PagamentoResponse> =
-        pagamentoUseCase.aprovarPagamento(UUID.fromString(pagamentoId))
+        aprovarPagamentoUseCase.execute(UUID.fromString(pagamentoId))
             .let { ResponseEntity.noContent().build() }
 
     @PostMapping("/webhook/recusar")

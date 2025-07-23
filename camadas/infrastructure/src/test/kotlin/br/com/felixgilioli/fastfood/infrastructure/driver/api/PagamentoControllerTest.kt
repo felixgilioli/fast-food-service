@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
@@ -19,7 +20,9 @@ class PagamentoControllerTest {
 
     private val pagamentoUseCase: PagamentoUseCase = mockk()
     private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase = mockk()
-    private val pagamentoController = PagamentoController(pagamentoUseCase, buscarPagamentoByPedidoUseCase)
+    private val aprovarPagamentoUseCase: AprovarPagamentoUseCase = mockk()
+    private val pagamentoController =
+        PagamentoController(pagamentoUseCase, buscarPagamentoByPedidoUseCase, aprovarPagamentoUseCase)
 
     @Test
     fun retornaPagamentoQuandoPedidoIdValido() {
@@ -58,7 +61,7 @@ class PagamentoControllerTest {
     @Test
     fun aprovaPagamentoComSucesso() {
         val pagamentoId = UUID.randomUUID().toString()
-        every { pagamentoUseCase.aprovarPagamento(UUID.fromString(pagamentoId)) } returns Unit
+        every { aprovarPagamentoUseCase.execute(UUID.fromString(pagamentoId)) } returns Unit
 
         val response = pagamentoController.aprovarPagamento(pagamentoId)
 

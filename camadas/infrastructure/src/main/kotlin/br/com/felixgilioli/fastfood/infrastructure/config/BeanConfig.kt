@@ -27,6 +27,10 @@ class BeanConfig {
         BuscarPagamentoByPedidoUseCase(pagamentoGateway)
 
     @Bean
+    fun aprovarPagamentoUseCase(pagamentoGateway: PagamentoGateway, eventPublisher: EventPublisher) =
+        AprovarPagamentoUseCase(pagamentoGateway, eventPublisher)
+
+    @Bean
     fun pedidoUseCase(
         pedidoRepository: PedidoRepository,
         clienteGateway: ClienteGateway,

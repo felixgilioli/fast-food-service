@@ -1,7 +1,6 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.events.Event
-import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
 import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
@@ -14,10 +13,6 @@ class PagamentoUseCaseImpl(
     private val pagamentoGateway: PagamentoGateway,
     private val eventPublisher: EventPublisher
 ) : PagamentoUseCase {
-
-    override fun aprovarPagamento(pagamentoId: UUID) {
-        atualizarPagamento(pagamentoId, PagamentoStatus.PAGAMENTO_APROVADO, ::PagamentoAprovadoEvent)
-    }
 
     override fun recusarPagamento(pagamentoId: UUID) {
         atualizarPagamento(pagamentoId, PagamentoStatus.PAGAMENTO_REPROVADO, ::PagamentoRecusadoEvent)
