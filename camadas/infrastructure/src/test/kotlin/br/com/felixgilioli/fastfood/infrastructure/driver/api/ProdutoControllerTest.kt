@@ -2,7 +2,9 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutosPelaCategoriaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
+import br.com.felixgilioli.fastfood.application.usecases.CadastrarProdutoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
@@ -20,8 +22,15 @@ class ProdutoControllerTest {
     private val produtoUseCase: ProdutoUseCase = mockk()
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase = mockk()
     private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase = mockk()
-    private val produtoController =
-        ProdutoController(produtoUseCase, buscarTodosProdutosUseCase, buscarProdutoPeloIdUseCase)
+    private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase = mockk()
+    private val cadastrarProdutoUseCase: CadastrarProdutoUseCase = mockk()
+    private val produtoController = ProdutoController(
+        produtoUseCase,
+        buscarTodosProdutosUseCase,
+        buscarProdutoPeloIdUseCase,
+        buscarProdutosPelaCategoriaUseCase,
+        cadastrarProdutoUseCase
+    )
 
     @Test
     fun retornaTodosProdutosComSucesso() {
@@ -88,7 +97,7 @@ class ProdutoControllerTest {
             categoria = Categoria(UUID.fromString(request.categoriaId), "Categoria 1"),
             preco = request.preco
         )
-        every { produtoUseCase.create(any()) } returns produto
+        every { cadastrarProdutoUseCase.execute(any()) } returns produto
 
         val response = produtoController.create(request)
 

@@ -4,6 +4,7 @@ import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutosPelaCategoriaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
+import br.com.felixgilioli.fastfood.application.usecases.CadastrarProdutoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.ProdutosPorCategoriaResponse
@@ -21,7 +22,8 @@ class ProdutoController(
     private val produtoUseCase: ProdutoUseCase,
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase,
     private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase,
-    private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase
+    private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase,
+    private val cadastrarProdutoUseCase: CadastrarProdutoUseCase
 ) {
 
     @GetMapping
@@ -72,7 +74,7 @@ class ProdutoController(
         description = "Cria um novo produto no sistema com as informações fornecidas."
     )
     fun create(@RequestBody produto: ProdutoRequest) =
-        produtoUseCase.create(produto.toCommand()).toResponse()
+        cadastrarProdutoUseCase.execute(produto.toCommand()).toResponse()
 
     @PutMapping("/{id}")
     @Operation(

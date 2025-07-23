@@ -13,21 +13,21 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.*
 
-class ProdutoUseCaseImplTest {
+class CadastrarProdutoUseCaseTest {
 
     private lateinit var produtoGateway: ProdutoGateway
-    private lateinit var produtoUseCase: ProdutoUseCaseImpl
+    private lateinit var useCase: CadastrarProdutoUseCase
 
     @BeforeEach
     fun setUp() {
         produtoGateway = mockk()
-        produtoUseCase = ProdutoUseCaseImpl(produtoGateway)
+        useCase = CadastrarProdutoUseCase(produtoGateway)
     }
 
     @Test
-    fun atualizaProdutoComSucesso() {
+    fun criaProdutoComSucesso() {
         val produtoCommand =
-            ProdutoCommand(nome = "Produto Atualizado", preco = BigDecimal.ONE, categoriaId = UUID.randomUUID())
+            ProdutoCommand(nome = "Produto Novo", preco = BigDecimal.TEN, categoriaId = UUID.randomUUID())
         val produto = Produto(
             id = UUID.randomUUID(),
             nome = produtoCommand.nome,
@@ -36,7 +36,7 @@ class ProdutoUseCaseImplTest {
         )
         every { produtoGateway.save(produtoCommand) } returns produto
 
-        val resultado = produtoUseCase.update(produtoCommand)
+        val resultado = useCase.execute(produtoCommand)
 
         assertEquals(produto.nome, resultado.nome)
         verify { produtoGateway.save(produtoCommand) }
