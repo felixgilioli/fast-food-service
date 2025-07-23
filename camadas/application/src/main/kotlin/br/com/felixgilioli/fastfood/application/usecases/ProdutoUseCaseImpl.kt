@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases.impl
+package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository

@@ -1,15 +1,16 @@
 package br.com.felixgilioli.fastfood.infrastructure.config
 
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.*
-import br.com.felixgilioli.fastfood.application.usecases.impl.CadastrarClienteUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.impl.PagamentoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.impl.PedidoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.impl.ProdutoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.impl.listener.AtualizarPedidoLinkPagamentoGeradoListener
-import br.com.felixgilioli.fastfood.application.usecases.impl.listener.PagamentoAprovadoListener
-import br.com.felixgilioli.fastfood.application.usecases.impl.listener.PagamentoRecusadoListener
-import br.com.felixgilioli.fastfood.application.usecases.impl.listener.SolicitarPagamentoListener
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
+import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
+import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
+import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.usecases.*
+import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
+import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
+import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoRecusadoListener
+import br.com.felixgilioli.fastfood.application.usecases.listener.SolicitarPagamentoListener
 import com.mercadopago.client.preference.PreferenceClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -19,7 +20,11 @@ import org.springframework.context.annotation.Lazy
 class BeanConfig {
 
     @Bean
-    fun cadastrarClienteUseCase(clienteGateway: ClienteGateway) = CadastrarClienteUseCaseImpl(clienteGateway)
+    fun cadastrarClienteUseCase(clienteGateway: ClienteGateway) = CadastrarClienteUseCase(clienteGateway)
+
+    @Bean
+    fun buscarPagamentoByPedidoUseCase(pagamentoGateway: PagamentoGateway) =
+        BuscarPagamentoByPedidoUseCase(pagamentoGateway)
 
     @Bean
     fun pedidoUseCase(
@@ -40,13 +45,13 @@ class BeanConfig {
 
     @Bean
     fun atualizarPedidoLinkPagamentoGeradoUseCase(
-        pagamentoRepository: PagamentoRepository,
+        pagamentoGateway: PagamentoGateway,
         pedidoRepository: PedidoRepository
-    ) = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoRepository, pedidoRepository)
+    ) = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoRepository)
 
     @Bean
-    fun pagamentoUseCase(pagamentoRepository: PagamentoRepository, eventPublisher: EventPublisher) =
-        PagamentoUseCaseImpl(pagamentoRepository, eventPublisher)
+    fun pagamentoUseCase(pagamentoGateway: PagamentoGateway, eventPublisher: EventPublisher) =
+        PagamentoUseCaseImpl(pagamentoGateway, eventPublisher)
 
     @Bean
     fun pagamentoAprovadoListener(pedidoRepository: PedidoRepository) = PagamentoAprovadoListener(pedidoRepository)

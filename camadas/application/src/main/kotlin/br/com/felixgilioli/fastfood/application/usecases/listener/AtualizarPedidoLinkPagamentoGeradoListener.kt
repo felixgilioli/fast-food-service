@@ -1,15 +1,15 @@
-package br.com.felixgilioli.fastfood.application.usecases.impl.listener
+package br.com.felixgilioli.fastfood.application.usecases.listener
 
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.EventListener
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
 
 class AtualizarPedidoLinkPagamentoGeradoListener(
-    private val pagamentoRepository: PagamentoRepository,
+    private val pagamentoGateway: PagamentoGateway,
     private val pedidoRepository: PedidoRepository
 ) : EventListener<LinkPagamentoCriadoEvent> {
 
@@ -19,7 +19,7 @@ class AtualizarPedidoLinkPagamentoGeradoListener(
             valor = event.pedido.total!!,
             status = PagamentoStatus.LINK_PAGAMENTO_GERADO,
             link = event.linkPagamento
-        ).let(pagamentoRepository::insert)
+        ).let(pagamentoGateway::insert)
 
         event.pedido.copy(status = StatusPedido.PAGAMENTO_SOLICITADO)
             .let(pedidoRepository::save)

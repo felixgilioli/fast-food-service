@@ -3,13 +3,13 @@ package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.PagamentoORMRepository
 import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.toOrm
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
-import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class PagamentoDataSource(private val pagamentoORMRepository: PagamentoORMRepository) : PagamentoRepository {
+class PagamentoGatewayImpl(private val pagamentoORMRepository: PagamentoORMRepository) : PagamentoGateway {
 
     override fun insert(pagamento: Pagamento) =
         pagamentoORMRepository.save(pagamento.toOrm()).toDomain()

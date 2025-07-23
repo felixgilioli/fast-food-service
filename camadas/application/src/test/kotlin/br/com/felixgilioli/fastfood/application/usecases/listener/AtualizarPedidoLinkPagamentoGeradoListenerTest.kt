@@ -4,9 +4,8 @@ import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
-import br.com.felixgilioli.fastfood.application.usecases.impl.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -18,15 +17,15 @@ import java.util.*
 
 class AtualizarPedidoLinkPagamentoGeradoListenerTest {
 
-    private lateinit var pagamentoRepository: PagamentoRepository
+    private lateinit var pagamentoGateway: PagamentoGateway
     private lateinit var pedidoRepository: PedidoRepository
     private lateinit var listener: AtualizarPedidoLinkPagamentoGeradoListener
 
     @BeforeEach
     fun setUp() {
-        pagamentoRepository = mockk(relaxed = true)
+        pagamentoGateway = mockk(relaxed = true)
         pedidoRepository = mockk(relaxed = true)
-        listener = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoRepository, pedidoRepository)
+        listener = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoRepository)
     }
 
     @Test
@@ -45,7 +44,7 @@ class AtualizarPedidoLinkPagamentoGeradoListenerTest {
         listener.onEvent(event)
 
         verify {
-            pagamentoRepository.insert(
+            pagamentoGateway.insert(
                 withArg {
                     assertEquals(pedido, it.pedido)
                     assertEquals(BigDecimal.TEN, it.valor)
@@ -98,7 +97,7 @@ class AtualizarPedidoLinkPagamentoGeradoListenerTest {
             listener.onEvent(event)
         }
 
-        verify(exactly = 0) { pagamentoRepository.insert(any()) }
+        verify(exactly = 0) { pagamentoGateway.insert(any()) }
         verify(exactly = 0) { pedidoRepository.save(any()) }
     }
 }

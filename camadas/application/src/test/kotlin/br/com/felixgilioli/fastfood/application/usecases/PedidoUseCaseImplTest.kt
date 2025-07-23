@@ -3,12 +3,12 @@ package br.com.felixgilioli.fastfood.application.usecases
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoCommand
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoItemCommand
 import br.com.felixgilioli.fastfood.application.commands.NovoPedidoCommand
+import br.com.felixgilioli.fastfood.domain.entities.*
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
 import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
-import br.com.felixgilioli.fastfood.application.usecases.impl.PedidoUseCaseImpl
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.domain.entities.Pedido

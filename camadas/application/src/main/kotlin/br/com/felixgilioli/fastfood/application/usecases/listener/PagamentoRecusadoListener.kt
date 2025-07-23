@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases.impl.listener
+package br.com.felixgilioli.fastfood.application.usecases.listener
 
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.EventListener

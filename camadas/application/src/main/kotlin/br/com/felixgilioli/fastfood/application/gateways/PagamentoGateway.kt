@@ -1,9 +1,9 @@
-package br.com.felixgilioli.fastfood.application.ports.driven
+package br.com.felixgilioli.fastfood.application.gateways
 
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
-import java.util.*
+import java.util.UUID
 
-interface PagamentoRepository {
+interface PagamentoGateway {
 
     fun insert(pagamento: Pagamento): Pagamento
 

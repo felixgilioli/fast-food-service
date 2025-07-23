@@ -1,14 +1,13 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
+import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
+import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
+import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
-import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
-import br.com.felixgilioli.fastfood.application.usecases.impl.PagamentoUseCaseImpl
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -20,7 +19,7 @@ import java.util.*
 
 class PagamentoUseCaseImplTest {
 
-    private lateinit var pagamentoRepository: PagamentoRepository
+    private lateinit var pagamentoGateway: PagamentoGateway
     private lateinit var eventPublisher: EventPublisher
     private lateinit var useCase: PagamentoUseCaseImpl
 
@@ -45,50 +44,40 @@ class PagamentoUseCaseImplTest {
 
     @BeforeEach
     fun setUp() {
-        pagamentoRepository = mockk()
+        pagamentoGateway = mockk()
         eventPublisher = mockk(relaxed = true)
-        useCase = PagamentoUseCaseImpl(pagamentoRepository, eventPublisher)
-    }
-
-    @Test
-    fun `deve retornar pagamento pelo pedido`() {
-        every { pagamentoRepository.findLastByPedidoId(pedidoId) } returns pagamento
-
-        val result = useCase.getPagamentoByPedido(pedidoId)
-
-        assertEquals(pagamento, result)
-        verify { pagamentoRepository.findLastByPedidoId(pedidoId) }
+        useCase = PagamentoUseCaseImpl(pagamentoGateway, eventPublisher)
     }
 
     @Test
     fun `deve aprovar pagamento e publicar evento`() {
-        every { pagamentoRepository.findById(pagamentoId) } returns pagamento
-        every { pagamentoRepository.insert(any()) } answers { firstArg() }
+        every { pagamentoGateway.findById(pagamentoId) } returns pagamento
+        every { pagamentoGateway.insert(any()) } answers { firstArg() }
         every { eventPublisher.publish(any()) } just Runs
 
         useCase.aprovarPagamento(pagamentoId)
 
-        verify { pagamentoRepository.findById(pagamentoId) }
-        verify { pagamentoRepository.insert(any()) }
+        verify { pagamentoGateway.findById(pagamentoId) }
+        verify { pagamentoGateway.insert(any()) }
         verify { eventPublisher.publish(match { it is PagamentoAprovadoEvent }) }
     }
 
     @Test
     fun `deve recusar pagamento e publicar evento`() {
-        every { pagamentoRepository.findById(pagamentoId) } returns pagamento
-        every { pagamentoRepository.insert(any()) } answers { firstArg() }
+        every { pagamentoGateway.findById(pagamentoId) } returns pagamento
+        every { pagamentoGateway.insert(any()) } answers { firstArg() }
         every { eventPublisher.publish(any()) } just Runs
 
         useCase.recusarPagamento(pagamentoId)
 
-        verify { pagamentoRepository.findById(pagamentoId) }
-        verify { pagamentoRepository.insert(any()) }
+        verify { pagamentoGateway.findById(pagamentoId) }
+        verify { pagamentoGateway.insert(any()) }
         verify { eventPublisher.publish(match { it is PagamentoRecusadoEvent }) }
     }
 
     @Test
     fun `deve lançar exceção se pagamento não encontrado`() {
-        every { pagamentoRepository.findById(pagamentoId) } returns null
+        every { pagamentoGateway.findById(pagamentoId) } returns null
 
         val ex = assertThrows(IllegalArgumentException::class.java) {
             useCase.aprovarPagamento(pagamentoId)

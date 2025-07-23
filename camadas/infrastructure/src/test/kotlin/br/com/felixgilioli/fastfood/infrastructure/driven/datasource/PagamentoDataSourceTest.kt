@@ -20,7 +20,7 @@ import java.util.*
 class PagamentoDataSourceTest {
 
     private val pagamentoORMRepository: PagamentoORMRepository = mockk()
-    private val pagamentoDataSource = PagamentoDataSource(pagamentoORMRepository)
+    private val pagamentoGatewayImpl = PagamentoGatewayImpl(pagamentoORMRepository)
 
     @Test
     fun inserePagamentoComSucesso() {
@@ -49,7 +49,7 @@ class PagamentoDataSourceTest {
         )
         every { pagamentoORMRepository.save(any()) } returns pagamentoORM
 
-        val resultado = pagamentoDataSource.insert(pagamento)
+        val resultado = pagamentoGatewayImpl.insert(pagamento)
 
         assertEquals(pagamento.id, resultado.id)
         assertEquals(pagamento.pedido.id, resultado.pedido.id)
@@ -73,7 +73,7 @@ class PagamentoDataSourceTest {
         )
         every { pagamentoORMRepository.findByIdOrNull(pagamentoId) } returns pagamentoORM
 
-        val resultado = pagamentoDataSource.findById(pagamentoId)
+        val resultado = pagamentoGatewayImpl.findById(pagamentoId)
 
         assertEquals(pagamentoORM.id, resultado?.id)
         assertEquals(pagamentoORM.pedido.id, resultado?.pedido?.id)
@@ -85,7 +85,7 @@ class PagamentoDataSourceTest {
         val pagamentoId = UUID.randomUUID()
         every { pagamentoORMRepository.findByIdOrNull(pagamentoId) } returns null
 
-        val resultado = pagamentoDataSource.findById(pagamentoId)
+        val resultado = pagamentoGatewayImpl.findById(pagamentoId)
 
         assertNull(resultado)
     }
@@ -107,7 +107,7 @@ class PagamentoDataSourceTest {
         )
         every { pagamentoORMRepository.findFirstByPedidoIdOrderByDataDesc(pedidoId) } returns pagamentoORM
 
-        val resultado = pagamentoDataSource.findLastByPedidoId(pedidoId)
+        val resultado = pagamentoGatewayImpl.findLastByPedidoId(pedidoId)
 
         assertEquals(pagamentoORM.id, resultado?.id)
         assertEquals(pagamentoORM.pedido.id, resultado?.pedido?.id)
@@ -119,7 +119,7 @@ class PagamentoDataSourceTest {
         val pedidoId = UUID.randomUUID()
         every { pagamentoORMRepository.findFirstByPedidoIdOrderByDataDesc(pedidoId) } returns null
 
-        val resultado = pagamentoDataSource.findLastByPedidoId(pedidoId)
+        val resultado = pagamentoGatewayImpl.findLastByPedidoId(pedidoId)
 
         assertNull(resultado)
     }

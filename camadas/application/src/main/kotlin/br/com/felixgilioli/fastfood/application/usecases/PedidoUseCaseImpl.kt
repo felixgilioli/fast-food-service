@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases.impl
+package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoCommand
 import br.com.felixgilioli.fastfood.application.commands.NovoPedidoCommand

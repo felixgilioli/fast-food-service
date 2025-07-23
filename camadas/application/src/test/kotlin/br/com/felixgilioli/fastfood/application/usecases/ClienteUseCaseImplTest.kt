@@ -3,7 +3,6 @@ package br.com.felixgilioli.fastfood.application.usecases
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.application.exceptions.ClienteAlreadyExistsException
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.usecases.impl.CadastrarClienteUseCaseImpl
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -16,12 +15,12 @@ import java.util.*
 class ClienteUseCaseImplTest {
 
     private lateinit var clienteGateway: ClienteGateway
-    private lateinit var clienteUseCase: CadastrarClienteUseCaseImpl
+    private lateinit var clienteUseCase: CadastrarClienteUseCase
 
     @BeforeEach
     fun setUp() {
         clienteGateway = mockk()
-        clienteUseCase = CadastrarClienteUseCaseImpl(clienteGateway)
+        clienteUseCase = CadastrarClienteUseCase(clienteGateway)
     }
 
     @Test

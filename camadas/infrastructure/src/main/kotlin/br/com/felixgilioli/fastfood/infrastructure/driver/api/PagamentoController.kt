@@ -1,8 +1,9 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
+import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.PagamentoResponse
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
-import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -12,7 +13,10 @@ import java.util.*
 @RestController
 @RequestMapping("/v1/pagamento")
 @Tag(name = "Pagamento API", description = "Gerenciamento de pagamentos")
-class PagamentoController(private val pagamentoUseCase: PagamentoUseCase) {
+class PagamentoController(
+    private val pagamentoUseCase: PagamentoUseCase,
+    private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase
+) {
 
     @GetMapping
     @Operation(
@@ -20,7 +24,7 @@ class PagamentoController(private val pagamentoUseCase: PagamentoUseCase) {
         description = "Recupera o pagamento associado a um pedido específico"
     )
     fun getPagamento(@RequestParam pedidoId: String): ResponseEntity<PagamentoResponse> =
-        pagamentoUseCase.getPagamentoByPedido(UUID.fromString(pedidoId))?.toResponse()
+        buscarPagamentoByPedidoUseCase.execute(UUID.fromString(pedidoId))?.toResponse()
             ?.let { ResponseEntity.ok(it) }
             ?: ResponseEntity.notFound().build()
 

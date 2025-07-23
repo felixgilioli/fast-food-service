@@ -1,10 +1,11 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
+import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -17,7 +18,8 @@ import java.util.*
 class PagamentoControllerTest {
 
     private val pagamentoUseCase: PagamentoUseCase = mockk()
-    private val pagamentoController = PagamentoController(pagamentoUseCase)
+    private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase = mockk()
+    private val pagamentoController = PagamentoController(pagamentoUseCase, buscarPagamentoByPedidoUseCase)
 
     @Test
     fun retornaPagamentoQuandoPedidoIdValido() {
@@ -33,7 +35,7 @@ class PagamentoControllerTest {
             status = PagamentoStatus.LINK_PAGAMENTO_GERADO,
             link = "http://link.com"
         )
-        every { pagamentoUseCase.getPagamentoByPedido(UUID.fromString(pedidoId)) } returns pagamento
+        every { buscarPagamentoByPedidoUseCase.execute(UUID.fromString(pedidoId)) } returns pagamento
 
         val response = pagamentoController.getPagamento(pedidoId)
 
@@ -45,7 +47,7 @@ class PagamentoControllerTest {
     @Test
     fun retornaNotFoundQuandoPedidoIdNaoExiste() {
         val pedidoId = UUID.randomUUID().toString()
-        every { pagamentoUseCase.getPagamentoByPedido(UUID.fromString(pedidoId)) } returns null
+        every { buscarPagamentoByPedidoUseCase.execute(UUID.fromString(pedidoId)) } returns null
 
         val response = pagamentoController.getPagamento(pedidoId)
 

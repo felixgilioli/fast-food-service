@@ -1,11 +1,8 @@
 package br.com.felixgilioli.fastfood.application.ports.driver
 
-import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import java.util.*
 
 interface PagamentoUseCase {
-
-    fun getPagamentoByPedido(pedidoId: UUID): Pagamento?
 
     fun aprovarPagamento(pagamentoId: UUID)
 
