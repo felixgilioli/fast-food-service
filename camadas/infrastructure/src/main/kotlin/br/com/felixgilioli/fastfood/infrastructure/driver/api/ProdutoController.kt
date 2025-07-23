@@ -2,6 +2,7 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
+import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutosPelaCategoriaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
@@ -19,7 +20,8 @@ import java.util.*
 class ProdutoController(
     private val produtoUseCase: ProdutoUseCase,
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase,
-    private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase
+    private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase,
+    private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase
 ) {
 
     @GetMapping
@@ -61,7 +63,7 @@ class ProdutoController(
         description = "Retorna todos os produtos pertencentes a uma categoria específica."
     )
     fun findByCategoriaId(@PathVariable categoriaId: String) =
-        produtoUseCase.findByCategoriaId(UUID.fromString(categoriaId))
+        buscarProdutosPelaCategoriaUseCase.execute(UUID.fromString(categoriaId))
             .map { it.toResponse() }
 
     @PostMapping

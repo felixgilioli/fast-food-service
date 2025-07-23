@@ -25,31 +25,6 @@ class ProdutoUseCaseImplTest {
     }
 
     @Test
-    fun retornaProdutosPorCategoriaIdComSucesso() {
-        val categoriaId = UUID.randomUUID()
-        val produtos = listOf(
-            Produto(
-                id = UUID.randomUUID(),
-                nome = "Produto 1",
-                preco = BigDecimal.TEN,
-                categoria = Categoria(descricao = "Teste"),
-            ),
-            Produto(
-                id = UUID.randomUUID(),
-                nome = "Produto 2",
-                preco = BigDecimal.TEN,
-                categoria = Categoria(descricao = "Teste"),
-            )
-        )
-        every { produtoGateway.findByCategoriaId(categoriaId) } returns produtos
-
-        val resultado = produtoUseCase.findByCategoriaId(categoriaId)
-
-        assertEquals(2, resultado.size)
-        verify { produtoGateway.findByCategoriaId(categoriaId) }
-    }
-
-    @Test
     fun criaProdutoComSucesso() {
         val produtoCommand =
             ProdutoCommand(nome = "Produto Novo", preco = BigDecimal.TEN, categoriaId = UUID.randomUUID())

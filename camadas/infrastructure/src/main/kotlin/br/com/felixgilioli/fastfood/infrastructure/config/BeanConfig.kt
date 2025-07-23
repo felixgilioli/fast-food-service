@@ -43,6 +43,10 @@ class BeanConfig {
         BuscarProdutoPeloIdUseCase(produtoGateway)
 
     @Bean
+    fun buscarProdutosPelaCategoriaUseCase(produtoGateway: ProdutoGateway) =
+        BuscarProdutosPelaCategoriaUseCase(produtoGateway)
+
+    @Bean
     fun pedidoUseCase(
         pedidoRepository: PedidoRepository,
         clienteGateway: ClienteGateway,
