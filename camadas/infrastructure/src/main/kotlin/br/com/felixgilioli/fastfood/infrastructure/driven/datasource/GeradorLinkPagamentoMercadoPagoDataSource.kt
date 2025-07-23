@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
-
 @Component
 class GeradorLinkPagamentoMercadoPagoDataSource(
     @Value("\${mercadopago.access-token}") private val accessToken: String,

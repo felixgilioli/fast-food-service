@@ -1,7 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
-import br.com.felixgilioli.fastfood.application.entities.Produto
+import br.com.felixgilioli.fastfood.domain.entities.Produto
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.util.*

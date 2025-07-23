@@ -3,7 +3,7 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.ProdutosPorCategoriaResponse
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
-import br.com.felixgilioli.fastfood.application.entities.Produto
+import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

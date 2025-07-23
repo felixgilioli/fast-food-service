@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response
 
-import br.com.felixgilioli.fastfood.application.entities.Produto
+import br.com.felixgilioli.fastfood.domain.entities.Produto
 import java.math.BigDecimal
 
 data class ProdutoResponse(

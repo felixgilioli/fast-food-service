@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response
 
-import br.com.felixgilioli.fastfood.application.entities.Cliente
-import br.com.felixgilioli.fastfood.application.entities.Pedido
-import br.com.felixgilioli.fastfood.application.entities.StatusPedido
+import br.com.felixgilioli.fastfood.domain.entities.Cliente
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*

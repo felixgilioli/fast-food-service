@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":camadas:domain"))
+    api(project(":camadas:domain"))
 }

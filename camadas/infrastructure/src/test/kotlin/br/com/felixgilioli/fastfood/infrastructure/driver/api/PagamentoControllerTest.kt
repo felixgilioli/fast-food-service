@@ -1,9 +1,9 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.entities.Pagamento
-import br.com.felixgilioli.fastfood.application.entities.PagamentoStatus
-import br.com.felixgilioli.fastfood.application.entities.Pedido
-import br.com.felixgilioli.fastfood.application.entities.StatusPedido
+import br.com.felixgilioli.fastfood.domain.entities.Pagamento
+import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
 import io.mockk.every
 import io.mockk.mockk

@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm
 
-import br.com.felixgilioli.fastfood.application.entities.Cliente
+import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import jakarta.persistence.*
 import java.util.*
 

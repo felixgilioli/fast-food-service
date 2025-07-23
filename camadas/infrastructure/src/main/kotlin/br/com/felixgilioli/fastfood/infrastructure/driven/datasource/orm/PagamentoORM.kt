@@ -1,7 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm
 
-import br.com.felixgilioli.fastfood.application.entities.Pagamento
-import br.com.felixgilioli.fastfood.application.entities.PagamentoStatus
+import br.com.felixgilioli.fastfood.domain.entities.Pagamento
+import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDateTime

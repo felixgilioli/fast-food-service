@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm
 
-import br.com.felixgilioli.fastfood.application.entities.PedidoItem
+import br.com.felixgilioli.fastfood.domain.entities.PedidoItem
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.util.*

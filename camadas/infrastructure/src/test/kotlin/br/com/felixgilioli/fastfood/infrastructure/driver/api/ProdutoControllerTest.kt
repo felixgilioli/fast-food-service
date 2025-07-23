@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
-import br.com.felixgilioli.fastfood.application.entities.Categoria
-import br.com.felixgilioli.fastfood.application.entities.Produto
+import br.com.felixgilioli.fastfood.domain.entities.Categoria
+import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
 import io.mockk.every
 import io.mockk.mockk

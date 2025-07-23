@@ -16,7 +16,7 @@ class SolicitarPagamentoListener(
             throw IllegalArgumentException("O pedido não possui valor total definido.")
         }
 
-        LinkPagamentoCriadoEvent(event.pedido, geradorLinkPagamento.gerarLink(event.pedido.total))
+        LinkPagamentoCriadoEvent(event.pedido, geradorLinkPagamento.gerarLink(event.pedido.total!!))
             .let(eventPublisher::publish)
     }
 }

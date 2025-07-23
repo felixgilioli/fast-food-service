@@ -2,8 +2,8 @@ package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
 import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.PedidoORMRepository
 import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.toOrm
-import br.com.felixgilioli.fastfood.application.entities.Pedido
-import br.com.felixgilioli.fastfood.application.entities.StatusPedido
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

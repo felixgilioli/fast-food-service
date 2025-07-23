@@ -1,7 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository
 
 import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.PedidoORM
-import br.com.felixgilioli.fastfood.application.entities.StatusPedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

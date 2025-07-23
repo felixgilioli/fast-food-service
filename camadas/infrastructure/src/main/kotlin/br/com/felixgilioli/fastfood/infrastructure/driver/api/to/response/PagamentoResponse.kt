@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response
 
-import br.com.felixgilioli.fastfood.application.entities.Pagamento
+import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

@@ -3,8 +3,8 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoItemRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
-import br.com.felixgilioli.fastfood.application.entities.Pedido
-import br.com.felixgilioli.fastfood.application.entities.StatusPedido
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import io.mockk.every
 import io.mockk.mockk
