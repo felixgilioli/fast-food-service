@@ -4,6 +4,7 @@ import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.application.ports.driven.ProdutoRepository
+import br.com.felixgilioli.fastfood.application.usecases.impl.ProdutoUseCaseImpl
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

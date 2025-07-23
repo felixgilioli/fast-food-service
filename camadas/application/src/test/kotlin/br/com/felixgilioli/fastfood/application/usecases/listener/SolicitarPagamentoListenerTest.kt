@@ -6,6 +6,7 @@ import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.SolicitarPagamentoListener
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

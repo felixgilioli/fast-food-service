@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases.listener
+package br.com.felixgilioli.fastfood.application.usecases.impl.listener
 
 import br.com.felixgilioli.fastfood.application.events.EventListener
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent

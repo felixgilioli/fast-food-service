@@ -1,9 +1,9 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.impl
 
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.application.exceptions.ClienteAlreadyExistsException
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.ports.driver.CadastrarClienteUseCase
+import br.com.felixgilioli.fastfood.application.usecases.CadastrarClienteUseCase
 
 class CadastrarClienteUseCaseImpl(private val clienteGateway: ClienteGateway) : CadastrarClienteUseCase {
 

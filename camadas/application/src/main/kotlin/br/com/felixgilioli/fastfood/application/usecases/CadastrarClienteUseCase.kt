@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.ports.driver
+package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 

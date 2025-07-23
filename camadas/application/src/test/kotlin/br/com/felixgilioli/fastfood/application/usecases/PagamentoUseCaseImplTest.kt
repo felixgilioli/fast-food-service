@@ -8,6 +8,7 @@ import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
 import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
+import br.com.felixgilioli.fastfood.application.usecases.impl.PagamentoUseCaseImpl
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

@@ -6,6 +6,7 @@ import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.ports.driven.PagamentoRepository
 import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals

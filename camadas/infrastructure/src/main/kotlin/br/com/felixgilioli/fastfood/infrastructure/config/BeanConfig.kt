@@ -2,14 +2,14 @@ package br.com.felixgilioli.fastfood.infrastructure.config
 
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.*
-import br.com.felixgilioli.fastfood.application.usecases.CadastrarClienteUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.PagamentoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.PedidoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.ProdutoUseCaseImpl
-import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
-import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
-import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoRecusadoListener
-import br.com.felixgilioli.fastfood.application.usecases.listener.SolicitarPagamentoListener
+import br.com.felixgilioli.fastfood.application.usecases.impl.CadastrarClienteUseCaseImpl
+import br.com.felixgilioli.fastfood.application.usecases.impl.PagamentoUseCaseImpl
+import br.com.felixgilioli.fastfood.application.usecases.impl.PedidoUseCaseImpl
+import br.com.felixgilioli.fastfood.application.usecases.impl.ProdutoUseCaseImpl
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.AtualizarPedidoLinkPagamentoGeradoListener
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.PagamentoAprovadoListener
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.PagamentoRecusadoListener
+import br.com.felixgilioli.fastfood.application.usecases.impl.listener.SolicitarPagamentoListener
 import com.mercadopago.client.preference.PreferenceClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

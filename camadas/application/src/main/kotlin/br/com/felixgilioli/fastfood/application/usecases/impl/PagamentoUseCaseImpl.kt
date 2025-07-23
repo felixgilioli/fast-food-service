@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.impl
 
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
