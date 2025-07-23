@@ -51,6 +51,10 @@ class BeanConfig {
         CadastrarProdutoUseCase(produtoGateway)
 
     @Bean
+    fun atualizarProdutoUseCase(produtoGateway: ProdutoGateway) =
+        AtualizarProdutoUseCase(produtoGateway)
+
+    @Bean
     fun pedidoUseCase(
         pedidoRepository: PedidoRepository,
         clienteGateway: ClienteGateway,

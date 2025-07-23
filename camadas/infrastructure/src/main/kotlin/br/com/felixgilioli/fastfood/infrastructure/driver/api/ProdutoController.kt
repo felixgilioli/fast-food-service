@@ -1,10 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutosPelaCategoriaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
-import br.com.felixgilioli.fastfood.application.usecases.CadastrarProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.*
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.ProdutosPorCategoriaResponse
@@ -19,11 +15,11 @@ import java.util.*
 @RequestMapping("/v1/produto")
 @Tag(name = "Produto API", description = "Gerenciamento de produtos")
 class ProdutoController(
-    private val produtoUseCase: ProdutoUseCase,
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase,
     private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase,
     private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase,
-    private val cadastrarProdutoUseCase: CadastrarProdutoUseCase
+    private val cadastrarProdutoUseCase: CadastrarProdutoUseCase,
+    private val atualizarProdutoUseCase: AtualizarProdutoUseCase
 ) {
 
     @GetMapping
@@ -82,5 +78,5 @@ class ProdutoController(
         description = "Atualiza as informações de um produto existente com base no ID fornecido."
     )
     fun update(@PathVariable id: String, @RequestBody produto: ProdutoRequest) =
-        produtoUseCase.update(produto.toCommand(id)).toResponse()
+        atualizarProdutoUseCase.execute(produto.toCommand(id)).toResponse()
 }

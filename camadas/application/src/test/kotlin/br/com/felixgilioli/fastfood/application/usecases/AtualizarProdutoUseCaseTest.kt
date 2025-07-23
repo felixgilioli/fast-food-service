@@ -13,15 +13,15 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.*
 
-class ProdutoUseCaseImplTest {
+class AtualizarProdutoUseCaseTest {
 
     private lateinit var produtoGateway: ProdutoGateway
-    private lateinit var produtoUseCase: ProdutoUseCaseImpl
+    private lateinit var useCase: AtualizarProdutoUseCase
 
     @BeforeEach
     fun setUp() {
         produtoGateway = mockk()
-        produtoUseCase = ProdutoUseCaseImpl(produtoGateway)
+        useCase = AtualizarProdutoUseCase(produtoGateway)
     }
 
     @Test
@@ -36,9 +36,10 @@ class ProdutoUseCaseImplTest {
         )
         every { produtoGateway.save(produtoCommand) } returns produto
 
-        val resultado = produtoUseCase.update(produtoCommand)
+        val resultado = useCase.execute(produtoCommand)
 
         assertEquals(produto.nome, resultado.nome)
         verify { produtoGateway.save(produtoCommand) }
     }
+
 }

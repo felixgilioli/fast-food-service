@@ -1,10 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.ProdutoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutoPeloIdUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarProdutosPelaCategoriaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarTodosProdutosUseCase
-import br.com.felixgilioli.fastfood.application.usecases.CadastrarProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.*
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
@@ -19,17 +15,18 @@ import java.util.*
 
 class ProdutoControllerTest {
 
-    private val produtoUseCase: ProdutoUseCase = mockk()
     private val buscarTodosProdutosUseCase: BuscarTodosProdutosUseCase = mockk()
     private val buscarProdutoPeloIdUseCase: BuscarProdutoPeloIdUseCase = mockk()
     private val buscarProdutosPelaCategoriaUseCase: BuscarProdutosPelaCategoriaUseCase = mockk()
     private val cadastrarProdutoUseCase: CadastrarProdutoUseCase = mockk()
+    private val atualizarProdutoUseCase: AtualizarProdutoUseCase = mockk()
+
     private val produtoController = ProdutoController(
-        produtoUseCase,
         buscarTodosProdutosUseCase,
         buscarProdutoPeloIdUseCase,
         buscarProdutosPelaCategoriaUseCase,
-        cadastrarProdutoUseCase
+        cadastrarProdutoUseCase,
+        atualizarProdutoUseCase
     )
 
     @Test
@@ -120,7 +117,7 @@ class ProdutoControllerTest {
             categoria = Categoria(UUID.fromString(request.categoriaId), "Categoria Atualizada"),
             preco = request.preco
         )
-        every { produtoUseCase.update(any()) } returns produto
+        every { atualizarProdutoUseCase.execute(any()) } returns produto
 
         val response = produtoController.update(produtoId.toString(), request)
 
