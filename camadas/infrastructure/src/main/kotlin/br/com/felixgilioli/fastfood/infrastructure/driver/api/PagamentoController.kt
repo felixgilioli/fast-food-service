@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.PagamentoResponse
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -15,9 +15,9 @@ import java.util.*
 @RequestMapping("/v1/pagamento")
 @Tag(name = "Pagamento API", description = "Gerenciamento de pagamentos")
 class PagamentoController(
-    private val pagamentoUseCase: PagamentoUseCase,
     private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase,
-    private val aprovarPagamentoUseCase: AprovarPagamentoUseCase
+    private val aprovarPagamentoUseCase: AprovarPagamentoUseCase,
+    private val recusarPagamentoUseCase: RecusarPagamentoUseCase
 ) {
 
     @GetMapping
@@ -39,6 +39,6 @@ class PagamentoController(
     @PostMapping("/webhook/recusar")
     @Operation(summary = "Recusar pagamento via webhook", description = "Recusa um pagamento recebido via webhook")
     fun recusarPagamento(@RequestParam pagamentoId: String): ResponseEntity<PagamentoResponse> =
-        pagamentoUseCase.recusarPagamento(UUID.fromString(pagamentoId))
+        recusarPagamentoUseCase.execute(UUID.fromString(pagamentoId))
             .let { ResponseEntity.noContent().build() }
 }

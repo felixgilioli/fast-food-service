@@ -31,6 +31,10 @@ class BeanConfig {
         AprovarPagamentoUseCase(pagamentoGateway, eventPublisher)
 
     @Bean
+    fun recusarPagamentoUseCase(pagamentoGateway: PagamentoGateway, eventPublisher: EventPublisher) =
+        RecusarPagamentoUseCase(pagamentoGateway, eventPublisher)
+
+    @Bean
     fun pedidoUseCase(
         pedidoRepository: PedidoRepository,
         clienteGateway: ClienteGateway,
@@ -52,10 +56,6 @@ class BeanConfig {
         pagamentoGateway: PagamentoGateway,
         pedidoRepository: PedidoRepository
     ) = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoRepository)
-
-    @Bean
-    fun pagamentoUseCase(pagamentoGateway: PagamentoGateway, eventPublisher: EventPublisher) =
-        PagamentoUseCaseImpl(pagamentoGateway, eventPublisher)
 
     @Bean
     fun pagamentoAprovadoListener(pedidoRepository: PedidoRepository) = PagamentoAprovadoListener(pedidoRepository)

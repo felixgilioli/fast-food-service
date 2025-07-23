@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.PagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
@@ -18,11 +18,11 @@ import java.util.*
 
 class PagamentoControllerTest {
 
-    private val pagamentoUseCase: PagamentoUseCase = mockk()
     private val buscarPagamentoByPedidoUseCase: BuscarPagamentoByPedidoUseCase = mockk()
     private val aprovarPagamentoUseCase: AprovarPagamentoUseCase = mockk()
+    private val recusarPagamentoUseCase: RecusarPagamentoUseCase = mockk()
     private val pagamentoController =
-        PagamentoController(pagamentoUseCase, buscarPagamentoByPedidoUseCase, aprovarPagamentoUseCase)
+        PagamentoController(buscarPagamentoByPedidoUseCase, aprovarPagamentoUseCase, recusarPagamentoUseCase)
 
     @Test
     fun retornaPagamentoQuandoPedidoIdValido() {
@@ -72,7 +72,7 @@ class PagamentoControllerTest {
     @Test
     fun recusaPagamentoComSucesso() {
         val pagamentoId = UUID.randomUUID().toString()
-        every { pagamentoUseCase.recusarPagamento(UUID.fromString(pagamentoId)) } returns Unit
+        every { recusarPagamentoUseCase.execute(UUID.fromString(pagamentoId)) } returns Unit
 
         val response = pagamentoController.recusarPagamento(pagamentoId)
 

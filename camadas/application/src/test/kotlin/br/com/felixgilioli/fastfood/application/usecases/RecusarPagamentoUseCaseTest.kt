@@ -14,11 +14,11 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*
 
-class PagamentoUseCaseImplTest {
+class RecusarPagamentoUseCaseTest {
 
     private lateinit var pagamentoGateway: PagamentoGateway
     private lateinit var eventPublisher: EventPublisher
-    private lateinit var useCase: PagamentoUseCaseImpl
+    private lateinit var useCase: RecusarPagamentoUseCase
 
     private val pedidoId = UUID.randomUUID()
     private val pagamentoId = UUID.randomUUID()
@@ -43,7 +43,7 @@ class PagamentoUseCaseImplTest {
     fun setUp() {
         pagamentoGateway = mockk()
         eventPublisher = mockk(relaxed = true)
-        useCase = PagamentoUseCaseImpl(pagamentoGateway, eventPublisher)
+        useCase = RecusarPagamentoUseCase(pagamentoGateway, eventPublisher)
     }
 
     @Test
@@ -52,7 +52,7 @@ class PagamentoUseCaseImplTest {
         every { pagamentoGateway.insert(any()) } answers { firstArg() }
         every { eventPublisher.publish(any()) } just Runs
 
-        useCase.recusarPagamento(pagamentoId)
+        useCase.execute(pagamentoId)
 
         verify { pagamentoGateway.findById(pagamentoId) }
         verify { pagamentoGateway.insert(any()) }
