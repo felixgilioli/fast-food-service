@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
@@ -19,7 +20,8 @@ class PedidoControllerTest {
 
     private val pedidoUseCase: PedidoUseCase = mockk()
     private val novoPedidoUseCase: NovoPedidoUseCase = mockk()
-    private val pedidoController = PedidoController(pedidoUseCase, novoPedidoUseCase)
+    private val confirmarPedidoUseCase: ConfirmarPedidoUseCase = mockk()
+    private val pedidoController = PedidoController(pedidoUseCase, novoPedidoUseCase, confirmarPedidoUseCase)
 
     @Test
     fun criaNovoPedidoComSucesso() {
@@ -58,7 +60,7 @@ class PedidoControllerTest {
                 clienteNome = "joaozinho",
                 status = StatusPedido.PEDIDO_CONFIRMADO
             )
-        every { pedidoUseCase.confirmarPedido(any()) } returns pedido
+        every { confirmarPedidoUseCase.execute(any()) } returns pedido
 
         val response = pedidoController.confirmarPedido(request)
 

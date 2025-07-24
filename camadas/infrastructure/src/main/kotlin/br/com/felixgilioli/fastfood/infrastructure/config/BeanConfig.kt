@@ -60,10 +60,15 @@ class BeanConfig {
 
     @Bean
     fun pedidoUseCase(
+        pedidoGateway: PedidoGateway
+    ) = PedidoUseCaseImpl(pedidoGateway)
+
+    @Bean
+    fun confirmarPedidoUseCase(
         pedidoGateway: PedidoGateway,
         produtoGateway: ProdutoGateway,
         eventPublisher: EventPublisher
-    ) = PedidoUseCaseImpl(pedidoGateway, produtoGateway, eventPublisher)
+    ) = ConfirmarPedidoUseCase(pedidoGateway, produtoGateway, eventPublisher)
 
     @Bean
     fun solicitarPagamentoUseCase(

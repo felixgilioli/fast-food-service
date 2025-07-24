@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
@@ -16,7 +17,8 @@ import java.util.*
 @Tag(name = "Pedido API", description = "Gerenciamento de pedidos")
 class PedidoController(
     private val pedidoUseCase: PedidoUseCase,
-    private val novoPedidoUseCase: NovoPedidoUseCase
+    private val novoPedidoUseCase: NovoPedidoUseCase,
+    private val confirmarPedidoUseCase: ConfirmarPedidoUseCase
 ) {
 
     @PostMapping("/novo")
@@ -32,8 +34,8 @@ class PedidoController(
         summary = "Confirmar pedido",
         description = "Confirma um pedido com os itens especificados."
     )
-    fun confirmarPedido(@RequestBody request: ConfirmarPedidoRequest) = pedidoUseCase
-        .confirmarPedido(request.toCommand()).toResponse()
+    fun confirmarPedido(@RequestBody request: ConfirmarPedidoRequest) = confirmarPedidoUseCase
+        .execute(request.toCommand()).toResponse()
 
     @GetMapping("/aguardando-confirmacao-cozinha")
     @Operation(
