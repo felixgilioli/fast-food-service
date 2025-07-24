@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driven.event
+package br.com.felixgilioli.fastfood.infrastructure.events
 
 import br.com.felixgilioli.fastfood.application.events.Event
 import br.com.felixgilioli.fastfood.application.events.EventListener
