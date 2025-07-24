@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.pedido
 
 import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
@@ -11,15 +11,15 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
-class PedidoUseCaseImplTest {
+class BuscarPedidosAguardandoConfirmacaoCozinhaUseCaseTest {
 
     private lateinit var pedidoGateway: PedidoGateway
-    private lateinit var pedidoUseCase: PedidoUseCaseImpl
+    private lateinit var useCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
 
     @BeforeEach
     fun setUp() {
         pedidoGateway = mockk()
-        pedidoUseCase = PedidoUseCaseImpl(pedidoGateway)
+        useCase = BuscarPedidosAguardandoConfirmacaoCozinhaUseCase(pedidoGateway)
     }
 
     @Test
@@ -30,7 +30,7 @@ class PedidoUseCaseImplTest {
         )
         every { pedidoGateway.findByStatus(StatusPedido.PAGAMENTO_APROVADO) } returns pedidos
 
-        val resultado = pedidoUseCase.findPedidosAguardandoConfirmacaoCozinha()
+        val resultado = useCase.execute()
 
         assertEquals(2, resultado.size)
         assertEquals(StatusPedido.PAGAMENTO_APROVADO, resultado[0].status)

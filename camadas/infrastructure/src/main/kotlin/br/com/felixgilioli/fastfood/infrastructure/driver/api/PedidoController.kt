@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
@@ -18,7 +19,8 @@ import java.util.*
 class PedidoController(
     private val pedidoUseCase: PedidoUseCase,
     private val novoPedidoUseCase: NovoPedidoUseCase,
-    private val confirmarPedidoUseCase: ConfirmarPedidoUseCase
+    private val confirmarPedidoUseCase: ConfirmarPedidoUseCase,
+    private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
 ) {
 
     @PostMapping("/novo")
@@ -42,8 +44,8 @@ class PedidoController(
         summary = "Pedidos aguardando confirmação da cozinha",
         description = "Lista todos os pedidos que estão aguardando confirmação na cozinha."
     )
-    fun findPedidosAguardandoConfirmacaoCozinha() = pedidoUseCase
-        .findPedidosAguardandoConfirmacaoCozinha().map { it.toResponse() }
+    fun findPedidosAguardandoConfirmacaoCozinha() = buscarPedidosAguardandoConfirmacaoCozinhaUseCase.execute()
+        .map { it.toResponse() }
 
     @PutMapping("/{pedidoId}/confirmar-cozinha")
     @Operation(

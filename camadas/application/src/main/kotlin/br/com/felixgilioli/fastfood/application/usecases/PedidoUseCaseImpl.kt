@@ -9,10 +9,6 @@ class PedidoUseCaseImpl(
     private val pedidoGateway: PedidoGateway
 ) : PedidoUseCase {
 
-    override fun findPedidosAguardandoConfirmacaoCozinha() =
-        pedidoGateway.findByStatus(StatusPedido.PAGAMENTO_APROVADO)
-            .sortedBy { it.dataInicio }
-
     override fun confirmarPedidoCozinha(pedidoId: UUID) = pedidoGateway.findById(pedidoId)
         ?.let { pedidoGateway.save(it.copy(status = StatusPedido.EM_PREPARACAO)) }
         ?: throw IllegalArgumentException("Pedido não encontrado")

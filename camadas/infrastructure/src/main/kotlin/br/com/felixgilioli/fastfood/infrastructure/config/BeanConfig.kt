@@ -6,7 +6,7 @@ import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
-import br.com.felixgilioli.fastfood.application.usecases.*
+import br.com.felixgilioli.fastfood.application.usecases.PedidoUseCaseImpl
 import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
@@ -15,13 +15,10 @@ import br.com.felixgilioli.fastfood.application.usecases.listener.SolicitarPagam
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.AtualizarProdutoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutoPeloIdUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutosPelaCategoriaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarTodosProdutosUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.CadastrarProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.*
 import com.mercadopago.client.preference.PreferenceClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -68,6 +65,10 @@ class BeanConfig {
     @Bean
     fun novoPedidoUseCase(clienteGateway: ClienteGateway, pedidoGateway: PedidoGateway) =
         NovoPedidoUseCase(clienteGateway, pedidoGateway)
+
+    @Bean
+    fun buscarPedidosAguardandoConfirmacaoCozinhaUseCase(pedidoGateway: PedidoGateway) =
+        BuscarPedidosAguardandoConfirmacaoCozinhaUseCase(pedidoGateway)
 
     @Bean
     fun pedidoUseCase(
