@@ -1,5 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
+import br.com.felixgilioli.fastfood.infrastructure.gateways.GeradorLinkPagamentoMercadoPago
 import com.mercadopago.client.preference.PreferenceClient
 import com.mercadopago.client.preference.PreferenceRequest
 import com.mercadopago.resources.preference.Preference
@@ -13,7 +14,7 @@ import java.math.BigDecimal
 class GeradorLinkPagamentoMercadoPagoDataSourceTest {
 
     private val preferenceClient: PreferenceClient = mockk()
-    private val geradorLinkPagamento = GeradorLinkPagamentoMercadoPagoDataSource("fake-access-token", preferenceClient)
+    private val geradorLinkPagamento = GeradorLinkPagamentoMercadoPago("fake-access-token", preferenceClient)
 
     @Test
     fun retornaLinkPagamentoQuandoRequisicaoBemSucedida() {

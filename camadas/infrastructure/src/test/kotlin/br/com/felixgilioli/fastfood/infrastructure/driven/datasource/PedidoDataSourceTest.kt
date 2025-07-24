@@ -1,9 +1,10 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.PedidoORM
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.PedidoORMRepository
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
+import br.com.felixgilioli.fastfood.infrastructure.gateways.PedidoGatewayImpl
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.PedidoORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PedidoORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -16,7 +17,7 @@ import java.util.*
 class PedidoDataSourceTest {
 
     private val pedidoORMRepository: PedidoORMRepository = mockk()
-    private val pedidoDataSource = PedidoDataSource(pedidoORMRepository)
+    private val pedidoDataSource = PedidoGatewayImpl(pedidoORMRepository)
 
     @Test
     fun retornaPedidoQuandoIdExiste() {

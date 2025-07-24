@@ -1,12 +1,14 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.PagamentoORM
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.PedidoORM
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.PagamentoORMRepository
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
+import br.com.felixgilioli.fastfood.infrastructure.gateways.GeradorLinkPagamentoMercadoPago
+import br.com.felixgilioli.fastfood.infrastructure.gateways.PagamentoGatewayImpl
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.PagamentoORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.PedidoORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PagamentoORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -20,7 +22,8 @@ import java.util.*
 class PagamentoDataSourceTest {
 
     private val pagamentoORMRepository: PagamentoORMRepository = mockk()
-    private val pagamentoGatewayImpl = PagamentoGatewayImpl(pagamentoORMRepository)
+    private val geradorLinkPagamentoMercadoPago: GeradorLinkPagamentoMercadoPago = mockk()
+    private val pagamentoGatewayImpl = PagamentoGatewayImpl(pagamentoORMRepository, geradorLinkPagamentoMercadoPago)
 
     @Test
     fun inserePagamentoComSucesso() {

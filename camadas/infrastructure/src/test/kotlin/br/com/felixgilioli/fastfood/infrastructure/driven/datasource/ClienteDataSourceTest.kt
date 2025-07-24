@@ -1,8 +1,9 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.ClienteORM
-import br.com.felixgilioli.fastfood.infrastructure.driven.datasource.orm.repository.ClienteORMRepository
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
+import br.com.felixgilioli.fastfood.infrastructure.gateways.ClienteGatewayImpl
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.ClienteORM
+import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.ClienteORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
