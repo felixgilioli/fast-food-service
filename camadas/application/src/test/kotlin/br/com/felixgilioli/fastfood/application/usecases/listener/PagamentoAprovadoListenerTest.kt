@@ -3,7 +3,7 @@ package br.com.felixgilioli.fastfood.application.usecases.listener
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -14,13 +14,13 @@ import java.util.*
 
 class PagamentoAprovadoListenerTest {
 
-    private lateinit var pedidoRepository: PedidoRepository
+    private lateinit var pedidoGateway: PedidoGateway
     private lateinit var listener: PagamentoAprovadoListener
 
     @BeforeEach
     fun setUp() {
-        pedidoRepository = mockk(relaxed = true)
-        listener = PagamentoAprovadoListener(pedidoRepository)
+        pedidoGateway = mockk(relaxed = true)
+        listener = PagamentoAprovadoListener(pedidoGateway)
     }
 
     @Test
@@ -36,7 +36,7 @@ class PagamentoAprovadoListenerTest {
         listener.onEvent(event)
 
         verify {
-            pedidoRepository.save(
+            pedidoGateway.save(
                 withArg {
                     assertEquals(StatusPedido.PAGAMENTO_APROVADO, it.status)
                     assertEquals(pedido.id, it.id)

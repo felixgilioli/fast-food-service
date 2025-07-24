@@ -5,7 +5,7 @@ import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -18,14 +18,14 @@ import java.util.*
 class AtualizarPedidoLinkPagamentoGeradoListenerTest {
 
     private lateinit var pagamentoGateway: PagamentoGateway
-    private lateinit var pedidoRepository: PedidoRepository
+    private lateinit var pedidoGateway: PedidoGateway
     private lateinit var listener: AtualizarPedidoLinkPagamentoGeradoListener
 
     @BeforeEach
     fun setUp() {
         pagamentoGateway = mockk(relaxed = true)
-        pedidoRepository = mockk(relaxed = true)
-        listener = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoRepository)
+        pedidoGateway = mockk(relaxed = true)
+        listener = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoGateway)
     }
 
     @Test
@@ -71,7 +71,7 @@ class AtualizarPedidoLinkPagamentoGeradoListenerTest {
         listener.onEvent(event)
 
         verify {
-            pedidoRepository.save(
+            pedidoGateway.save(
                 withArg {
                     assertEquals(StatusPedido.PAGAMENTO_SOLICITADO, it.status)
                     assertEquals(pedido.id, it.id)
@@ -98,6 +98,6 @@ class AtualizarPedidoLinkPagamentoGeradoListenerTest {
         }
 
         verify(exactly = 0) { pagamentoGateway.insert(any()) }
-        verify(exactly = 0) { pedidoRepository.save(any()) }
+        verify(exactly = 0) { pedidoGateway.save(any()) }
     }
 }

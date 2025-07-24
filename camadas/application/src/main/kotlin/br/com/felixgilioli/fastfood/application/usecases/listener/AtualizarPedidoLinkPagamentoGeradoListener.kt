@@ -6,11 +6,11 @@ import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.application.events.EventListener
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 
 class AtualizarPedidoLinkPagamentoGeradoListener(
     private val pagamentoGateway: PagamentoGateway,
-    private val pedidoRepository: PedidoRepository
+    private val pedidoGateway: PedidoGateway
 ) : EventListener<LinkPagamentoCriadoEvent> {
 
     override fun onEvent(event: LinkPagamentoCriadoEvent) {
@@ -22,7 +22,7 @@ class AtualizarPedidoLinkPagamentoGeradoListener(
         ).let(pagamentoGateway::insert)
 
         event.pedido.copy(status = StatusPedido.PAGAMENTO_SOLICITADO)
-            .let(pedidoRepository::save)
+            .let(pedidoGateway::save)
 
     }
 }

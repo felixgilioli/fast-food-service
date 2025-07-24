@@ -1,11 +1,12 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
+import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.NovoPedidoUseCase
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoItemRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
-import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -17,13 +18,14 @@ import java.util.*
 class PedidoControllerTest {
 
     private val pedidoUseCase: PedidoUseCase = mockk()
-    private val pedidoController = PedidoController(pedidoUseCase)
+    private val novoPedidoUseCase: NovoPedidoUseCase = mockk()
+    private val pedidoController = PedidoController(pedidoUseCase, novoPedidoUseCase)
 
     @Test
     fun criaNovoPedidoComSucesso() {
         val request = NovoPedidoRequest(clienteEmail = "fulano@email.com")
         val pedido = Pedido(id = UUID.randomUUID(), clienteNome = request.clienteEmail!!, status = StatusPedido.CRIADO)
-        every { pedidoUseCase.novoPedido(any()) } returns pedido
+        every { novoPedidoUseCase.execute(any()) } returns pedido
 
         val response = pedidoController.novoPedido(request)
 

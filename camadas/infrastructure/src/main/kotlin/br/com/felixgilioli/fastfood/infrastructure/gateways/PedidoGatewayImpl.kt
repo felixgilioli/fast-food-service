@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PedidoORMRepository
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class PedidoDataSource(private val pedidoORMRepository: PedidoORMRepository) : PedidoRepository {
+class PedidoGatewayImpl(private val pedidoORMRepository: PedidoORMRepository) : PedidoGateway {
 
     override fun findById(pedidoId: UUID) = pedidoORMRepository.findByIdOrNull(pedidoId)
         ?.toDomain()

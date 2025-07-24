@@ -2,14 +2,12 @@ package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoCommand
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoItemCommand
-import br.com.felixgilioli.fastfood.application.commands.NovoPedidoCommand
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
+import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
-import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
@@ -26,7 +24,7 @@ import java.util.*
 class PedidoUseCaseImplTest {
 
     private lateinit var clienteGateway: ClienteGateway
-    private lateinit var pedidoRepository: PedidoRepository
+    private lateinit var pedidoGateway: PedidoGateway
     private lateinit var produtoGateway: ProdutoGateway
     private lateinit var eventPublisher: EventPublisher
     private lateinit var pedidoUseCase: PedidoUseCaseImpl
@@ -34,38 +32,10 @@ class PedidoUseCaseImplTest {
     @BeforeEach
     fun setUp() {
         clienteGateway = mockk()
-        pedidoRepository = mockk()
+        pedidoGateway = mockk()
         produtoGateway = mockk()
         eventPublisher = mockk(relaxed = true)
-        pedidoUseCase = PedidoUseCaseImpl(clienteGateway, pedidoRepository, produtoGateway, eventPublisher)
-    }
-
-    @Test
-    fun criaNovoPedidoComClienteExistente() {
-        val command = NovoPedidoCommand(clienteEmail = "cliente@email.com", clienteCPF = null)
-        val cliente = Cliente(UUID.randomUUID(), "Cliente Teste", "cliente@email.com")
-        every { clienteGateway.findByEmail(command.clienteEmail!!) } returns cliente
-        every { pedidoRepository.save(any()) } answers { firstArg() }
-
-        val resultado = pedidoUseCase.novoPedido(command)
-
-        assertEquals(cliente.nomeCompleto, resultado.clienteNome)
-        assertEquals(StatusPedido.CRIADO, resultado.status)
-        verify { clienteGateway.findByEmail(command.clienteEmail!!) }
-        verify { pedidoRepository.save(any()) }
-    }
-
-    @Test
-    fun lancaExcecaoQuandoClienteNaoEncontrado() {
-        val command = NovoPedidoCommand(clienteEmail = "inexistente@email.com", clienteCPF = null)
-        every { clienteGateway.findByEmail(command.clienteEmail!!) } returns null
-
-        val excecao = assertThrows(IllegalArgumentException::class.java) {
-            pedidoUseCase.novoPedido(command)
-        }
-
-        assertEquals("Cliente não encontrado", excecao.message)
-        verify { clienteGateway.findByEmail(command.clienteEmail!!) }
+        pedidoUseCase = PedidoUseCaseImpl(pedidoGateway, produtoGateway, eventPublisher)
     }
 
     @Test
@@ -87,18 +57,18 @@ class PedidoUseCaseImplTest {
             pedidoId = pedidoId,
             itens = listOf(ConfirmarPedidoItemCommand(produto.id!!, 2))
         )
-        every { pedidoRepository.findById(pedidoId) } returns pedido
+        every { pedidoGateway.findById(pedidoId) } returns pedido
         every { produtoGateway.findAllById(command.itens.map { it.produtoId }) } returns listOf(produto)
-        every { pedidoRepository.save(any()) } answers { firstArg() }
+        every { pedidoGateway.save(any()) } answers { firstArg() }
 
         val resultado = pedidoUseCase.confirmarPedido(command)
 
         assertEquals(StatusPedido.PEDIDO_CONFIRMADO, resultado.status)
         assertEquals(1, resultado.itens.size)
         assertEquals(BigDecimal(20), resultado.total)
-        verify { pedidoRepository.findById(pedidoId) }
+        verify { pedidoGateway.findById(pedidoId) }
         verify { produtoGateway.findAllById(command.itens.map { it.produtoId }) }
-        verify { pedidoRepository.save(any()) }
+        verify { pedidoGateway.save(any()) }
         verify { eventPublisher.publish(any<PedidoConfirmadoEvent>()) }
     }
 
@@ -114,7 +84,7 @@ class PedidoUseCaseImplTest {
             status = StatusPedido.CRIADO,
             clienteNome = "Cliente Teste"
         )
-        every { pedidoRepository.findById(pedidoId) } returns pedido
+        every { pedidoGateway.findById(pedidoId) } returns pedido
         every { produtoGateway.findAllById(command.itens.map { it.produtoId }) } returns emptyList()
 
         val excecao = assertThrows(IllegalArgumentException::class.java) {
@@ -122,7 +92,7 @@ class PedidoUseCaseImplTest {
         }
 
         assertEquals("Produto não encontrado", excecao.message)
-        verify { pedidoRepository.findById(pedidoId) }
+        verify { pedidoGateway.findById(pedidoId) }
         verify { produtoGateway.findAllById(command.itens.map { it.produtoId }) }
     }
 
@@ -132,12 +102,12 @@ class PedidoUseCaseImplTest {
             Pedido(id = UUID.randomUUID(), status = StatusPedido.PAGAMENTO_APROVADO, clienteNome = "Cliente 1"),
             Pedido(id = UUID.randomUUID(), status = StatusPedido.PAGAMENTO_APROVADO, clienteNome = "Cliente 2")
         )
-        every { pedidoRepository.findByStatus(StatusPedido.PAGAMENTO_APROVADO) } returns pedidos
+        every { pedidoGateway.findByStatus(StatusPedido.PAGAMENTO_APROVADO) } returns pedidos
 
         val resultado = pedidoUseCase.findPedidosAguardandoConfirmacaoCozinha()
 
         assertEquals(2, resultado.size)
         assertEquals(StatusPedido.PAGAMENTO_APROVADO, resultado[0].status)
-        verify { pedidoRepository.findByStatus(StatusPedido.PAGAMENTO_APROVADO) }
+        verify { pedidoGateway.findByStatus(StatusPedido.PAGAMENTO_APROVADO) }
     }
 }

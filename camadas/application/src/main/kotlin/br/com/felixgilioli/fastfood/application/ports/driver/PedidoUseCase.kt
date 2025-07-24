@@ -1,13 +1,10 @@
 package br.com.felixgilioli.fastfood.application.ports.driver
 
 import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoCommand
-import br.com.felixgilioli.fastfood.application.commands.NovoPedidoCommand
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import java.util.*
 
 interface PedidoUseCase {
-
-    fun novoPedido(command: NovoPedidoCommand): Pedido
 
     fun confirmarPedido(command: ConfirmarPedidoCommand): Pedido
 

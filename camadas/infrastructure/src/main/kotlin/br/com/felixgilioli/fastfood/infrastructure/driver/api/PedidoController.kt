@@ -1,9 +1,10 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
+import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
-import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -13,15 +14,18 @@ import java.util.*
 @RestController
 @RequestMapping("/v1/pedido")
 @Tag(name = "Pedido API", description = "Gerenciamento de pedidos")
-class PedidoController(private val pedidoUseCase: PedidoUseCase) {
+class PedidoController(
+    private val pedidoUseCase: PedidoUseCase,
+    private val novoPedidoUseCase: NovoPedidoUseCase
+) {
 
     @PostMapping("/novo")
     @Operation(
         summary = "Novo pedido",
         description = "Cria um novo pedido no sistema sem nenhum item adicionado."
     )
-    fun novoPedido(@RequestBody request: NovoPedidoRequest) = pedidoUseCase
-        .novoPedido(request.toCommand()).toResponse()
+    fun novoPedido(@RequestBody request: NovoPedidoRequest) = novoPedidoUseCase
+        .execute(request.toCommand()).toResponse()
 
     @PostMapping("/confirmar")
     @Operation(

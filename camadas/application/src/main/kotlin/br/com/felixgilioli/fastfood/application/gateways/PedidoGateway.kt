@@ -1,10 +1,10 @@
-package br.com.felixgilioli.fastfood.application.ports.driven
+package br.com.felixgilioli.fastfood.application.gateways
 
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import java.util.*
+import java.util.UUID
 
-interface PedidoRepository {
+interface PedidoGateway {
 
     fun findById(pedidoId: UUID): Pedido?
 

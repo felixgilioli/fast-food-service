@@ -2,10 +2,10 @@ package br.com.felixgilioli.fastfood.infrastructure.config
 
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
+import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
-import br.com.felixgilioli.fastfood.application.ports.driven.PedidoRepository
 import br.com.felixgilioli.fastfood.application.usecases.*
 import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
@@ -55,15 +55,15 @@ class BeanConfig {
         AtualizarProdutoUseCase(produtoGateway)
 
     @Bean
-    fun pedidoUseCase(
-        pedidoRepository: PedidoRepository,
-        clienteGateway: ClienteGateway,
-        produtoGateway: ProdutoGateway,
-        eventPublisher: EventPublisher
-    ) = PedidoUseCaseImpl(clienteGateway, pedidoRepository, produtoGateway, eventPublisher)
+    fun novoPedidoUseCase(clienteGateway: ClienteGateway, pedidoGateway: PedidoGateway) =
+        NovoPedidoUseCase(clienteGateway, pedidoGateway)
 
     @Bean
-    fun produtoUseCase(produtoGateway: ProdutoGateway) = ProdutoUseCaseImpl(produtoGateway)
+    fun pedidoUseCase(
+        pedidoGateway: PedidoGateway,
+        produtoGateway: ProdutoGateway,
+        eventPublisher: EventPublisher
+    ) = PedidoUseCaseImpl(pedidoGateway, produtoGateway, eventPublisher)
 
     @Bean
     fun solicitarPagamentoUseCase(
@@ -74,14 +74,14 @@ class BeanConfig {
     @Bean
     fun atualizarPedidoLinkPagamentoGeradoUseCase(
         pagamentoGateway: PagamentoGateway,
-        pedidoRepository: PedidoRepository
-    ) = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoRepository)
+        pedidoGateway: PedidoGateway
+    ) = AtualizarPedidoLinkPagamentoGeradoListener(pagamentoGateway, pedidoGateway)
 
     @Bean
-    fun pagamentoAprovadoListener(pedidoRepository: PedidoRepository) = PagamentoAprovadoListener(pedidoRepository)
+    fun pagamentoAprovadoListener(pedidoGateway: PedidoGateway) = PagamentoAprovadoListener(pedidoGateway)
 
     @Bean
-    fun pagamentoRecusadoListener(pedidoRepository: PedidoRepository) = PagamentoRecusadoListener(pedidoRepository)
+    fun pagamentoRecusadoListener(pedidoGateway: PedidoGateway) = PagamentoRecusadoListener(pedidoGateway)
 
     @Bean
     fun preferenceClient() = PreferenceClient()
