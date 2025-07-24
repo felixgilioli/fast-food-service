@@ -5,8 +5,6 @@ import java.util.*
 
 interface PedidoUseCase {
 
-    fun confirmarPedidoCozinha(pedidoId: UUID): Pedido
-
     fun findById(pedidoId: UUID): Pedido?
 
     fun pedidoPronto(pedidoId: UUID): Pedido

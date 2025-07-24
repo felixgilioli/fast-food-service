@@ -2,6 +2,7 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoCozinhaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
@@ -20,7 +21,8 @@ class PedidoController(
     private val pedidoUseCase: PedidoUseCase,
     private val novoPedidoUseCase: NovoPedidoUseCase,
     private val confirmarPedidoUseCase: ConfirmarPedidoUseCase,
-    private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
+    private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase,
+    private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase
 ) {
 
     @PostMapping("/novo")
@@ -52,8 +54,8 @@ class PedidoController(
         summary = "Confirmar pedido na cozinha",
         description = "Confirma um pedido na cozinha para iniciar o preparo."
     )
-    fun confirmarPedidoCozinha(@PathVariable pedidoId: String) = pedidoUseCase
-        .confirmarPedidoCozinha(UUID.fromString(pedidoId)).toResponse()
+    fun confirmarPedidoCozinha(@PathVariable pedidoId: String) = confirmarPedidoCozinhaUseCase
+        .execute(UUID.fromString(pedidoId)).toResponse()
 
     @GetMapping("/{pedidoId}")
     @Operation(

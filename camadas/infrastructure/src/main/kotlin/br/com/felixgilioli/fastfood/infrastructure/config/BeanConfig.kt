@@ -16,6 +16,7 @@ import br.com.felixgilioli.fastfood.application.usecases.pagamento.AprovarPagame
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoCozinhaUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.produto.*
@@ -69,6 +70,10 @@ class BeanConfig {
     @Bean
     fun buscarPedidosAguardandoConfirmacaoCozinhaUseCase(pedidoGateway: PedidoGateway) =
         BuscarPedidosAguardandoConfirmacaoCozinhaUseCase(pedidoGateway)
+
+    @Bean
+    fun confirmarPedidoCozinhaUseCase(pedidoGateway: PedidoGateway) =
+        ConfirmarPedidoCozinhaUseCase(pedidoGateway)
 
     @Bean
     fun pedidoUseCase(
