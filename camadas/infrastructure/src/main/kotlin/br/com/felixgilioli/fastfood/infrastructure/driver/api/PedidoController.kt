@@ -20,7 +20,8 @@ class PedidoController(
     private val confirmarPedidoUseCase: ConfirmarPedidoUseCase,
     private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase,
     private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase,
-    private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase
+    private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase,
+    private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase
 ) {
 
     @PostMapping("/novo")
@@ -69,8 +70,8 @@ class PedidoController(
         summary = "Pedido pronto",
         description = "Marca um pedido como pronto para retirada."
     )
-    fun pedidoPronto(@PathVariable pedidoId: String) = pedidoUseCase
-        .pedidoPronto(UUID.fromString(pedidoId)).toResponse()
+    fun pedidoPronto(@PathVariable pedidoId: String) = definirPedidoProntoUseCase
+        .execute(UUID.fromString(pedidoId)).toResponse()
 
     @PutMapping("/{pedidoId}/retirar")
     @Operation(

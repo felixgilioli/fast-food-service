@@ -5,7 +5,5 @@ import java.util.*
 
 interface PedidoUseCase {
 
-    fun pedidoPronto(pedidoId: UUID): Pedido
-
     fun retirarPedido(pedidoId: UUID): Pedido
 }
