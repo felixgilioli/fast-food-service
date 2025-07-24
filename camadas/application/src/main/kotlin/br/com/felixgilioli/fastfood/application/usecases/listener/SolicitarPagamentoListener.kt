@@ -1,13 +1,13 @@
 package br.com.felixgilioli.fastfood.application.usecases.listener
 
 import br.com.felixgilioli.fastfood.application.events.EventListener
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 
 class SolicitarPagamentoListener(
-    private val geradorLinkPagamento: GeradorLinkPagamento,
+    private val pagamentoGateway: PagamentoGateway,
     private val eventPublisher: EventPublisher
 ) : EventListener<PedidoConfirmadoEvent> {
 
@@ -16,7 +16,7 @@ class SolicitarPagamentoListener(
             throw IllegalArgumentException("O pedido não possui valor total definido.")
         }
 
-        LinkPagamentoCriadoEvent(event.pedido, geradorLinkPagamento.gerarLink(event.pedido.total!!))
+        LinkPagamentoCriadoEvent(event.pedido, pagamentoGateway.gerarLink(event.pedido.total!!))
             .let(eventPublisher::publish)
     }
 }

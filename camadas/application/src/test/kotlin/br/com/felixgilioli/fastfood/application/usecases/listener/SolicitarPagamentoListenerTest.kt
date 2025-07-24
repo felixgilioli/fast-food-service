@@ -1,11 +1,11 @@
 package br.com.felixgilioli.fastfood.application.usecases.listener
 
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
-import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
+import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
+import br.com.felixgilioli.fastfood.domain.entities.Pedido
+import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -18,15 +18,15 @@ import java.util.*
 
 class SolicitarPagamentoListenerTest {
 
-    private lateinit var geradorLinkPagamento: GeradorLinkPagamento
+    private lateinit var pagamentoGateway: PagamentoGateway
     private lateinit var eventPublisher: EventPublisher
     private lateinit var listener: SolicitarPagamentoListener
 
     @BeforeEach
     fun setUp() {
-        geradorLinkPagamento = mockk()
+        pagamentoGateway = mockk()
         eventPublisher = mockk(relaxed = true)
-        listener = SolicitarPagamentoListener(geradorLinkPagamento, eventPublisher)
+        listener = SolicitarPagamentoListener(pagamentoGateway, eventPublisher)
     }
 
     @Test
@@ -40,7 +40,7 @@ class SolicitarPagamentoListenerTest {
         val event = PedidoConfirmadoEvent(pedido = pedido)
         val linkPagamento = "http://link-pagamento.com"
 
-        every { geradorLinkPagamento.gerarLink(pedido.total!!) } returns linkPagamento
+        every { pagamentoGateway.gerarLink(pedido.total!!) } returns linkPagamento
 
         listener.onEvent(event)
 

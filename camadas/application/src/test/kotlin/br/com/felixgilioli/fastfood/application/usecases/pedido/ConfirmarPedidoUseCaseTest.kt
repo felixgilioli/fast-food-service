@@ -5,7 +5,7 @@ import br.com.felixgilioli.fastfood.application.commands.ConfirmarPedidoItemComm
 import br.com.felixgilioli.fastfood.application.events.PedidoConfirmadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.Produto

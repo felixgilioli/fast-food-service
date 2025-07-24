@@ -2,7 +2,7 @@ package br.com.felixgilioli.fastfood.application.usecases.pagamento
 
 import br.com.felixgilioli.fastfood.application.events.PagamentoAprovadoEvent
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import java.util.UUID
 

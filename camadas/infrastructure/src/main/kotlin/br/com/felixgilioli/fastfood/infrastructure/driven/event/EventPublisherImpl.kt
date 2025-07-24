@@ -2,7 +2,7 @@ package br.com.felixgilioli.fastfood.infrastructure.driven.event
 
 import br.com.felixgilioli.fastfood.application.events.Event
 import br.com.felixgilioli.fastfood.application.events.EventListener
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import org.springframework.stereotype.Component
 import java.lang.reflect.ParameterizedType
 

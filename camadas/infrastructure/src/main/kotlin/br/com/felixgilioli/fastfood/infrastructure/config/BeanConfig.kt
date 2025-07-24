@@ -1,11 +1,10 @@
 package br.com.felixgilioli.fastfood.infrastructure.config
 
+import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
-import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
-import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
 import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
@@ -92,9 +91,9 @@ class BeanConfig {
 
     @Bean
     fun solicitarPagamentoUseCase(
-        geradorLinkPagamento: GeradorLinkPagamento,
+        pagamentoGateway: PagamentoGateway,
         @Lazy eventPublisher: EventPublisher
-    ) = SolicitarPagamentoListener(geradorLinkPagamento, eventPublisher)
+    ) = SolicitarPagamentoListener(pagamentoGateway, eventPublisher)
 
     @Bean
     fun atualizarPedidoLinkPagamentoGeradoUseCase(

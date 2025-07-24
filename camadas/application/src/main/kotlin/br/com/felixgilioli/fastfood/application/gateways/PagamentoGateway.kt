@@ -1,6 +1,7 @@
 package br.com.felixgilioli.fastfood.application.gateways
 
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
+import java.math.BigDecimal
 import java.util.UUID
 
 interface PagamentoGateway {
@@ -10,4 +11,6 @@ interface PagamentoGateway {
     fun findById(id: UUID): Pagamento?
 
     fun findLastByPedidoId(pedidoId: UUID): Pagamento?
+
+    fun gerarLink(valor: BigDecimal): String
 }

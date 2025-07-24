@@ -1,6 +1,5 @@
 package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
 import com.mercadopago.MercadoPagoConfig
 import com.mercadopago.client.preference.PreferenceBackUrlsRequest
 import com.mercadopago.client.preference.PreferenceClient
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
 @Component
-class GeradorLinkPagamentoMercadoPagoDataSource(
+class GeradorLinkPagamentoMercadoPago(
     @Value("\${mercadopago.access-token}") private val accessToken: String,
     private val preferenceClient: PreferenceClient
-) : GeradorLinkPagamento {
+) {
 
-    override fun gerarLink(valor: BigDecimal): String {
+    fun gerarLink(valor: BigDecimal): String {
         MercadoPagoConfig.setAccessToken(accessToken)
 
         val request = PreferenceRequest.builder()
