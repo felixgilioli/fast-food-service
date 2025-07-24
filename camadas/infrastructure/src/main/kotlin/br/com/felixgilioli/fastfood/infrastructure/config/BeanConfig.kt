@@ -6,7 +6,6 @@ import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import br.com.felixgilioli.fastfood.application.ports.driven.EventPublisher
 import br.com.felixgilioli.fastfood.application.ports.driven.GeradorLinkPagamento
-import br.com.felixgilioli.fastfood.application.usecases.PedidoUseCaseImpl
 import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import br.com.felixgilioli.fastfood.application.usecases.listener.AtualizarPedidoLinkPagamentoGeradoListener
 import br.com.felixgilioli.fastfood.application.usecases.listener.PagamentoAprovadoListener
@@ -81,9 +80,8 @@ class BeanConfig {
         DefinirPedidoProntoUseCase(pedidoGateway)
 
     @Bean
-    fun pedidoUseCase(
-        pedidoGateway: PedidoGateway
-    ) = PedidoUseCaseImpl(pedidoGateway)
+    fun retirarPedidoUseCase(pedidoGateway: PedidoGateway) =
+        RetirarPedidoUseCase(pedidoGateway)
 
     @Bean
     fun confirmarPedidoUseCase(

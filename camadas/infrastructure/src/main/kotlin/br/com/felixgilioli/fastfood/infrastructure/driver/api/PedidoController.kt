@@ -1,6 +1,5 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
@@ -15,13 +14,13 @@ import java.util.*
 @RequestMapping("/v1/pedido")
 @Tag(name = "Pedido API", description = "Gerenciamento de pedidos")
 class PedidoController(
-    private val pedidoUseCase: PedidoUseCase,
     private val novoPedidoUseCase: NovoPedidoUseCase,
     private val confirmarPedidoUseCase: ConfirmarPedidoUseCase,
     private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase,
     private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase,
     private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase,
-    private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase
+    private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase,
+    private val retirarPedidoUseCase: RetirarPedidoUseCase
 ) {
 
     @PostMapping("/novo")
@@ -78,8 +77,7 @@ class PedidoController(
         summary = "Retirar pedido",
         description = "Marca um pedido como retirado pelo cliente."
     )
-    fun retirarPedido(@PathVariable pedidoId: String) = pedidoUseCase
-        .retirarPedido(UUID.fromString(pedidoId)).toResponse()
-
+    fun retirarPedido(@PathVariable pedidoId: String) = retirarPedidoUseCase
+        .execute(UUID.fromString(pedidoId)).toResponse()
 
 }

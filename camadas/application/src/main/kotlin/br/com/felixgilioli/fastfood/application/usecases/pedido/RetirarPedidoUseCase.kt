@@ -1,15 +1,14 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.pedido
 
 import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
-import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import java.util.*
 
-class PedidoUseCaseImpl(
+class RetirarPedidoUseCase(
     private val pedidoGateway: PedidoGateway
-) : PedidoUseCase {
+) {
 
-    override fun retirarPedido(pedidoId: UUID) = pedidoGateway.findById(pedidoId)
+    fun execute(pedidoId: UUID) = pedidoGateway.findById(pedidoId)
         ?.let { pedidoGateway.save(it.copy(status = StatusPedido.FINALIZADO)) }
         ?: throw IllegalArgumentException("Pedido não encontrado")
 }

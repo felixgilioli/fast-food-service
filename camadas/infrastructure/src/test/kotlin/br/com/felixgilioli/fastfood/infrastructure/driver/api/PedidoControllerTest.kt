@@ -1,6 +1,5 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
@@ -17,21 +16,23 @@ import java.util.*
 
 class PedidoControllerTest {
 
-    private val pedidoUseCase: PedidoUseCase = mockk()
     private val novoPedidoUseCase: NovoPedidoUseCase = mockk()
     private val confirmarPedidoUseCase: ConfirmarPedidoUseCase = mockk()
     private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase = mockk()
     private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase =
         mockk()
     private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase = mockk()
+    private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase = mockk()
+    private val retirarPedidoUseCase: RetirarPedidoUseCase = mockk()
 
     private val pedidoController = PedidoController(
-        pedidoUseCase,
         novoPedidoUseCase,
         confirmarPedidoUseCase,
         buscarPedidosAguardandoConfirmacaoCozinhaUseCase,
         confirmarPedidoCozinhaUseCase,
-        buscarPedidoPeloIdUseCase
+        buscarPedidoPeloIdUseCase,
+        definirPedidoProntoUseCase,
+        retirarPedidoUseCase
     )
 
     @Test
