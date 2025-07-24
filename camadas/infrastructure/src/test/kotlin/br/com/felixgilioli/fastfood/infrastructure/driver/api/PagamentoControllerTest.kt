@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.usecases.AprovarPagamentoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.BuscarPagamentoByPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.RecusarPagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pagamento.AprovarPagamentoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamentoByPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido

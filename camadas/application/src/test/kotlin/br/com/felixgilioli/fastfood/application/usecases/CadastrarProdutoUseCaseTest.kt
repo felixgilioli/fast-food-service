@@ -2,6 +2,7 @@ package br.com.felixgilioli.fastfood.application.usecases
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
+import br.com.felixgilioli.fastfood.application.usecases.produto.CadastrarProdutoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import io.mockk.every

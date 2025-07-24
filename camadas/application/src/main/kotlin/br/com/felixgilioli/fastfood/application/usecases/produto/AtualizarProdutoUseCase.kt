@@ -1,9 +1,9 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.produto
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 
-class CadastrarProdutoUseCase(private val produtoGateway: ProdutoGateway) {
+class AtualizarProdutoUseCase(private val produtoGateway: ProdutoGateway) {
 
     fun execute(produto: ProdutoCommand) = produtoGateway.save(produto)
 }

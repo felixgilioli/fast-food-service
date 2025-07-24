@@ -3,6 +3,7 @@ package br.com.felixgilioli.fastfood.application.usecases
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.application.exceptions.ClienteAlreadyExistsException
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
+import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

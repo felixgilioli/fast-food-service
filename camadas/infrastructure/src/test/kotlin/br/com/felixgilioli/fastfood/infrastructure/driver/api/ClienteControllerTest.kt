@@ -1,6 +1,6 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
-import br.com.felixgilioli.fastfood.application.usecases.CadastrarClienteUseCase
+import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.CadastrarClienteRequest
 import io.mockk.every

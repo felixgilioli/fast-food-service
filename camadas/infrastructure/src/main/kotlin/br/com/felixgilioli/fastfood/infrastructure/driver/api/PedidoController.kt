@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.ConfirmarPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.NovoPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse

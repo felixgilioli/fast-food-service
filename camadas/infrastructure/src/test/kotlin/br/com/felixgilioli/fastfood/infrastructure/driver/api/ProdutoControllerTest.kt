@@ -1,6 +1,11 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.usecases.*
+import br.com.felixgilioli.fastfood.application.usecases.produto.AtualizarProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutoPeloIdUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutosPelaCategoriaUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarTodosProdutosUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.CadastrarProdutoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest

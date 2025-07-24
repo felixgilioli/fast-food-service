@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.cliente
 
 import br.com.felixgilioli.fastfood.application.exceptions.ClienteAlreadyExistsException
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
