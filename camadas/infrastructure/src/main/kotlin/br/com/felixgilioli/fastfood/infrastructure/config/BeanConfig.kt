@@ -15,10 +15,7 @@ import br.com.felixgilioli.fastfood.application.usecases.listener.SolicitarPagam
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.application.usecases.produto.*
 import com.mercadopago.client.preference.PreferenceClient
 import org.springframework.context.annotation.Bean
@@ -74,6 +71,10 @@ class BeanConfig {
     @Bean
     fun confirmarPedidoCozinhaUseCase(pedidoGateway: PedidoGateway) =
         ConfirmarPedidoCozinhaUseCase(pedidoGateway)
+
+    @Bean
+    fun buscarPedidoPeloIdUseCase(pedidoGateway: PedidoGateway) =
+        BuscarPedidoPeloIdUseCase(pedidoGateway)
 
     @Bean
     fun pedidoUseCase(

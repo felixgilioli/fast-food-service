@@ -1,10 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
@@ -22,7 +19,8 @@ class PedidoController(
     private val novoPedidoUseCase: NovoPedidoUseCase,
     private val confirmarPedidoUseCase: ConfirmarPedidoUseCase,
     private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase,
-    private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase
+    private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase,
+    private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase
 ) {
 
     @PostMapping("/novo")
@@ -63,7 +61,7 @@ class PedidoController(
         description = "Permite acompanhar o status de um pedido específico."
     )
     fun acompanharPedido(@PathVariable pedidoId: String) =
-        pedidoUseCase.findById(UUID.fromString(pedidoId))?.toResponse()
+        buscarPedidoPeloIdUseCase.execute(UUID.fromString(pedidoId))?.toResponse()
             ?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
 
     @PutMapping("/{pedidoId}/pronto")

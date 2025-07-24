@@ -1,10 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.ports.driver.PedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.BuscarPedidosAguardandoConfirmacaoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoCozinhaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.ConfirmarPedidoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.pedido.NovoPedidoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoItemRequest
@@ -26,12 +23,15 @@ class PedidoControllerTest {
     private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase = mockk()
     private val buscarPedidosAguardandoConfirmacaoCozinhaUseCase: BuscarPedidosAguardandoConfirmacaoCozinhaUseCase =
         mockk()
+    private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase = mockk()
+
     private val pedidoController = PedidoController(
         pedidoUseCase,
         novoPedidoUseCase,
         confirmarPedidoUseCase,
         buscarPedidosAguardandoConfirmacaoCozinhaUseCase,
-        confirmarPedidoCozinhaUseCase
+        confirmarPedidoCozinhaUseCase,
+        buscarPedidoPeloIdUseCase
     )
 
     @Test
@@ -50,7 +50,7 @@ class PedidoControllerTest {
     @Test
     fun retornaNotFoundQuandoPedidoNaoExiste() {
         val pedidoId = UUID.randomUUID().toString()
-        every { pedidoUseCase.findById(UUID.fromString(pedidoId)) } returns null
+        every { buscarPedidoPeloIdUseCase.execute(UUID.fromString(pedidoId)) } returns null
 
         val response = pedidoController.acompanharPedido(pedidoId)
 
