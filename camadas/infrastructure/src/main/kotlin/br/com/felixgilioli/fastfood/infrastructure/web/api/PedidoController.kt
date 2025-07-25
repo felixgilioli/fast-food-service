@@ -20,7 +20,8 @@ class PedidoController(
     private val confirmarPedidoCozinhaUseCase: ConfirmarPedidoCozinhaUseCase,
     private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase,
     private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase,
-    private val retirarPedidoUseCase: RetirarPedidoUseCase
+    private val retirarPedidoUseCase: RetirarPedidoUseCase,
+    private val listarPedidosUseCase: ListarPedidosUseCase
 ) {
 
     @PostMapping("/novo")
@@ -79,5 +80,14 @@ class PedidoController(
     )
     fun retirarPedido(@PathVariable pedidoId: String) = retirarPedidoUseCase
         .execute(UUID.fromString(pedidoId)).toResponse()
+
+    @GetMapping
+    @Operation(
+        summary = "Listar pedidos",
+        description = "Lista todos os pedidos ordenando por status e data de criação."
+    )
+    fun listarPedidos() = listarPedidosUseCase.execute()
+        .map { it.toResponse() }
+        .let { if (it.isEmpty()) ResponseEntity.notFound().build() else ResponseEntity.ok(it) }
 
 }

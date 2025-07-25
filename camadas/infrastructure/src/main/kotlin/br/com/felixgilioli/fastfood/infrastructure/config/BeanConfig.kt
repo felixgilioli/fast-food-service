@@ -75,6 +75,10 @@ class BeanConfig {
         BuscarPedidoPeloIdUseCase(pedidoGateway)
 
     @Bean
+    fun listarPedidosUseCase(pedidoGateway: PedidoGateway) =
+        ListarPedidosUseCase(pedidoGateway)
+
+    @Bean
     fun definirPedidoProntoUseCase(pedidoGateway: PedidoGateway) =
         DefinirPedidoProntoUseCase(pedidoGateway)
 

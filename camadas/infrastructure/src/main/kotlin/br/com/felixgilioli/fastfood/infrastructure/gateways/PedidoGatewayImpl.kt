@@ -19,4 +19,7 @@ class PedidoGatewayImpl(private val pedidoORMRepository: PedidoORMRepository) : 
 
     override fun findByStatus(status: StatusPedido) = pedidoORMRepository.findByStatus(status)
         .map { it.toDomain() }
+
+    override fun findByStatusIn(statusList: List<StatusPedido>) = pedidoORMRepository.findByStatusIn(statusList)
+        .map { it.toDomain() }
 }
