@@ -1,4 +1,3 @@
-
 name: Docker Image CI
 
 on:
@@ -10,46 +9,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
     steps:
-      - name: Obtendo o código do projeto
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Definir metadados da imagem
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          driver: docker
+          images: felixgilioli/fastfood-service
 
-      - name: Build da Imagem Docker
+      - name: Build da imagem Docker
         uses: docker/build-push-action@v6
         with:
           context: .
           push: false
-          tags: |
-            felixgilioli/fastfood-service:latest
-            felixgilioli/fastfood-service:v${{ github.run_number }}
-          outputs: type=docker,dest=/tmp/image.tar
+          tags: ${{ steps.meta.outputs.tags }}
 
-      - name: Upload da imagem como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-image
-          path: /tmp/image.tar
-
-  push-dockerhub:
+  push-docker-image:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     steps:
-      - name: Download da imagem
-        uses: actions/download-artifact@v4
-        with:
-          name: docker-image
-          path: /tmp
-
-      - name: Load da imagem Docker
-        run: docker load --input /tmp/image.tar
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
       - name: Login Docker Hub
         uses: docker/login-action@v3
@@ -57,7 +41,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push da Imagem Docker
-        run: |
-          docker push felixgilioli/fastfood-service:latest
-          docker push felixgilioli/fastfood-service:v${{ github.run_number }}
+      - name: Push da imagem Docker
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ needs.build.outputs.image_tag }}
+          load: true
