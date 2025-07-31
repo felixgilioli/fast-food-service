@@ -73,14 +73,21 @@ jobs:
           curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
           sudo mv kustomize /usr/local/bin/
 
-      - name: Deploy no Kubernetes com Kustomize
+      - name: Substituir placeholder no secret
         env:
           MERCADO_PAGO_ACCESS_TOKEN: ${{ secrets.MERCADO_PAGO_ACCESS_TOKEN }}
+        run: |
+          cd k8s
+          # Substituir o placeholder pelo valor real
+          sed -i "s/PLACEHOLDER_TOKEN/${MERCADO_PAGO_ACCESS_TOKEN}/g" secret-patch.yaml
+
+      - name: Deploy no Kubernetes com Kustomize
+        env:
           IMAGE_TAG: v${{ github.run_number }}
         run: |
           cd k8s
           kustomize edit set image felixgilioli/fastfood-service=felixgilioli/fastfood-service:${IMAGE_TAG}
-          kustomize build . | envsubst | kubectl apply -f -
+          kustomize build . | kubectl apply -f -
 
       - name: Verificar deployment
         run: |
