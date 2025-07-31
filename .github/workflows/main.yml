@@ -80,7 +80,7 @@ jobs:
         run: |
           cd k8s
           kustomize edit set image felixgilioli/fastfood-service=felixgilioli/fastfood-service:${IMAGE_TAG}
-          kustomize build . | kubectl apply -f -
+          kustomize build . | envsubst | kubectl apply -f -
 
       - name: Verificar deployment
         run: |

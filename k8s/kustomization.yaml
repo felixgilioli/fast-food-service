@@ -5,12 +5,20 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
-
-secretGenerator:
-  - name: fastfood-service-secret
-    literals:
-      - MERCADO_PAGO_ACCESS_TOKEN=$(MERCADO_PAGO_ACCESS_TOKEN)
+  - secrets.yaml
 
 images:
   - name: felixgilioli/fastfood-service
     newTag: latest
+
+replacements:
+  - source:
+      kind: Secret
+      name: fastfood-service-secret
+      fieldPath: stringData.MERCADO_PAGO_ACCESS_TOKEN
+    targets:
+      - select:
+          kind: Secret
+          name: fastfood-service-secret
+        fieldPaths:
+          - stringData.MERCADO_PAGO_ACCESS_TOKEN
