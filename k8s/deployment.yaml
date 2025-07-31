@@ -26,11 +26,11 @@ spec:
                   key: MERCADO_PAGO_ACCESS_TOKEN
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "400Mi"
+              cpu: "125m"
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "600Mi"
+              cpu: "400m"
           livenessProbe:
             httpGet:
               path: /health
