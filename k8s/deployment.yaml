@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-service-deployment
+  namespace: tcc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastfood-service
+  template:
+    metadata:
+      labels:
+        app: fastfood-service
+    spec:
+      containers:
+        - name: fastfood-service
+          image: felixgilioli/fastfood-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-service-secret
+                  key: MERCADO_PAGO_ACCESS_TOKEN
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

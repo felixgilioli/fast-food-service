@@ -50,3 +50,39 @@ jobs:
             felixgilioli/fastfood-service:latest
             felixgilioli/fastfood-service:v${{ github.run_number }}
           load: true
+
+  deploy-kubernetes:
+    runs-on: ubuntu-latest
+    needs: [ push-docker-image ]
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configuração das AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Configuração do Kubectl
+        run: aws eks update-kubeconfig --name pipeline-elite
+
+      - name: Instalar Kustomize
+        run: |
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          sudo mv kustomize /usr/local/bin/
+
+      - name: Deploy no Kubernetes com Kustomize
+        env:
+          MERCADO_PAGO_ACCESS_TOKEN: ${{ secrets.MERCADO_PAGO_ACCESS_TOKEN }}
+          IMAGE_TAG: v${{ github.run_number }}
+        run: |
+          cd k8s
+          kustomize edit set image felixgilioli/fastfood-service=felixgilioli/fastfood-service:${IMAGE_TAG}
+          kustomize build . | kubectl apply -f -
+
+      - name: Verificar deployment
+        run: |
+          kubectl rollout status deployment/fastfood-service-deployment -n tcc
+          kubectl get pods -n tcc
