@@ -79,7 +79,7 @@ jobs:
         run: |
           cd k8s
           # Substituir o placeholder pelo valor real
-          sed -i "s/PLACEHOLDER_TOKEN/${MERCADO_PAGO_ACCESS_TOKEN}/g" secret-patch.yaml
+          sed -i "s/PLACEHOLDER_TOKEN/${MERCADO_PAGO_ACCESS_TOKEN}/g" secrets.yaml
 
       - name: Deploy no Kubernetes com Kustomize
         env:
