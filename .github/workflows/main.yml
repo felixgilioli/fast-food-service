@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -26,7 +24,9 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            felixgilioli/fastfood-service:latest
+            felixgilioli/fastfood-service:v${{ github.run_number }}
 
   push-docker-image:
     runs-on: ubuntu-latest
@@ -46,5 +46,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ needs.build.outputs.image_tag }}
+          tags: |
+            felixgilioli/fastfood-service:latest
+            felixgilioli/fastfood-service:v${{ github.run_number }}
           load: true
