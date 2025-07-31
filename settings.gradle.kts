@@ -1,4 +1,5 @@
 rootProject.name = "fast-food-service"
 
-include("application:core")
-include("application:adapters")
+include("camadas:domain")
+include("camadas:application")
+include("camadas:infrastructure")

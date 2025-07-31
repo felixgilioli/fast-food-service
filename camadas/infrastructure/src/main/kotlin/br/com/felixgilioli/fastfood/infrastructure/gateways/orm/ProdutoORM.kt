@@ -1,0 +1,59 @@
+package br.com.felixgilioli.fastfood.infrastructure.gateways.orm
+
+import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
+import br.com.felixgilioli.fastfood.domain.entities.Produto
+import jakarta.persistence.*
+import java.math.BigDecimal
+import java.util.*
+
+@Entity
+@Table(name = "produto")
+data class ProdutoORM(
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "uuid")
+    val id: UUID? = null,
+
+    @Column(name = "nome", nullable = false, length = 150)
+    val nome: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    val categoria: CategoriaORM,
+
+    @Column(name = "preco", nullable = false, precision = 10, scale = 2)
+    val preco: BigDecimal,
+
+    @Column(name = "imagem_url")
+    val imagemUrl: String? = null,
+
+    @Column(name = "descricao")
+    val descricao: String? = null
+) {
+    fun toDomain() = Produto(
+        id = id,
+        nome = nome,
+        categoria = categoria.toDomain(),
+        preco = preco,
+        imagemUrl = imagemUrl,
+        descricao = descricao
+    )
+}
+
+fun Produto.toORM() = ProdutoORM(
+    id = this.id,
+    nome = this.nome,
+    categoria = this.categoria.toORM(),
+    preco = this.preco,
+    imagemUrl = this.imagemUrl,
+    descricao = this.descricao
+)
+
+fun ProdutoCommand.toORM(categoria: CategoriaORM) = ProdutoORM(
+    id = this.id,
+    nome = this.nome,
+    categoria = categoria,
+    preco = this.preco,
+    imagemUrl = this.imagemUrl,
+    descricao = this.descricao
+)
