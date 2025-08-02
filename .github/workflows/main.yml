@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -49,7 +49,6 @@ jobs:
           tags: |
             felixgilioli/fastfood-service:latest
             felixgilioli/fastfood-service:v${{ github.run_number }}
-          load: true
 
   deploy-kubernetes:
     runs-on: ubuntu-latest
@@ -66,22 +65,32 @@ jobs:
           aws-region: us-east-1
 
       - name: Configuração do Kubectl
-        run: aws eks update-kubeconfig --name pipeline-elite
+        run: aws eks update-kubeconfig --name tcc-eks-cluster
 
       - name: Instalar Kustomize
         run: |
           curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
           sudo mv kustomize /usr/local/bin/
 
-      - name: Substituir placeholder no secret
+      - name: Processar e aplicar secrets
         env:
           MERCADO_PAGO_ACCESS_TOKEN: ${{ secrets.MERCADO_PAGO_ACCESS_TOKEN }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
         run: |
           cd k8s
-          # Substituir o placeholder pelo valor real
-          sed -i "s/PLACEHOLDER_TOKEN/${MERCADO_PAGO_ACCESS_TOKEN}/g" secrets.yaml
+          
+          if [ ! -f "secrets.yaml" ]; then
+            echo "Erro: arquivo secrets.yaml não encontrado!"
+            exit 1
+          fi
+          
+          echo "Processando e aplicando secrets..."
+          
+          envsubst < secrets.yaml | kubectl apply -f -
+          echo "✓ Secrets aplicados com sucesso!"
 
-      - name: Deploy no Kubernetes com Kustomize
+      - name: Deploy aplicação no Kubernetes
         env:
           IMAGE_TAG: v${{ github.run_number }}
         run: |
@@ -91,5 +100,5 @@ jobs:
 
       - name: Verificar deployment
         run: |
-          kubectl rollout status deployment/fastfood-service-deployment -n tcc
+          kubectl rollout status deployment/fastfood-service-deployment -n tcc --timeout=300s
           kubectl get pods -n tcc
