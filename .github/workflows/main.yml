@@ -85,10 +85,13 @@ jobs:
             exit 1
           fi
           
-          echo "Processando e aplicando secrets..."
+          echo "Processando secrets..."
           
-          envsubst < secrets.yaml | kubectl apply -f -
-          echo "✓ Secrets aplicados com sucesso!"
+          processed_yaml=$(envsubst < secrets.yaml)
+          
+          echo "$processed_yaml" | kubectl apply -f -
+          
+          echo "✅ Secrets aplicados com sucesso!"
 
       - name: Deploy aplicação no Kubernetes
         env:
