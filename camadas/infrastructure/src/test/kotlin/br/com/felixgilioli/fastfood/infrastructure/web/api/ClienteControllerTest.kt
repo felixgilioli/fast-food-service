@@ -2,7 +2,8 @@ package br.com.felixgilioli.fastfood.infrastructure.driver.api
 
 import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.CadastrarClienteRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.CadastrarClienteRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.ClienteController
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

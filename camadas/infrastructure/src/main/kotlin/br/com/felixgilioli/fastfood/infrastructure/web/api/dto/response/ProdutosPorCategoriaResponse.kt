@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response
+package br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response
 
 data class ProdutosPorCategoriaResponse(
     val categoria: String,

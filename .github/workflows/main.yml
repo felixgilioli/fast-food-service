@@ -87,7 +87,7 @@ jobs:
           
           echo "Processando secrets..."
           
-          envsubst < secrets.yaml > secrets.yaml
+          envsubst < secrets.yaml > secrets_temp.yaml && mv secrets_temp.yaml secrets.yaml
           
           echo "✅ Secrets processados com sucesso!"
 

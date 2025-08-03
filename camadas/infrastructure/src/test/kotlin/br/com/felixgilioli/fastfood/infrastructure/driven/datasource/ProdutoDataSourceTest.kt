@@ -2,10 +2,10 @@ package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.infrastructure.gateways.ProdutoGatewayImpl
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.CategoriaORM
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.ProdutoORM
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.CategoriaORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.ProdutoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.CategoriaORM
+import br.com.felixgilioli.fastfood.infrastructure.orm.ProdutoORM
+import br.com.felixgilioli.fastfood.infrastructure.repository.CategoriaORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.repository.ProdutoORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

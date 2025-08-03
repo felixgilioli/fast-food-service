@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request
+package br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import java.math.BigDecimal

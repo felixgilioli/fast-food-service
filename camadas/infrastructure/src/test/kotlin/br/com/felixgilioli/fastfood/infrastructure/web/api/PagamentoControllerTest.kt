@@ -7,6 +7,7 @@ import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
+import br.com.felixgilioli.fastfood.infrastructure.web.api.PagamentoController
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

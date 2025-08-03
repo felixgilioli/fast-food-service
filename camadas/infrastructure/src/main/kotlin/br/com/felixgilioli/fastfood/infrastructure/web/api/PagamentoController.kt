@@ -1,10 +1,10 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api
+package br.com.felixgilioli.fastfood.infrastructure.web.api
 
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.AprovarPagamentoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamentoByPedidoUseCase
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.PagamentoResponse
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response.PagamentoResponse
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response.toResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity

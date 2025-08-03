@@ -1,8 +1,8 @@
 package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.CategoriaORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.ProdutoORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toORM
+import br.com.felixgilioli.fastfood.infrastructure.repository.CategoriaORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.repository.ProdutoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.toORM
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
 import org.springframework.data.repository.findByIdOrNull

@@ -6,9 +6,9 @@ import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.gateways.GeradorLinkPagamentoMercadoPago
 import br.com.felixgilioli.fastfood.infrastructure.gateways.PagamentoGatewayImpl
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.PagamentoORM
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.PedidoORM
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PagamentoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.PagamentoORM
+import br.com.felixgilioli.fastfood.infrastructure.orm.PedidoORM
+import br.com.felixgilioli.fastfood.infrastructure.repository.PagamentoORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

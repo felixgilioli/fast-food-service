@@ -1,7 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.gateways
 
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.ClienteORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toORM
+import br.com.felixgilioli.fastfood.infrastructure.repository.ClienteORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.toORM
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
 import org.springframework.stereotype.Service

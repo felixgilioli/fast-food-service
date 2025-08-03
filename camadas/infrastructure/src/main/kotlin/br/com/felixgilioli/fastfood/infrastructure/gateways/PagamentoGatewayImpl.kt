@@ -2,8 +2,8 @@ package br.com.felixgilioli.fastfood.infrastructure.gateways
 
 import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PagamentoORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toOrm
+import br.com.felixgilioli.fastfood.infrastructure.repository.PagamentoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.toOrm
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

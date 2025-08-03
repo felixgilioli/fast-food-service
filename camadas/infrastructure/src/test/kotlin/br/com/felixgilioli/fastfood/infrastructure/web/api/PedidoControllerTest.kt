@@ -1,11 +1,11 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api
+package br.com.felixgilioli.fastfood.infrastructure.web.api
 
 import br.com.felixgilioli.fastfood.application.usecases.pedido.*
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoItemRequest
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ConfirmarPedidoRequest
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.NovoPedidoRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.ConfirmarPedidoItemRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.ConfirmarPedidoRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.NovoPedidoRequest
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -24,6 +24,7 @@ class PedidoControllerTest {
     private val buscarPedidoPeloIdUseCase: BuscarPedidoPeloIdUseCase = mockk()
     private val definirPedidoProntoUseCase: DefinirPedidoProntoUseCase = mockk()
     private val retirarPedidoUseCase: RetirarPedidoUseCase = mockk()
+    private val listarPedidosUseCase: ListarPedidosUseCase = mockk()
 
     private val pedidoController = PedidoController(
         novoPedidoUseCase,
@@ -32,7 +33,8 @@ class PedidoControllerTest {
         confirmarPedidoCozinhaUseCase,
         buscarPedidoPeloIdUseCase,
         definirPedidoProntoUseCase,
-        retirarPedidoUseCase
+        retirarPedidoUseCase,
+        listarPedidosUseCase
     )
 
     @Test

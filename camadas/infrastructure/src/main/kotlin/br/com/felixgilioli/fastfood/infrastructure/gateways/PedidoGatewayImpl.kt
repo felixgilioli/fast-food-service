@@ -3,8 +3,8 @@ package br.com.felixgilioli.fastfood.infrastructure.gateways
 import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.repository.PedidoORMRepository
-import br.com.felixgilioli.fastfood.infrastructure.gateways.orm.toOrm
+import br.com.felixgilioli.fastfood.infrastructure.repository.PedidoORMRepository
+import br.com.felixgilioli.fastfood.infrastructure.orm.toOrm
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.util.*

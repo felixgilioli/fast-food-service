@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.gateways.orm
+package br.com.felixgilioli.fastfood.infrastructure.orm
 
 import jakarta.persistence.*
 import java.util.*

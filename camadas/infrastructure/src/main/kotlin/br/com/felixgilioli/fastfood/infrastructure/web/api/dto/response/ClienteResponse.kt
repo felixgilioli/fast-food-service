@@ -1,4 +1,4 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response
+package br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response
 
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 

@@ -1,15 +1,10 @@
-package br.com.felixgilioli.fastfood.infrastructure.driver.api
+package br.com.felixgilioli.fastfood.infrastructure.web.api
 
-import br.com.felixgilioli.fastfood.application.usecases.*
-import br.com.felixgilioli.fastfood.application.usecases.produto.AtualizarProdutoUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutoPeloIdUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarProdutosPelaCategoriaUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.BuscarTodosProdutosUseCase
-import br.com.felixgilioli.fastfood.application.usecases.produto.CadastrarProdutoUseCase
+import br.com.felixgilioli.fastfood.application.usecases.produto.*
 import br.com.felixgilioli.fastfood.domain.entities.Produto
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.request.ProdutoRequest
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.ProdutosPorCategoriaResponse
-import br.com.felixgilioli.fastfood.infrastructure.driver.api.to.response.toResponse
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.ProdutoRequest
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response.ProdutosPorCategoriaResponse
+import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.response.toResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
