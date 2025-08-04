@@ -2,7 +2,19 @@
 
 A aplicação é um sistema de autoatendimento para uma lanchonete em expansão, desenvolvido para otimizar o controle de pedidos, reduzir erros no atendimento e melhorar a experiência do cliente. Ela permite que os usuários façam pedidos personalizados (lanche, acompanhamento e bebida), realizem pagamentos via QR Code do Mercado Pago e acompanhem o status do pedido. O sistema também oferece API's para gestão de produtos, categorias, clientes e pedidos.
 
-## Tecnologias Utilizadas
+## Funcionalidades
+
+- Cadastro e gerenciamento de clientes
+- Cadastro e gerenciamento de produtos e categorias
+- Criação e confirmação de pedidos
+- Processamento de pagamentos via Mercado Pago
+- Acompanhamento do status dos pedidos (criado, confirmado, em preparação, pronto, finalizado)
+- Eventos e listeners para atualização de status e notificações
+- Retirada do pedido pelo cliente
+
+## Arquitetura do Projeto
+
+### Tecnologias Utilizadas
 
 - Kotlin
 - Spring Boot
@@ -16,15 +28,13 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
 - Kubernetes / EKS
 - GitHub Actions (CI/CD)
 
-## Funcionalidades
+### Diagrama de sequência da aplicação
 
-- Cadastro e gerenciamento de clientes
-- Cadastro e gerenciamento de produtos e categorias
-- Criação e confirmação de pedidos
-- Processamento de pagamentos via Mercado Pago
-- Acompanhamento do status dos pedidos (criado, confirmado, em preparação, pronto, finalizado)
-- Eventos e listeners para atualização de status e notificações
-- Retirada do pedido pelo cliente
+![Diagrama de sequencia da aplicação](docs/img/diagrama-sequencia.png)
+
+### Visão geral da arquitetura
+
+![Visão geral da arquitetura](docs/img/visao-geral-arquitetura.png)
 
 ## Como executar a aplicação via Docker
 
