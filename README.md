@@ -106,4 +106,10 @@ Se preferir, você pode acessar a documentação da API via Swagger em http://lo
 
 ## Infraestrutura
 
+### CI/CD
+
+Para realizar o deploy da aplicação, foi utilizado o GitHub Actions. O workflow está configurado para ser acionado quando for feito um push na branch main. A esteira é responsável por realizar o build da aplicação, montar a imagem Docker, fazer o push para o DockerHub (https://hub.docker.com/repository/docker/felixgilioli/fastfood-service/general) e atualizar o deployment no EKS.
+
+### Cloud
+
 A infraestrutura do projeto é toda provisionada via Terraform e está disponível no repositório: https://github.com/felixgilioli/tcc-infrastructure-tf
