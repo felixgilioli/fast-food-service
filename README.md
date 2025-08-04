@@ -94,3 +94,7 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
    $env:MERCADO_PAGO_ACCESS_TOKEN="xxx"
    ./gradlew bootRun --args='--spring.profiles.active=local'
    ```
+
+## Para testar a aplicação
+
+Importe o arquivo `local/postman/fastfood.postman_collection.json` no Postman e execute as requisições disponíveis. As requisições estão organizadas em sequências para facilitar o teste do fluxo de pedidos.

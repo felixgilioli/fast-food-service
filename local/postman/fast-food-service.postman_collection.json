@@ -37,6 +37,19 @@
 		},
 		{
 			"name": "2 - Começar pedido via e-mail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const pedidoId = pm.response.json().pedidoId;\r",
+							"pm.environment.set(\"pedidoId\", pedidoId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -173,7 +186,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"pedidoId\": \"8174c8d1-ba54-41b7-b5d8-20ec28d7da40\",\r\n    \"itens\": [\r\n        {\r\n            \"produtoId\": \"796fd455-234b-45e6-bc98-5d7568bfe554\",\r\n            \"quantidade\": 2\r\n        },\r\n        {\r\n            \"produtoId\": \"796fd455-234b-45e6-bc98-5d7568bfe554\",\r\n            \"quantidade\": 1\r\n        },\r\n        {\r\n            \"produtoId\": \"afe5bc2a-f2f2-4c67-85c6-51a00e01a82e\",\r\n            \"quantidade\": 5\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"pedidoId\": \"{{pedidoId}}\",\r\n    \"itens\": [\r\n        {\r\n            \"produtoId\": \"8f18cdfd-6f24-4bed-9e9a-777c0270e0a5\",\r\n            \"quantidade\": 2\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -216,7 +229,7 @@
 					"variable": [
 						{
 							"key": "pedidoId",
-							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+							"value": "{{pedidoId}}"
 						}
 					]
 				}
@@ -225,11 +238,24 @@
 		},
 		{
 			"name": "6 - Informações para pagamento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const pagamentoId = pm.response.json().pagamentoId;\r",
+							"pm.environment.set(\"pagamentoId\", pagamentoId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/pagamento?pedidoId=8174c8d1-ba54-41b7-b5d8-20ec28d7da40",
+					"raw": "http://localhost:8080/v1/pagamento?pedidoId={{pedidoId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -242,7 +268,7 @@
 					"query": [
 						{
 							"key": "pedidoId",
-							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+							"value": "{{pedidoId}}"
 						}
 					]
 				}
@@ -255,7 +281,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/pagamento/webhook/aprovar?pagamentoId=cb056df0-76c3-411b-b41f-af5a5320ba66",
+					"raw": "http://localhost:8080/v1/pagamento/webhook/aprovar?pagamentoId={{pagamentoId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -270,7 +296,7 @@
 					"query": [
 						{
 							"key": "pagamentoId",
-							"value": "cb056df0-76c3-411b-b41f-af5a5320ba66"
+							"value": "{{pagamentoId}}"
 						}
 					]
 				}
@@ -283,7 +309,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/v1/pagamento/webhook/recusar?pagamentoId=acc0a196-5f1c-4256-b100-b932e44f7806",
+					"raw": "http://localhost:8080/v1/pagamento/webhook/recusar?pagamentoId={{pagamentoId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -298,7 +324,7 @@
 					"query": [
 						{
 							"key": "pagamentoId",
-							"value": "acc0a196-5f1c-4256-b100-b932e44f7806"
+							"value": "{{pagamentoId}}"
 						}
 					]
 				}
@@ -347,7 +373,7 @@
 					"variable": [
 						{
 							"key": "pedidoId",
-							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+							"value": "{{pedidoId}}"
 						}
 					]
 				}
@@ -375,7 +401,7 @@
 					"variable": [
 						{
 							"key": "pedidoId",
-							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+							"value": "{{pedidoId}}"
 						}
 					]
 				}
@@ -403,7 +429,7 @@
 					"variable": [
 						{
 							"key": "pedidoId",
-							"value": "8174c8d1-ba54-41b7-b5d8-20ec28d7da40"
+							"value": "{{pedidoId}}"
 						}
 					]
 				}
@@ -430,7 +456,7 @@
 					"variable": [
 						{
 							"key": "produtoId",
-							"value": "e6f0a054-191a-4005-bc67-a462b135584e"
+							"value": "8f18cdfd-6f24-4bed-9e9a-777c0270e0a5"
 						}
 					]
 				}
@@ -497,6 +523,26 @@
 					"path": [
 						"v1",
 						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "x - Listar pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/pedido",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"pedido"
 					]
 				}
 			},
