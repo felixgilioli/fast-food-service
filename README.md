@@ -28,6 +28,17 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
 - Kubernetes / EKS
 - GitHub Actions (CI/CD)
 
+### Estrutura do Projeto
+
+O projeto segue o padrão Clean Architecture, promovendo separação de responsabilidades, independência de frameworks e facilidade de manutenção. A estrutura está dividida em três camadas principais:
+
+- **Domain**: Contém as entidades de negócio e regras de domínio. Não possui dependências com outras camadas. Localização: `camadas/domain`.
+- **Application**: Implementa os casos de uso da aplicação, orquestrando as regras de negócio e interagindo com a camada de domínio. Localização: `camadas/application`.
+- **Infrastructure**: Responsável pela implementação de detalhes externos, como persistência, APIs, integrações e frameworks. Depende das camadas de domínio e aplicação, mas não o contrário. Localização: `camadas/infrastructure`.
+
+A comunicação entre as camadas é feita por meio de interfaces, garantindo baixo acoplamento e alta testabilidade. Cada camada possui seu próprio módulo Gradle, facilitando a gestão de dependências e builds independentes.
+
+
 ### Diagrama de sequência da aplicação
 
 ![Diagrama de sequencia da aplicação](docs/img/diagrama-sequencia.png)
