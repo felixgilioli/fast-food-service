@@ -5,11 +5,16 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
 ## Tecnologias Utilizadas
 
 - Kotlin
-- Java
 - Spring Boot
 - Gradle
-- SQL
+- Clean Architecture
+- JUnit 5 e MockK (testes unitários)
+- Swagger (documentação da API)
 - Mercado Pago (integração de pagamentos)
+- PostgreSQL / RDS
+- Docker e Docker Compose
+- Kubernetes / EKS
+- GitHub Actions (CI/CD)
 
 ## Funcionalidades
 
@@ -19,6 +24,7 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
 - Processamento de pagamentos via Mercado Pago
 - Acompanhamento do status dos pedidos (criado, confirmado, em preparação, pronto, finalizado)
 - Eventos e listeners para atualização de status e notificações
+- Retirada do pedido pelo cliente
 
 ## Como executar a aplicação via Docker
 
