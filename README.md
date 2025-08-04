@@ -124,3 +124,5 @@ Para realizar o deploy da aplicação, foi utilizado o GitHub Actions. O workflo
 ### Cloud
 
 A infraestrutura do projeto é toda provisionada via Terraform e está disponível no repositório: https://github.com/felixgilioli/tcc-infrastructure-tf
+
+O Terraform é responsável por criar o cluster EKS, a instância do banco de dados PostgreSQL no RDS, além de configurar a rede (VPC, subnets, security groups) e armazenar o estado do Terraform em um bucket S3.
