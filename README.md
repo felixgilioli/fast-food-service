@@ -27,6 +27,8 @@ Sistema de gerenciamento de pedidos para uma lanchonete, desenvolvido em Kotlin 
 - Docker instalado
 - Docker Compose instalado
 
+### Passo a passo
+
 1. Baixe o docker compose do projeto disponível no repositório:
    ```sh
    https://github.com/felixgilioli/fast-food-service/blob/main/demo/docker-compose.yml
@@ -45,6 +47,8 @@ Sistema de gerenciamento de pedidos para uma lanchonete, desenvolvido em Kotlin 
 - Java 21 instalado
 - Docker instalado
 - Docker Compose instalado
+
+### Passo a passo
 
 1. Clone o repositório:
    ```sh
