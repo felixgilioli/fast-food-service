@@ -100,3 +100,10 @@ A aplicação é um sistema de autoatendimento para uma lanchonete em expansão,
 Importe o arquivo `local/postman/fastfood.postman_collection.json` no Postman e execute as requisições disponíveis. As requisições estão organizadas em sequências para facilitar o teste do fluxo de pedidos.
 
 ![Endpoints no Postman](docs/img/postman-endpoints.png)
+
+Se preferir, você pode acessar a documentação da API via Swagger em http://localhost:8080/swagger-ui/index.html.
+
+
+## Infraestrutura
+
+A infraestrutura do projeto é toda provisionada via Terraform e está disponível no repositório: https://github.com/felixgilioli/tcc-infrastructure-tf
