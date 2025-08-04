@@ -1,6 +1,6 @@
 # FastFood
 
-Sistema de gerenciamento de pedidos para uma lanchonete, desenvolvido em Kotlin com Spring Boot.
+A aplicação é um sistema de autoatendimento para uma lanchonete em expansão, desenvolvido para otimizar o controle de pedidos, reduzir erros no atendimento e melhorar a experiência do cliente. Ela permite que os usuários façam pedidos personalizados (lanche, acompanhamento e bebida), realizem pagamentos via QR Code do Mercado Pago e acompanhem o status do pedido. O sistema também oferece API's para gestão de produtos, categorias, clientes e pedidos.
 
 ## Tecnologias Utilizadas
 
