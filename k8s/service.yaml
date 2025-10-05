@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: fastfood-service
   namespace: tcc
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 spec:
   selector:
     app: fastfood-service
