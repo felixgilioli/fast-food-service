@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fastfood-service-sa
+  namespace: tcc
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::050205568121:role/fast-food-service-role
