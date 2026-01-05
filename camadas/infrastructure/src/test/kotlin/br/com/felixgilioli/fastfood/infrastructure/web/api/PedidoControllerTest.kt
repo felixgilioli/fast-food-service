@@ -1,11 +1,9 @@
 package br.com.felixgilioli.fastfood.infrastructure.web.api
 
 import br.com.felixgilioli.fastfood.application.usecases.pedido.*
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.ConfirmarPedidoItemRequest
 import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.ConfirmarPedidoRequest
-import br.com.felixgilioli.fastfood.infrastructure.web.api.dto.request.NovoPedidoRequest
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

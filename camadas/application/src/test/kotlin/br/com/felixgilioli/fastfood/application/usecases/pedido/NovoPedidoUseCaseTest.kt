@@ -1,8 +1,6 @@
 package br.com.felixgilioli.fastfood.application.usecases.pedido
 
-import br.com.felixgilioli.fastfood.application.commands.NovoPedidoCommand
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import io.mockk.every

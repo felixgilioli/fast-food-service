@@ -23,30 +23,10 @@ CREATE TABLE IF NOT EXISTS produto (
     descricao TEXT
 );
 
--- Tabela de pedido
-CREATE TABLE IF NOT EXISTS pedido (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    status VARCHAR(20) NOT NULL DEFAULT 'PENDENTE',
-    data_inicio TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-    data_fim TIMESTAMP WITH TIME ZONE,
-    cliente_nome VARCHAR(255) NOT NULL,
-    cliente_id UUID REFERENCES cliente(id),
-    total DECIMAL(10,2)
-);
-
--- Tabela de itens do pedido
-CREATE TABLE IF NOT EXISTS pedido_item (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    pedido_id UUID NOT NULL REFERENCES pedido(id) ON DELETE CASCADE,
-    produto_id UUID NOT NULL REFERENCES produto(id),
-    quantidade INT NOT NULL CHECK (quantidade > 0),
-    preco_unitario DECIMAL(10,2) NOT NULL
-);
-
 -- Tabela de pagamento
 CREATE TABLE IF NOT EXISTS pagamento (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    pedido_id UUID NOT NULL REFERENCES pedido(id) ON DELETE CASCADE,
+    pedido_id VARCHAR(150) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     data TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
     status VARCHAR(50) NOT NULL,

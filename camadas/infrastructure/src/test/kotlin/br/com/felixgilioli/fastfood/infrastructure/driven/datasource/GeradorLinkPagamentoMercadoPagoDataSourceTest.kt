@@ -1,6 +1,5 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
-import br.com.felixgilioli.fastfood.infrastructure.gateways.GeradorLinkPagamentoMercadoPago
 import com.mercadopago.client.preference.PreferenceClient
 import com.mercadopago.client.preference.PreferenceRequest
 import com.mercadopago.resources.preference.Preference

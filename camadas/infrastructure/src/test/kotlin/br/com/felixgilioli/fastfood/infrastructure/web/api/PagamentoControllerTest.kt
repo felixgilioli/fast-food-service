@@ -5,7 +5,6 @@ import br.com.felixgilioli.fastfood.application.usecases.pagamento.BuscarPagamen
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import br.com.felixgilioli.fastfood.infrastructure.web.api.PagamentoController
 import io.mockk.every

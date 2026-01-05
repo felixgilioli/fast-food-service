@@ -1,12 +1,9 @@
 package br.com.felixgilioli.fastfood.application.usecases
 
-import br.com.felixgilioli.fastfood.application.events.PagamentoRecusadoEvent
-import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
 import br.com.felixgilioli.fastfood.application.events.EventPublisher
 import br.com.felixgilioli.fastfood.application.usecases.pagamento.RecusarPagamentoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Pagamento
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
 import io.mockk.*
 import org.junit.jupiter.api.BeforeEach

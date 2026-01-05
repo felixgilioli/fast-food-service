@@ -1,10 +1,7 @@
 package br.com.felixgilioli.fastfood.infrastructure.driven.datasource
 
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.infrastructure.gateways.PedidoGatewayImpl
 import br.com.felixgilioli.fastfood.infrastructure.orm.PedidoORM
-import br.com.felixgilioli.fastfood.infrastructure.repository.PedidoORMRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals

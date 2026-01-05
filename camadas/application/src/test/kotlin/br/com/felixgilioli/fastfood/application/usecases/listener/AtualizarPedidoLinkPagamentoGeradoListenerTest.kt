@@ -1,11 +1,7 @@
 package br.com.felixgilioli.fastfood.application.usecases.listener
 
 import br.com.felixgilioli.fastfood.domain.entities.PagamentoStatus
-import br.com.felixgilioli.fastfood.domain.entities.Pedido
 import br.com.felixgilioli.fastfood.domain.entities.StatusPedido
-import br.com.felixgilioli.fastfood.application.events.LinkPagamentoCriadoEvent
-import br.com.felixgilioli.fastfood.application.gateways.PagamentoGateway
-import br.com.felixgilioli.fastfood.application.gateways.PedidoGateway
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
