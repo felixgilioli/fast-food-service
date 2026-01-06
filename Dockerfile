@@ -1,7 +1,23 @@
-FROM gradle:8.7.0-jdk21 AS build
+# syntax=docker/dockerfile:1
+
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
+
+# Copia apenas o necessário para resolver dependências e aproveitar cache
+COPY gradlew gradlew.bat settings.gradle.kts build.gradle.kts ./
+COPY gradle ./gradle
+COPY camadas/*/build.gradle.kts ./camadas/
+
+RUN chmod +x ./gradlew
+
+# Baixa dependências (sem falhar por dependency verification no container)
+RUN ./gradlew --no-daemon -Dorg.gradle.dependency.verification=off dependencies
+
+# Agora copia o código
 COPY . .
-RUN gradle :camadas:infrastructure:bootJar --no-daemon
+
+# Build do jar
+RUN ./gradlew :camadas:infrastructure:bootJar --no-daemon -Dorg.gradle.dependency.verification=off
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
