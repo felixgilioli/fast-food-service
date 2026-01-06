@@ -52,7 +52,7 @@ class ProdutoControllerTest {
         )
         every { buscarTodosProdutosUseCase.execute() } returns produtos
 
-        val response = produtoController.findAll()
+        val response = produtoController.findAll(null)
 
         assertNotNull(response)
         assertEquals(2, response.size)

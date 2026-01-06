@@ -1,8 +1,7 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.produto
 
 import br.com.felixgilioli.fastfood.application.commands.ProdutoCommand
 import br.com.felixgilioli.fastfood.application.gateways.ProdutoGateway
-import br.com.felixgilioli.fastfood.application.usecases.produto.CadastrarProdutoUseCase
 import br.com.felixgilioli.fastfood.domain.entities.Categoria
 import br.com.felixgilioli.fastfood.domain.entities.Produto
 import io.mockk.every
@@ -14,21 +13,21 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.*
 
-class CadastrarProdutoUseCaseTest {
+class AtualizarProdutoUseCaseTest {
 
     private lateinit var produtoGateway: ProdutoGateway
-    private lateinit var useCase: CadastrarProdutoUseCase
+    private lateinit var useCase: AtualizarProdutoUseCase
 
     @BeforeEach
     fun setUp() {
         produtoGateway = mockk()
-        useCase = CadastrarProdutoUseCase(produtoGateway)
+        useCase = AtualizarProdutoUseCase(produtoGateway)
     }
 
     @Test
-    fun criaProdutoComSucesso() {
+    fun atualizaProdutoComSucesso() {
         val produtoCommand =
-            ProdutoCommand(nome = "Produto Novo", preco = BigDecimal.TEN, categoriaId = UUID.randomUUID())
+            ProdutoCommand(nome = "Produto Atualizado", preco = BigDecimal.ONE, categoriaId = UUID.randomUUID())
         val produto = Produto(
             id = UUID.randomUUID(),
             nome = produtoCommand.nome,
@@ -42,4 +41,5 @@ class CadastrarProdutoUseCaseTest {
         assertEquals(produto.nome, resultado.nome)
         verify { produtoGateway.save(produtoCommand) }
     }
+
 }

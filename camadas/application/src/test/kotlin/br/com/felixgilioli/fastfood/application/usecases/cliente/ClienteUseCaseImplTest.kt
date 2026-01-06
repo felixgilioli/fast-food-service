@@ -1,17 +1,15 @@
-package br.com.felixgilioli.fastfood.application.usecases
+package br.com.felixgilioli.fastfood.application.usecases.cliente
 
-import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import br.com.felixgilioli.fastfood.application.exceptions.ClienteAlreadyExistsException
 import br.com.felixgilioli.fastfood.application.gateways.ClienteGateway
-import br.com.felixgilioli.fastfood.application.usecases.cliente.CadastrarClienteUseCase
+import br.com.felixgilioli.fastfood.domain.entities.Cliente
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.UUID
 
 class ClienteUseCaseImplTest {
 
@@ -32,7 +30,7 @@ class ClienteUseCaseImplTest {
 
         val result = clienteUseCase.execute(cliente)
 
-        assertEquals(cliente, result)
+        Assertions.assertEquals(cliente, result)
         verify { clienteGateway.findByEmail(cliente.email) }
         verify { clienteGateway.save(cliente) }
     }
@@ -42,7 +40,7 @@ class ClienteUseCaseImplTest {
         val cliente = Cliente(UUID.randomUUID(), "Fulano", "fulano@email.com")
         every { clienteGateway.findByEmail(cliente.email) } returns cliente
 
-        assertThrows(ClienteAlreadyExistsException::class.java) {
+        Assertions.assertThrows(ClienteAlreadyExistsException::class.java) {
             clienteUseCase.execute(cliente)
         }
 
