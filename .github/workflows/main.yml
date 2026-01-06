@@ -14,11 +14,12 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Set up JDK 24
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: 24
+          java-version: 21
           distribution: 'zulu'
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew || true
       - name: Cache SonarQube packages
@@ -38,7 +39,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonar --info -Dsonar.automaticAnalysis=false
+        run: ./gradlew build sonar --info -Dsonar.automaticAnalysis=false -Dorg.gradle.jvmargs="--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
 
       - name: Definir metadados da imagem
         id: meta
