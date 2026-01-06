@@ -16,6 +16,9 @@ RUN ./gradlew --no-daemon -Dorg.gradle.dependency.verification=off dependencies
 # Agora copia o código
 COPY . .
 
+# Em alguns ambientes (ex: buildx) o bit executável do gradlew pode se perder após o COPY
+RUN chmod +x ./gradlew
+
 # Build do jar
 RUN ./gradlew :camadas:infrastructure:bootJar --no-daemon -Dorg.gradle.dependency.verification=off
 
