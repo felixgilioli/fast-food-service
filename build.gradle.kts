@@ -28,9 +28,11 @@ allprojects {
 		testImplementation("io.mockk:mockk:1.14.2")
 	}
 
-	tasks.test {
+	tasks.withType<Test>().configureEach {
 		useJUnitPlatform()
-		finalizedBy(tasks.jacocoTestReport)
+		if (plugins.hasPlugin("jacoco")) {
+			finalizedBy(tasks.named("jacocoTestReport"))
+		}
 	}
 
 	repositories {
@@ -49,12 +51,16 @@ jacoco {
 	toolVersion = "0.8.13"
 }
 
-tasks.jacocoTestReport {
-	dependsOn(tasks.test)
-	reports {
-		xml.required.set(true)
-		html.required.set(true)
-		csv.required.set(false)
+// configura jacocoTestReport apenas onde a task existir
+subprojects {
+	plugins.withId("jacoco") {
+		tasks.named<JacocoReport>("jacocoTestReport") {
+			dependsOn(tasks.named("test"))
+			reports {
+				xml.required.set(true)
+				html.required.set(true)
+				csv.required.set(false)
+			}
+		}
 	}
 }
-
