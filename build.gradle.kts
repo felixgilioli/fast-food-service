@@ -1,5 +1,7 @@
 plugins {
 	kotlin("jvm") version "1.9.25"
+	id("org.sonarqube") version "7.2.2.6593"
+	jacoco
 }
 
 allprojects {
@@ -28,10 +30,31 @@ allprojects {
 
 	tasks.test {
 		useJUnitPlatform()
+		finalizedBy(tasks.jacocoTestReport)
 	}
 
 	repositories {
 		mavenCentral()
+	}
+}
+
+sonar {
+	properties {
+		property("sonar.projectKey", "felixgilioli_fast-food-service")
+		property("sonar.organization", "felixgilioli")
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.13"
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.required.set(true)
+		html.required.set(true)
+		csv.required.set(false)
 	}
 }
 

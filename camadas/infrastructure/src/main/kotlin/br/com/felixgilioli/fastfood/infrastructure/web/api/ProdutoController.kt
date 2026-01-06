@@ -27,8 +27,8 @@ class ProdutoController(
         summary = "Listar produtos",
         description = "Retorna uma lista de todos os produtos disponíveis no sistema."
     )
-    fun findAll() = buscarTodosProdutosUseCase
-        .execute()
+    fun findAll(@RequestParam(required = false) ids: List<String>?) = buscarTodosProdutosUseCase
+        .execute(ids?.map { UUID.fromString(it) })
         .map { it.toResponse() }
 
     @GetMapping("/categoria")

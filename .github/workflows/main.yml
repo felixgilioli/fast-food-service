@@ -14,6 +14,32 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
+      - name: Set up JDK 24
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+          distribution: 'zulu'
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew || true
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Generate/Update Gradle dependency verification metadata
+        run: ./gradlew --write-verification-metadata sha256 --export-keys
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew build sonar --info -Dsonar.automaticAnalysis=false
+
       - name: Definir metadados da imagem
         id: meta
         uses: docker/metadata-action@v5
