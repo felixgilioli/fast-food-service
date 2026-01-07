@@ -12,10 +12,10 @@ jobs:
       image_tag: ${{ steps.meta.outputs.tags }}
     steps:
       - name: Checkout do código
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Set up JDK 21
-        uses: actions/setup-java@3f6c0a1b628b1e7b8d4c11e9f511e0ad3f7ad9b4 # v4
+        uses: actions/setup-java@v4
         with:
           java-version: 21
           distribution: 'zulu'
@@ -23,13 +23,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew || true
       - name: Cache SonarQube packages
-        uses: actions/cache@0c45773b623bea8c8e6f5fb9b7672f2f67f79f80 # v4
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache Gradle packages
-        uses: actions/cache@0c45773b623bea8c8e6f5fb9b7672f2f67f79f80 # v4
+        uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
@@ -43,12 +43,12 @@ jobs:
 
       - name: Definir metadados da imagem
         id: meta
-        uses: docker/metadata-action@31aaf83a9b559b061bdf4b8fc0f075cbf5326406 # v5
+        uses: docker/metadata-action@v5
         with:
           images: felixgilioli/fastfood-service
 
       - name: Build da imagem Docker
-        uses: docker/build-push-action@2cdde995de11925a030ce8070c18515ca2e21eeb # v6
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: false
@@ -61,16 +61,16 @@ jobs:
     needs: build
     steps:
       - name: Checkout do código
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Login Docker Hub
-        uses: docker/login-action@9780b0c442fbb1117ed29e1bdb98c12f7560f7c9 # v3
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push da imagem Docker
-        uses: docker/build-push-action@2cdde995de11925a030ce8070c18515ca2e21eeb # v6
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
@@ -83,10 +83,10 @@ jobs:
     needs: [ push-docker-image ]
     steps:
       - name: Checkout do código
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Configuração das AWS Credentials
-        uses: aws-actions/configure-aws-credentials@b9f65c4f2c64f5f3f7cacae59ac8ef7c3b09b9df # v4
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
